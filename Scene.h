@@ -1,6 +1,8 @@
 #ifndef SCENE_H
 #define SCENE_H
+
 #include <SFML/Graphics/RenderWindow.hpp>
+
 class Game;
 
 
