@@ -10,10 +10,10 @@ Match1::Match1() : m_player("./media/player.png") {
 	spriteMatch1.setTexture(textureMatch1);
 }
 
-void Match1::update(Game &game) {
+void Match1::update(Game &game, float dt) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		game.getWindow().close();
-	m_player.update(m_floor.getGlobalBounds());
+	m_player.update(m_floor.getGlobalBounds(), dt);
 }
 
 void Match1::draw(sf::RenderWindow &window) {

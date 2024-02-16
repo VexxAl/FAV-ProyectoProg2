@@ -25,7 +25,7 @@ Menu::Menu() {
 	spriteMenu.setTexture(textureMenu);
 }
 
-void Menu::update(Game &game) {
+void Menu::update(Game &game, float dt) {
 	unsigned char r = rand();
 	unsigned char g = rand();
 	unsigned char b = rand();
@@ -33,7 +33,7 @@ void Menu::update(Game &game) {
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 		// Cambiar a la escena del juego (PlayScene)
-		MenuSelect* menuS = new MenuSelect();
+		Match1* menuS = new Match1();
 		game.setScene(menuS);
 	} else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
 		

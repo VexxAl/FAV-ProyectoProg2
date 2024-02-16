@@ -15,7 +15,7 @@
 class MenuSelect : public Scene {
 public:
 	MenuSelect();
-	void update (Game &game);
+	void update (Game &game, float dt);
 	void draw (sf::RenderWindow & window);
 private:
 	sf::Font m_font;

@@ -22,6 +22,8 @@ private:
 	
 	sf::RenderWindow window;
 	Scene* currentScene;
+	sf::Clock clock;
+	sf::Time dt;
 
 };
 

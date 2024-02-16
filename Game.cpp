@@ -12,10 +12,8 @@ void Game::run() {
 	Menu* menuScene = new Menu();
 	setScene(menuScene);
 	
-	sf::Clock clock;
-	
 	while (window.isOpen()) {
-		sf::Time dt = clock.restart();
+		dt = clock.restart();
 		processEvents();
 		update(dt.asSeconds());
 		render();
@@ -43,7 +41,7 @@ void Game::processEvents() {
 
 void Game::update(float dt) {
 	if (currentScene) {
-		currentScene->update(*this);
+		currentScene->update(*this, dt);
 	}
 }
 

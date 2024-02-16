@@ -13,7 +13,7 @@ MenuSelect::MenuSelect() : m_selectedOption(0) {
 	}
 }
 
-void MenuSelect::update(Game &game) {
+void MenuSelect::update(Game &game, float dt) {
 	// Manejo de eventos de teclado
 	sf::Event event;
 	while (game.getWindow().pollEvent(event)) {

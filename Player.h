@@ -6,7 +6,7 @@
 class Player : public Object {
 public:
 	Player(std::string fname1);
-	void update(sf::FloatRect platformBounds);
+	void update(sf::FloatRect platformBounds, float dt);
 	void draw(sf::RenderWindow &window) override;
 private:
 	sf::Vector2f m_pos;
