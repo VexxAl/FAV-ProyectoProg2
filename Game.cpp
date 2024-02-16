@@ -1,8 +1,6 @@
 #include "Game.h"
 #include <iostream>
-#include "Match1.h"
-#include "Match2.h"
-#include "Menu.h"
+
 
 Game::Game()
 	: window(sf::VideoMode(800, 600), "Improved Ball Game"),

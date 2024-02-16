@@ -12,6 +12,8 @@ public:
 	void draw(sf::RenderWindow &window) override;
 private:
 	sf::RectangleShape m_floor;
+	sf::Texture textureMatch2;
+	sf::Sprite spriteMatch2;
 	Player m_player;
 };
 

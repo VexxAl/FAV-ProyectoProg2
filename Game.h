@@ -2,6 +2,8 @@
 #define GAME_H
 
 #include "Scene.h"
+#include "Menu.h"
+#include "MenuSelect.h"
 #include "Match1.h"
 #include "Match2.h"
 #include <SFML/Graphics.hpp>

@@ -8,6 +8,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Window/Keyboard.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 class Menu : public Scene {
 public:
@@ -17,6 +18,8 @@ public:
 private:
 	sf::Font m_font;
 	sf::Text m_t1, m_t2;
+	sf::Texture textureMenu;
+	sf::Sprite spriteMenu;
 };
 
 

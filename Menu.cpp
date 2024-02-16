@@ -11,15 +11,18 @@ Menu::Menu() {
 	m_t1.setFont(m_font);
 	m_t2.setFont(m_font);
 	
-	m_t1.setString("FAV");
+	m_t1.setString("FAV-Space");
 	m_t1.setFillColor({255,255,255});
-	m_t1.setPosition(450, 150);
+	m_t1.setPosition(153, 75);
 	m_t1.setCharacterSize(100);
 	
 	m_t2.setString("<presione Enter para comenzar>");
 	m_t2.setFillColor({150,150,150});
 	m_t2.setPosition(360,350);
 	m_t2.setCharacterSize(20);
+	
+	textureMenu.loadFromFile("./media/menu.jpg");
+	spriteMenu.setTexture(textureMenu);
 }
 
 void Menu::update(Game &game) {
@@ -30,15 +33,18 @@ void Menu::update(Game &game) {
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 		// Cambiar a la escena del juego (PlayScene)
-		Match2* playScene1 = new Match2();
-		game.setScene(playScene1);
+		MenuSelect* menuS = new MenuSelect();
+		game.setScene(menuS);
+	} else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
+		
 	}
 }
 void Menu::draw(sf::RenderWindow & window){
 	window.clear({0,0,0});
+	window.draw(spriteMenu);
 	window.draw(m_t1);
 	window.draw(m_t2);
-	window.display();
+/*	window.display();*/
 }
 
 	

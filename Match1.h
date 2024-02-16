@@ -13,6 +13,8 @@ public:
 private:
 	sf::RectangleShape m_floor;
 	Player m_player;
+	sf::Texture textureMatch1;
+	sf::Sprite spriteMatch1;
 };
 
 #endif
