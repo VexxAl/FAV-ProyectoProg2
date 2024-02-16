@@ -2,20 +2,25 @@
 #define GAME_H
 
 #include "Scene.h"
-#include <SFML/Graphics/RenderWindow.hpp>
+#include "Match1.h"
+#include "Match2.h"
+#include <SFML/Graphics.hpp>
 
-class Game{
+class Game {
 public:
 	Game();
-	void Run();
-	void ProcessEvents();
-	void Update();
-	void Draw();
-	void SetScene(Scene *next_scene);
+	void run();
+	void processEvents();
+	void update(float dt);
+	void render();
+	sf::RenderWindow& getWindow();
+	void setScene(Scene* scene);
+	
 private:
-	sf::RenderWindow m_window;
-	Scene *m_scene;
-	Scene *m_next_scene = nullptr;
+	
+	sf::RenderWindow window;
+	Scene* currentScene;
+
 };
 
-#endif
+#endif // GAME_H

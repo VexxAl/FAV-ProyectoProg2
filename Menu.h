@@ -12,8 +12,8 @@
 class Menu : public Scene {
 public:
 	Menu();
-	void Update(Game &game) override;
-	void Draw(sf::RenderWindow &window) override;
+	void update(Game &game) override;
+	void draw(sf::RenderWindow &window) override;
 private:
 	sf::Font m_font;
 	sf::Text m_t1, m_t2;

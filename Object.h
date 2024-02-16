@@ -1,18 +1,22 @@
+// Object.h
 #ifndef OBJECT_H
 #define OBJECT_H
+
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <string>
 #include <SFML/Graphics/RenderWindow.hpp>
-using namespace sf;
 
-class Object{
+class Object {
 public:
 	Object(std::string fname);
-	void Draw(RenderWindow &window);
-	bool CollideWith(const Object &o) const;
+	virtual void draw(sf::RenderWindow &window);
+	bool collideWith(const Object &o) const;
+	virtual void update(float dt); // Método de actualización virtual
 protected:
-	Texture m_texture;
-	Sprite m_sprite;
+	sf::Texture m_texture;
+	sf::Sprite m_sprite;
 };
+
 #endif
+

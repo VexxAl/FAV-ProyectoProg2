@@ -22,16 +22,19 @@ Menu::Menu() {
 	m_t2.setCharacterSize(20);
 }
 
-void Menu::Update(Game &game){
+void Menu::update(Game &game) {
 	unsigned char r = rand();
 	unsigned char g = rand();
 	unsigned char b = rand();
-	m_t1.setFillColor({r,g,b});
-	// if(Keyboard::isKeyPressed(Keyboard::Key::Return))
-	// 	game.SetScene(new Match());
+	m_t1.setFillColor({ r, g, b });
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+		// Cambiar a la escena del juego (PlayScene)
+		Match2* playScene1 = new Match2();
+		game.setScene(playScene1);
+	}
 }
-
-void Menu::Draw(sf::RenderWindow & window){
+void Menu::draw(sf::RenderWindow & window){
 	window.clear({0,0,0});
 	window.draw(m_t1);
 	window.draw(m_t2);

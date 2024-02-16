@@ -1,12 +1,17 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "Entity.h"
 
-class Player : public Entity {
+#include "Object.h"
+
+class Player : public Object {
 public:
-	Player();
+	Player(std::string fname1);
+	void update(sf::FloatRect platformBounds);
+	void draw(sf::RenderWindow &window) override;
 private:
+	sf::Vector2f m_pos;
+	sf::Vector2f m_speed;
+	int jumpCount;
 };
 
 #endif
-

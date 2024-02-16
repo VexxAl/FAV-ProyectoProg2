@@ -1,44 +1,65 @@
 #include "Game.h"
-#include "Scene.h"
+#include <iostream>
+#include "Match1.h"
+#include "Match2.h"
 #include "Menu.h"
 
-#include <SFML/Graphics.hpp>
-
-Game::Game() : m_window(sf::VideoMode(1080, 720), "The Fav Project"){
-	m_window.setFramerateLimit(60);
-	m_scene= new Menu();
+Game::Game()
+	: window(sf::VideoMode(800, 600), "Improved Ball Game"),
+	currentScene(nullptr){
+	window.setFramerateLimit(60);
 }
 
-void Game::Run(){
-	while(m_window.isOpen()) {
-		ProcessEvents();
-		Update();
-		Draw();
-		if(m_next_scene){
-			delete m_scene;
-			m_scene= m_next_scene;
-			m_next_scene = nullptr;
-		}
-	}
-}
-
-void Game::Update(){
-	m_scene->Update(*this);
-}
+void Game::run() {
+	Menu* menuScene = new Menu();
+	setScene(menuScene);
 	
-void Game::Draw(){
-	m_scene->Draw(m_window);
+	sf::Clock clock;
+	
+	while (window.isOpen()) {
+		sf::Time dt = clock.restart();
+		processEvents();
+		update(dt.asSeconds());
+		render();
+	}
+	
+	// Libera la memoria al finalizar el juego
+	delete currentScene;
 }
 
-void Game::ProcessEvents(){
-	sf::Event eve;
-	while(m_window.pollEvent(eve)) {
-		if(eve.type == sf::Event::Closed)
-			m_window.close();	
+void Game::setScene(Scene* scene) {
+	if (currentScene) {
+		// Limpia recursos o realiza acciones de limpieza necesarias para la escena actual
+		delete currentScene;
+	}
+	currentScene = scene;
+}
+
+void Game::processEvents() {
+	sf::Event event;
+	while (window.pollEvent(event)) {
+		if (event.type == sf::Event::Closed)
+			window.close();
 	}
 }
 
-void Game::SetScene(Scene *next_scene){
-	m_next_scene = next_scene;
+void Game::update(float dt) {
+	if (currentScene) {
+		currentScene->update(*this);
+	}
+}
+
+void Game::render() {
+	window.clear();
+	
+	if (currentScene) {
+		currentScene->draw(window);
+	}
+	
+	window.display();
+}
+
+sf::RenderWindow& Game::getWindow() {
+	return window;
 }
 
