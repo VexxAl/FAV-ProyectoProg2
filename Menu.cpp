@@ -16,7 +16,7 @@ Menu::Menu() {
 	m_t1.setPosition(153, 75);
 	m_t1.setCharacterSize(100);
 	
-	m_t2.setString("<presione Enter para comenzar>");
+	m_t2.setString("<presione F para comenzar>");
 	m_t2.setFillColor({150,150,150});
 	m_t2.setPosition(360,350);
 	m_t2.setCharacterSize(20);
@@ -29,22 +29,19 @@ void Menu::update(Game &game, float dt) {
 	unsigned char r = rand();
 	unsigned char g = rand();
 	unsigned char b = rand();
-	m_t1.setFillColor({ r, g, b });
+	m_t1.setFillColor({r, g, b});
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-		// Cambiar a la escena del juego (PlayScene)
-		Match1* menuS = new Match1();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+		MenuSelect* menuS = new MenuSelect(); // Consider using shared_ptr or avoiding new
 		game.setScene(menuS);
-	} else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
-		
 	}
 }
-void Menu::draw(sf::RenderWindow & window){
-	window.clear({0,0,0});
+
+void Menu::draw(sf::RenderWindow &window) {
+	window.clear({0, 0, 0});
 	window.draw(spriteMenu);
 	window.draw(m_t1);
 	window.draw(m_t2);
-/*	window.display();*/
 }
 
 	

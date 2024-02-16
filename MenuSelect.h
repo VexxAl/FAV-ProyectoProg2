@@ -9,7 +9,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Event.hpp>
-
+using namespace std;
 
 
 class MenuSelect : public Scene {
