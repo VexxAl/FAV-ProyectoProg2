@@ -11,27 +11,27 @@ MenuSelect::MenuSelect() : m_selectedOption(0) {
 		sf::Text text;
 		text.setFont(m_font);
 		text.setString(optionNames[i]);
-		text.setPosition(100, i * 100 + 100);
+		text.setPosition(350, i * 100 + 150);
 		m_options.push_back(text);
 	}
 }
 
-bool upPressed = false;
-bool downPressed = false;
+bool upPressedM = false;
+bool downPressedM = false;
 
 void MenuSelect::update(Game& game, float dt) {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressed) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressedM) {
 		m_selectedOption = (m_selectedOption - 1 + m_options.size()) % m_options.size();
-		upPressed = true;
+		upPressedM = true;
 	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		upPressed = false;
+		upPressedM = false;
 	}
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressed) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressedM) {
 		m_selectedOption = (m_selectedOption + 1) % m_options.size();
-		downPressed = true;
+		downPressedM = true;
 	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		downPressed = false;
+		downPressedM = false;
 	}
 		
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
@@ -53,7 +53,7 @@ void MenuSelect::draw(sf::RenderWindow& window) {
 	window.clear();
 	for (int i = 0; i < m_options.size(); i++) {
 		if (i == m_selectedOption) {
-			m_options[i].setFillColor(sf::Color::Red);
+			m_options[i].setFillColor({136, 0, 208});
 		} else {
 			m_options[i].setFillColor(sf::Color::White);
 		}

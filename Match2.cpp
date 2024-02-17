@@ -1,3 +1,4 @@
+#include "PauseMenu.h"
 #include "Match2.h"
 #include <SFML/Window/Keyboard.hpp>
 #include "Game.h"
@@ -11,10 +12,21 @@ Match2::Match2() : m_player("./media/player2.png") {
 }
 
 void Match2::update(Game &game, float dt) {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		game.getWindow().close();
+	if (game.isPaused()) {
+		// No actualizar el jugador si el juego está pausado
+		return;
+	}
+	
 	m_player.update(m_floor.getGlobalBounds(), dt);
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+		game.setPaused(true);  // Pausa el juego
+		m_player.pausedPlayer();      // Deja al jugador quieto
+		Scene* pause = new PauseMenu();
+		game.setScene(pause);
+	}	
 }
+
 
 void Match2::draw(sf::RenderWindow &window) {
 	window.clear(sf::Color(150, 255, 255));

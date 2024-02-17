@@ -17,6 +17,9 @@ public:
 	void render();
 	sf::RenderWindow& getWindow();
 	void setScene(Scene* scene);
+	bool isPaused() { return pause; }
+	void setPaused(bool value) { pause = value; }
+	Scene* getScene(){return currentScene;}
 	
 private:
 	
@@ -24,6 +27,7 @@ private:
 	Scene* currentScene;
 	sf::Clock clock;
 	sf::Time dt;
+	bool pause = false;
 
 };
 

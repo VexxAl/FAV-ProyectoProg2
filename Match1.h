@@ -5,11 +5,14 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include "Player.h"
 
+
+
 class Match1 : public Scene {
 public:
 	Match1();
 	void update(Game &game, float dt) override;
 	void draw(sf::RenderWindow &window) override;
+	bool isMatch1() const override { return true; }
 private:
 	sf::RectangleShape m_floor;
 	Player m_player;

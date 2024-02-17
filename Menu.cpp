@@ -35,6 +35,10 @@ void Menu::update(Game &game, float dt) {
 		MenuSelect* menuS = new MenuSelect(); // Consider using shared_ptr or avoiding new
 		game.setScene(menuS);
 	}
+	
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+		game.getWindow().close();
+	}
 }
 
 void Menu::draw(sf::RenderWindow &window) {

@@ -1,3 +1,4 @@
+#include "PauseMenu.h"
 #include "Match1.h"
 #include <SFML/Window/Keyboard.hpp>
 #include "Game.h"
@@ -11,9 +12,18 @@ Match1::Match1() : m_player("./media/player.png") {
 }
 
 void Match1::update(Game &game, float dt) {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		game.getWindow().close();
+	if (game.isPaused()) {
+		return; // No update if paused
+	}
+	
 	m_player.update(m_floor.getGlobalBounds(), dt);
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+		game.setPaused(true);
+		m_player.pausedPlayer();
+		Scene* pause = new PauseMenu();
+		game.setScene(pause);
+	}
 }
 
 void Match1::draw(sf::RenderWindow &window) {

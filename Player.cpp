@@ -6,6 +6,21 @@ Player::Player(std::string fname1) : Object(fname1), jumpCount(0) {
 	m_sprite.setPosition(50, 400); // Establece la posición inicial del jugador
 }
 
+void Player::pausedPlayer() {
+	// Guarda la posición actual del jugador
+	previousPosition = m_pos;
+	
+	// Desactiva la velocidad del jugador
+	m_speed = sf::Vector2f(0.0f, 0.0f);
+	isPaused = true;
+}
+
+void Player::resumePlayer() {
+	// Restaura la posición del jugador
+	m_pos = previousPosition;
+	isPaused = false;
+}
+
 void Player::update(sf::FloatRect platformBounds, float dt) {
 	// Lógica de actualización específica del jugador
 	
