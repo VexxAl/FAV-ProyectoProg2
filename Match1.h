@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include "Player.h"
+#include "PlataformMobile.h"
 
 
 
@@ -18,6 +19,10 @@ private:
 	Player m_player;
 	sf::Texture textureMatch1;
 	sf::Sprite spriteMatch1;
+	
+	void generateRandomPlatformsMobile(); // Nueva función
+	void movePlatformsMobile(float dt); 
+	std::vector<PlataformMobile> platformsMobile;
 };
 
 #endif
