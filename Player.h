@@ -14,6 +14,7 @@ private:
 	sf::Vector2f m_pos;
 	sf::Vector2f m_speed;
 	int jumpCount;
+	bool SpacePresed;
 	sf::Vector2f previousPosition;
 	bool isPaused;
 };

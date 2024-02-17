@@ -2,7 +2,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "Player.h"
 
-Player::Player(std::string fname1) : Object(fname1), jumpCount(0) {
+Player::Player(std::string fname1) : Object(fname1), jumpCount(0), 	SpacePresed(false) {
 	m_sprite.setPosition(50, 400); // Establece la posición inicial del jugador
 }
 
@@ -56,11 +56,13 @@ void Player::update(sf::FloatRect platformBounds, float dt) {
 		m_pos.y = platformBounds.top - playerBounds.height;
 	}
 	
-	// Jump mechanics with time-based jump height
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && jumpCount < 2) {
-		m_speed.y = -90.0f * dt; // Use dt for consistent jump height
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !SpacePresed && jumpCount < 2) {
+		m_speed.y = -1300.0f; // Use dt for consistent jump height
+		SpacePresed = true;
 		jumpCount++;
-	}
+	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		SpacePresed = false;
+	};
 	
 	// Pass dt to generic update in case needed
 	Object::update(dt);
