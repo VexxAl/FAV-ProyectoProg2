@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=Object.cpp
+current_source=PlatformMobile.cpp
 path_char=\
 [source]
 path=main.cpp
@@ -54,7 +54,7 @@ path=PauseMenu.cpp
 cursor=0:0
 [source]
 path=PlatformMobile.cpp
-cursor=13:12
+cursor=5:29
 open=true
 [header]
 path=Game.h

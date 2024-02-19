@@ -1,10 +1,11 @@
 #include "PlatformMobile.h"
 
 PlatformMobile::PlatformMobile(sf::Vector2f position, float speed)
-	: Object("./media/stoneHalf.png") {
+	: Object("./media/plataforma.png") {
 	m_pos = position;
 	m_sprite.setPosition(m_pos);
 	m_speed.x = speed;
+	m_sprite.scale(4,4); //vimos tambien en 5
 }
 
 void PlatformMobile::draw (sf::RenderWindow & window) {
