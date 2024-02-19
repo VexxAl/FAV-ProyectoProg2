@@ -12,10 +12,16 @@ public:
 	Object(std::string fname);
 	virtual void draw(sf::RenderWindow &window);
 	virtual void update(float dt); // Método de actualización virtual
-	bool collideWith(const Object &o) const;
+	bool collideWith(Object &o);
+	
 protected:
+	sf::Vector2f m_pos;
+	sf::Vector2f m_speed;
+	
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+	
+	bool AdoveObject;
 };
 
 #endif

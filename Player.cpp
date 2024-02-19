@@ -4,6 +4,7 @@
 
 Player::Player(std::string fname1) : Object(fname1), jumpCount(0), 	SpacePresed(false) {
 	m_sprite.setPosition(50, 400); // Establece la posición inicial del jugador
+	m_pos.x = 400.0f;
 }
 
 void Player::pausedPlayer() {
@@ -34,20 +35,23 @@ void Player::update(sf::FloatRect platformBounds, float dt) {
 	
 	m_speed.y += 70.f; // Apply constant gravity using dt
 	
+	if(m_speed.y == 0.f && m_speed.x == 0.f) jumpCount = 0; 
+	
 	// Update position based on dt
 	m_pos += m_speed * dt;
+	
+	m_sprite.setPosition(m_pos);
+	auto playerBounds = m_sprite.getGlobalBounds();
 	
 	// Lógica para mantener al jugador dentro de los bordes de la pantalla
 	if (m_pos.x < 0) {
 		m_pos.x = 0;
 		m_speed.x = 0;
-	} else if (m_pos.x > 800 - m_sprite.getGlobalBounds().width) {
-		m_pos.x = 800 - m_sprite.getGlobalBounds().width;
+	} else if (m_pos.x > 800 - playerBounds.width) {
+		m_pos.x = 800 - playerBounds.width;
 		m_speed.x = 0;
 	}
 	
-	m_sprite.setPosition(m_pos);
-	auto playerBounds = m_sprite.getGlobalBounds();
 	
 	// Collision handling with platform considering dt
 	if (playerBounds.intersects(platformBounds)) {
@@ -63,11 +67,10 @@ void Player::update(sf::FloatRect platformBounds, float dt) {
 	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		SpacePresed = false;
 	};
-	
-	// Pass dt to generic update in case needed
-	Object::update(dt);
 }
 
-void Player::draw(sf::RenderWindow &window) {
-	window.draw(m_sprite);
+void Player::rewindJump(){
+	jumpCount = 0;
 }
+
+

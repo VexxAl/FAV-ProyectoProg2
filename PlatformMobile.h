@@ -5,12 +5,10 @@
 
 class PlatformMobile : public Object {
 public:
-	PlatformMobile(sf::Vector2f position, sf::Vector2f size, float speed);
-	sf::RectangleShape getShape() const;
+	PlatformMobile(sf::Vector2f position, float speed);
 	void draw (sf::RenderWindow & window) override;
 	void update (float dt);
 private:
-	sf::RectangleShape shape;
 	float speed;
 };
 

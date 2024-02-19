@@ -1,6 +1,8 @@
 #include "Object.h"
+#include <SFML/Window/Keyboard.hpp>
+#include <iostream>
 
-Object::Object(std::string fname) {
+Object::Object(std::string fname) : AdoveObject(false) {
 	m_texture.loadFromFile(fname);
 	m_sprite.setTexture(m_texture);
 }
@@ -9,12 +11,31 @@ void Object::draw(sf::RenderWindow &window) {
 	window.draw(m_sprite);
 }
 
-bool Object::collideWith(const Object &o) const {
-	auto r1 = m_sprite.getGlobalBounds();
-	auto r2 = o.m_sprite.getGlobalBounds();
-	return r1.intersects(r2);
-}
-
 void Object::update(float dt) {
 	// Lógica de actualización genérica, puedes personalizarla en las clases derivadas
 }
+
+bool Object::collideWith(Object &o) {
+	auto r1 = m_sprite.getGlobalBounds();
+	auto r2 = o.m_sprite.getGlobalBounds();
+	if (r1.intersects(r2)) {
+		// Verifica si el jugador está encima de la plataforma
+		if (r1.top + r1.height < r2.top + 0.9f * r2.height) {
+			// El jugador cae sobre la plataforma
+			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+				m_pos.y = r2.top - r1.height;
+				m_speed.y = 0.0f;
+				return true;
+			}
+		} else {
+			// El jugador choca por debajo de la plataforma y cae
+			m_pos.y = r2.top + r2.height;  // Ajusta la posición del jugador debajo de la plataforma
+			m_speed.y += 0.1f;  // Simula la gravedad aumentando la velocidad hacia abajo
+			return false;
+		}
+		return false;
+	}
+	return false;
+}
+
+

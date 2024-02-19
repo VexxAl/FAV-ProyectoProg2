@@ -22,6 +22,12 @@ void Match1::update(Game &game, float dt) {
 	
 	m_player.update(m_floor.getGlobalBounds(), dt);
 	
+	for (auto& platform : platformsMobile) {
+		if(m_player.collideWith(platform)){
+			m_player.rewindJump();
+		}
+	}
+	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 		game.setPaused(true);
 		m_player.pausedPlayer();
@@ -36,18 +42,17 @@ void Match1::draw(sf::RenderWindow &window) {
 	window.draw(m_floor);
 	m_player.draw(window);
 	
-	for (const auto& platform : platformsMobile) {
-		window.draw(platform.getShape());
+	for (auto& platform : platformsMobile) {
+		platform.draw(window);
 	}
 }
 
 void Match1::generateRandomPlatformsMobile() {
 	// Genera plataformas móviles aleatorias en la derecha de la pantalla
-	if (rand() % 100 == 0) {
-		sf::Vector2f platformPosition(800.f, rand() % 450 + 50.f); // Ajusta el rango vertical
-		sf::Vector2f platformSize(100.f, 20.f); // Ajusta el tamaño según sea necesario
+	if (rand() % 200 == 0) {
+		sf::Vector2f platformPosition(800.f, rand() % 200 + 120.f); // Ajusta el rango vertical
 		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad según sea necesario
-		platformsMobile.emplace_back(platformPosition, platformSize, platformSpeed);
+		platformsMobile.emplace_back(platformPosition, platformSpeed);
 	}
 }
 

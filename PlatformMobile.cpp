@@ -1,10 +1,10 @@
 #include "PlatformMobile.h"
 
-PlatformMobile::PlatformMobile(sf::Vector2f position, sf::Vector2f size, float speed)
-	: Object("./media/stoneHalf.png"), speed(speed) {
-	shape.setPosition(position);
-	shape.setSize(size);
-	shape.setFillColor(sf::Color::Green); // Puedes ajustar el color según sea necesario
+PlatformMobile::PlatformMobile(sf::Vector2f position, float speed)
+	: Object("./media/stoneHalf.png") {
+	m_pos = position;
+	m_sprite.setPosition(m_pos);
+	m_speed.x = speed;
 }
 
 void PlatformMobile::draw (sf::RenderWindow & window) {
@@ -12,9 +12,8 @@ void PlatformMobile::draw (sf::RenderWindow & window) {
 }
 
 void PlatformMobile::update (float dt) {
-	shape.move(-speed * dt, 0.f);
+	m_sprite.move(-m_speed.x * dt, 0.f);
+	m_pos += m_speed * dt;
+	m_sprite.setTexture(m_texture);
 }
 
-sf::RectangleShape PlatformMobile::getShape() const {
-	return shape;
-}
