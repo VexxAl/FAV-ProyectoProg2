@@ -11,8 +11,8 @@ class Object {
 public:
 	Object(std::string fname);
 	virtual void draw(sf::RenderWindow &window);
-	bool collideWith(const Object &o) const;
 	virtual void update(float dt); // Método de actualización virtual
+	bool collideWith(const Object &o) const;
 protected:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;

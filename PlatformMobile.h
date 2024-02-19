@@ -1,11 +1,11 @@
-#ifndef PLATAFORMMOBILE_H
-#define PLATAFORMMOBILE_H
+#ifndef PLATFORMMOBILE_H
+#define PLATFORMMOBILE_H
 #include "Object.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 
-class PlataformMobile : public Object {
+class PlatformMobile : public Object {
 public:
-	PlataformMobile(sf::Vector2f position, sf::Vector2f size, float speed);
+	PlatformMobile(sf::Vector2f position, sf::Vector2f size, float speed);
 	sf::RectangleShape getShape() const;
 	void draw (sf::RenderWindow & window) override;
 	void update (float dt);

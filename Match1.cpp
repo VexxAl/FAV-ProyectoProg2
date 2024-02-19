@@ -2,7 +2,7 @@
 #include "Match1.h"
 #include <SFML/Window/Keyboard.hpp>
 #include "Game.h"
-#include "PlataformMobile.h"
+#include "PlatformMobile.h"
 
 Match1::Match1() : m_player("./media/player.png") {
 	m_floor.setSize({800.0, 100.0});

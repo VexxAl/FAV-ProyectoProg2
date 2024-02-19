@@ -4,7 +4,7 @@
 #include "Scene.h"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include "Player.h"
-#include "PlataformMobile.h"
+#include "PlatformMobile.h"
 
 
 
@@ -22,7 +22,7 @@ private:
 	
 	void generateRandomPlatformsMobile(); // Nueva función
 	void movePlatformsMobile(float dt); 
-	std::vector<PlataformMobile> platformsMobile;
+	std::vector<PlatformMobile> platformsMobile;
 };
 
 #endif
