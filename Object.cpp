@@ -30,7 +30,7 @@ bool Object::collideWith(Object &o) {
 		} else {
 			// El jugador choca por debajo de la plataforma y cae
 			m_pos.y = r2.top + r2.height;  // Ajusta la posición del jugador debajo de la plataforma
-			m_speed.y += 0.1f;  // Simula la gravedad aumentando la velocidad hacia abajo
+			m_speed.y += 500.f;  // Simula la gravedad aumentando la velocidad hacia abajo
 			return false;
 		}
 		return false;
