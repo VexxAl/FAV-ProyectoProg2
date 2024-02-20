@@ -20,8 +20,6 @@ protected:
 	
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
-	
-	bool AdoveObject;
 };
 
 #endif

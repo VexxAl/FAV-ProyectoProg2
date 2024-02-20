@@ -2,9 +2,13 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "Player.h"
 
-Player::Player(std::string fname1) : Object(fname1), jumpCount(0), 	SpacePresed(false) {
+Player::Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName)
+	: Object(fname), jumpCount(0), SpacePresed(false) {
 	m_sprite.setPosition(50, 400); // Establece la posición inicial del jugador
 	m_pos.x = 400.0f;
+	jumpTex.loadFromFile(jumpName);
+	leftTex.loadFromFile(leftName);
+	rightTex.loadFromFile(rightName);
 }
 
 void Player::pausedPlayer() {
@@ -26,16 +30,24 @@ void Player::update(sf::FloatRect platformBounds, float dt) {
 	// Lógica de actualización específica del jugador
 	
 	// Movement based on dt
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		m_speed.x -= 75.f;
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		m_speed.x += 75.f;
-	else
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+		m_speed.x -= 55.f;
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || m_speed.y == 0.0f){
+			m_sprite.setTexture(leftTex);
+		}
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+		m_speed.x += 55.f;
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || m_speed.y == 0.0f){
+			m_sprite.setTexture(rightTex);
+		}
+	}
+	else{
 		m_speed.x = 0.0f;
+	}
 	
-	m_speed.y += 70.f; // Apply constant gravity using dt
+	m_speed.y += 60.f; // Apply constant gravity using dt
 	
-	if(m_speed.y == 0.f && m_speed.x == 0.f) jumpCount = 0; 
 	
 	// Update position based on dt
 	m_pos += m_speed * dt;
@@ -58,12 +70,16 @@ void Player::update(sf::FloatRect platformBounds, float dt) {
 		m_speed.y = 0.0f;
 		jumpCount = 0;
 		m_pos.y = platformBounds.top - playerBounds.height;
+		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+			m_sprite.setTexture(m_texture);
+		}
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !SpacePresed && jumpCount < 2) {
-		m_speed.y = -1300.0f; // Use dt for consistent jump height
+		m_speed.y = -1200.0f; // Use dt for consistent jump height
 		SpacePresed = true;
 		jumpCount++;
+		m_sprite.setTexture(jumpTex);
 	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		SpacePresed = false;
 	};
@@ -71,6 +87,8 @@ void Player::update(sf::FloatRect platformBounds, float dt) {
 
 void Player::rewindJump(){
 	jumpCount = 0;
+	if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+		m_sprite.setTexture(m_texture);
+	}
 }
-
 

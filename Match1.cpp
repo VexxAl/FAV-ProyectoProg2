@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "PlatformMobile.h"
 
-Match1::Match1() : m_player("./media/player.png") {
+Match1::Match1() : m_player("./media/player.png","./media/p1_jump.png","./media/p1_left.png","./media/p1_right.png") {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});

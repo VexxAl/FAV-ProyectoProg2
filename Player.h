@@ -5,7 +5,7 @@
 
 class Player : public Object {
 public:
-	Player(std::string fname1);
+	Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName);
 	void update(sf::FloatRect platformBounds, float dt);
 	void pausedPlayer();
 	void resumePlayer();
@@ -16,6 +16,10 @@ private:
 	bool SpacePresed;
 	sf::Vector2f previousPosition;
 	bool isPaused;
+	
+	sf::Texture jumpTex;
+	sf::Texture leftTex;
+	sf::Texture rightTex;
 };
 
 #endif

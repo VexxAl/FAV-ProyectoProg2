@@ -2,7 +2,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
 
-Object::Object(std::string fname) : AdoveObject(false) {
+Object::Object(std::string fname) {
 	m_texture.loadFromFile(fname);
 	m_sprite.setTexture(m_texture);
 }
