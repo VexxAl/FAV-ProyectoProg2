@@ -3,7 +3,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include "Game.h"
 
-Match2::Match2() : m_player("./media/player2.png","./media/p2_jump.png","./media/p2_left.png","./media/p2_right.png") {
+Match2::Match2() : m_player("./media/p2.png","./media/p2_jumpPrueba.png","./media/p2_left.png","./media/p2_right.png") {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});

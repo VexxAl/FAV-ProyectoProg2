@@ -13,7 +13,7 @@ Match1::Match1() : m_player("./media/player.png","./media/p1_jump.png","./media/
 	textureMatch1.loadFromFile("./media/backgroundSpace.png");
 	spriteMatch1.setTexture(textureMatch1);
 	
-	if (!font.loadFromFile("arial.ttf")) {
+	if (!font.loadFromFile("./media/fonts/PixelEmulator.ttf")) {
 		std::cerr << "Error al cargar la fuente" << std::endl;
 	}
 	
@@ -69,7 +69,7 @@ void Match1::draw(sf::RenderWindow &window) {
 			coin.draw(window);
 		}
 	}
-	coinText.setString("Coins: " + std::to_string(coinCount));
+	coinText.setString("Coins " + std::to_string(coinCount));
 	window.draw(coinText);
 }
 

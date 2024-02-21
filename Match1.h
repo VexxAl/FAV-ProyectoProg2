@@ -18,14 +18,16 @@ public:
 	
 	void generateRandomPlatformsMobile();
 	void movePlatformsMobile(float dt); 
+	
 private:
 	void generateRandomCoins();
 	void despawnCoins();
 	void moveCoins(float dt);
-	sf::Text coinText;
 	int coinCount;
 	std::vector<Coin> coins;
+	
 	sf::Font font;
+	sf::Text coinText;
 	
 	sf::RectangleShape m_floor;
 	Player m_player;

@@ -9,6 +9,7 @@ Player::Player(std::string fname,std::string jumpName, std::string leftName, std
 	jumpTex.loadFromFile(jumpName);
 	leftTex.loadFromFile(leftName);
 	rightTex.loadFromFile(rightName);
+	m_sprite.setScale(5,5);
 }
 
 void Player::pausedPlayer() {
