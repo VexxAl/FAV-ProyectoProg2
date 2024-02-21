@@ -1,4 +1,3 @@
-#include "PauseMenu.h"
 #include "Match1.h"
 #include <SFML/Window/Keyboard.hpp>
 #include "Game.h"
@@ -6,7 +5,7 @@
 #include "Coin.h"
 #include <iostream>
 
-Match1::Match1() : m_player("./media/player.png","./media/p1_jump.png","./media/p1_left.png","./media/p1_right.png"), coinCount(0) {
+Match1::Match1() : m_player("./media/player.png","./media/p1_jump.png","./media/p1_left.png","./media/p1_right.png",1.0f,1.0f), coinCount(0) {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});
@@ -21,19 +20,74 @@ Match1::Match1() : m_player("./media/player.png","./media/p1_jump.png","./media/
 	coinText.setCharacterSize(24);
 	coinText.setFillColor(sf::Color::White);
 	coinText.setPosition(10.f, 10.f);
+	
+	m_floorPause.setPosition({200.0, 100.0});
+	m_floorPause.setSize({400.0, 350.0});
+	m_floorPause.setFillColor({20, 0, 100, 150});
+	m_font.loadFromFile("./media/fonts/PixelGamer.otf");
+	// Creación de las opciones del menú
+	std::vector<std::string> optionNames = {"Reanudar","Reiniciar" ,"Salir al menu"};
+	for (int i = 0; i < optionNames.size(); i++) {
+		sf::Text text;
+		text.setFont(m_font);
+		text.setString(optionNames[i]);
+		text.setPosition(300, i * 100 + 150);
+		m_options.push_back(text);
+	}
+	m_selectedOption = 0;
+	upPressed = false;
+	downPressed = false;
+	state = false;
 }
 
 void Match1::update(Game &game, float dt) {
 	
-	generateRandomPlatformsMobile();
-	movePlatformsMobile(dt);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && pause == false){
+		pause = true;
+	}
 	
-	generateRandomCoins();
-	despawnCoins();
-	moveCoins(dt);
-	
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+	if (!pause){
 		m_player.update(m_floor.getGlobalBounds(), dt);
+		generateRandomPlatformsMobile();
+		movePlatformsMobile(dt);
+		generateRandomCoins();
+		despawnCoins();
+		moveCoins(dt);
+	}
+	
+	if (pause) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressed) {
+			m_selectedOption = (m_selectedOption - 1 + m_options.size()) % m_options.size();
+			upPressed = true;
+		}
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+			upPressed = false;
+		}
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressed) {
+			m_selectedOption = (m_selectedOption + 1) % m_options.size();
+			downPressed = true;
+		}
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+			downPressed = false;
+		}
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+			// Manejo de la opción seleccionada:
+			if (m_selectedOption == 0) {
+				pause = false;
+			}
+			else if (m_selectedOption == 1) {
+				state = true;
+				Scene* newScene = new Match1();
+				game.setScene(newScene);
+			}else if (m_selectedOption == 2) {
+				state = true;
+				Scene* newScene = new Menu();
+				game.setScene(newScene);
+			}
+			
+		}
 	}
 	
 	for (auto& platform : platformsMobile) {
@@ -47,10 +101,6 @@ void Match1::update(Game &game, float dt) {
 			coin.setTaken(true);
 			coinCount++;
 		}
-	}
-	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-		game.isPaused();
 	}
 }
 
@@ -71,6 +121,18 @@ void Match1::draw(sf::RenderWindow &window) {
 	}
 	coinText.setString("Coins " + std::to_string(coinCount));
 	window.draw(coinText);
+	
+	if (pause){
+		window.draw(m_floorPause);
+		for (int i = 0; i < m_options.size(); i++) {
+			if (i == m_selectedOption) {
+				m_options[i].setFillColor({136, 0, 208});
+			} else {
+				m_options[i].setFillColor(sf::Color::White);
+			}
+			window.draw(m_options[i]);
+		}
+	}
 }
 
 void Match1::generateRandomPlatformsMobile() {

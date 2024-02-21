@@ -1,15 +1,16 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include "Player.h"
+#include <SFML/System/Vector2.hpp>
 
-Player::Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName)
+Player::Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName, float e1, float e2)
 	: Object(fname), jumpCount(0), SpacePresed(false) {
 	m_sprite.setPosition(50, 400); // Establece la posición inicial del jugador
 	m_pos.x = 400.0f;
 	jumpTex.loadFromFile(jumpName);
 	leftTex.loadFromFile(leftName);
 	rightTex.loadFromFile(rightName);
-	m_sprite.setScale(5,5);
+	m_sprite.setScale(e1,e2);
 }
 
 void Player::pausedPlayer() {

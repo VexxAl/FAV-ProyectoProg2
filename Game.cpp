@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "PauseMenu.h"
 #include <iostream>
 #include "Scene.h"
 #include "Menu.h"
@@ -10,8 +9,8 @@
 
 
 Game::Game()
-	: window(sf::VideoMode(800, 600), "Improved Ball Game"),
-	currentScene(nullptr), SceneKepper(nullptr){
+	: window(sf::VideoMode(800, 600), "FAV-Space"),
+	currentScene(nullptr){
 	window.setFramerateLimit(60);
 }
 
@@ -28,7 +27,6 @@ void Game::run() {
 	
 	// Libera la memoria al finalizar el juego
 	delete currentScene;
-	delete SceneKepper;
 }
 
 void Game::setScene(Scene* scene) {
@@ -45,22 +43,6 @@ void Game::update(float dt) {
 	}
 }
 
-void Game::isPaused() {
-	if (currentScene) {
-		Match1* matchScene = dynamic_cast<Match1*>(currentScene);
-		if (matchScene) {
-			SceneKepper = matchScene;
-			PauseMenu* pauseMenuScene = new PauseMenu();
-			setScene(pauseMenuScene);
-		}
-	}
-}
-
-void Game::isnotPaused() {
-	if (SceneKepper) {
-		setScene(SceneKepper);
-	}
-}
 
 void Game::processEvents() {
 	sf::Event event;

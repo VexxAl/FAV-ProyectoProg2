@@ -15,7 +15,7 @@ public:
 	Menu();
 	void update(Game &game, float dt) override;
 	void draw(sf::RenderWindow &window) override;
-	bool isMatch1() const override { return false; }
+
 private:
 	sf::Font m_font;
 	sf::Text m_t1, m_t2;

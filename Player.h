@@ -3,9 +3,10 @@
 
 #include "Object.h"
 
+
 class Player : public Object {
 public:
-	Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName);
+	Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName, float e1, float e2);
 	void update(sf::FloatRect platformBounds, float dt);
 	void pausedPlayer();
 	void resumePlayer();

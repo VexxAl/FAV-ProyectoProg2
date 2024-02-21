@@ -1,9 +1,8 @@
-#include "PauseMenu.h"
 #include "Match2.h"
 #include <SFML/Window/Keyboard.hpp>
 #include "Game.h"
 
-Match2::Match2() : m_player("./media/p2.png","./media/p2_jumpPrueba.png","./media/p2_left.png","./media/p2_right.png") {
+Match2::Match2() : m_player("./media/p2.png","./media/p2_jumpPrueba.png","./media/p2_left.png","./media/p2_right.png",2.6f,2.6f) {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});
@@ -15,9 +14,6 @@ void Match2::update(Game &game, float dt) {
 	
 	m_player.update(m_floor.getGlobalBounds(), dt);
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-		game.isPaused();
-	}	
 }
 
 
