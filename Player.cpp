@@ -28,7 +28,6 @@ void Player::resumePlayer() {
 
 void Player::update(sf::FloatRect platformBounds, float dt) {
 	// Lógica de actualización específica del jugador
-	
 	// Movement based on dt
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		m_speed.x -= 55.f;
@@ -82,7 +81,7 @@ void Player::update(sf::FloatRect platformBounds, float dt) {
 		m_sprite.setTexture(jumpTex);
 	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		SpacePresed = false;
-	};
+	}
 }
 
 void Player::rewindJump(){

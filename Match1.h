@@ -14,14 +14,15 @@ public:
 	void update(Game &game, float dt) override;
 	void draw(sf::RenderWindow &window) override;
 	bool isMatch1() const override { return true; }
+	
+	void generateRandomPlatformsMobile();
+	void movePlatformsMobile(float dt); 
 private:
 	sf::RectangleShape m_floor;
 	Player m_player;
 	sf::Texture textureMatch1;
 	sf::Sprite spriteMatch1;
 	
-	void generateRandomPlatformsMobile(); // Nueva función
-	void movePlatformsMobile(float dt); 
 	std::vector<PlatformMobile> platformsMobile;
 };
 

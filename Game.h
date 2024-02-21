@@ -17,12 +17,12 @@ public:
 	void render();
 	sf::RenderWindow& getWindow();
 	void setScene(Scene* scene);
-	bool isPaused() { return pause; }
+	void isPaused();
+	void isnotPaused();
 	void setPaused(bool value) { pause = value; }
-	Scene* getScene(){return currentScene;}
-	
+
 private:
-	
+	Match1* SceneKepper;
 	sf::RenderWindow window;
 	Scene* currentScene;
 	sf::Clock clock;
@@ -32,3 +32,5 @@ private:
 };
 
 #endif // GAME_H
+
+

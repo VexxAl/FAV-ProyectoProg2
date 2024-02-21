@@ -13,14 +13,13 @@ Match1::Match1() : m_player("./media/player.png","./media/p1_jump.png","./media/
 }
 
 void Match1::update(Game &game, float dt) {
-	if (game.isPaused()) {
-		return; // No update if paused
-	}
 	
 	generateRandomPlatformsMobile();
 	movePlatformsMobile(dt);
 	
-	m_player.update(m_floor.getGlobalBounds(), dt);
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+		m_player.update(m_floor.getGlobalBounds(), dt);
+	}
 	
 	for (auto& platform : platformsMobile) {
 		if(m_player.collideWith(platform)){
@@ -29,10 +28,7 @@ void Match1::update(Game &game, float dt) {
 	}
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-		game.setPaused(true);
-		m_player.pausedPlayer();
-		Scene* pause = new PauseMenu();
-		game.setScene(pause);
+		game.isPaused();
 	}
 }
 

@@ -12,18 +12,11 @@ Match2::Match2() : m_player("./media/player2.png","./media/p2_jump.png","./media
 }
 
 void Match2::update(Game &game, float dt) {
-	if (game.isPaused()) {
-		// No actualizar el jugador si el juego está pausado
-		return;
-	}
 	
 	m_player.update(m_floor.getGlobalBounds(), dt);
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-		game.setPaused(true);  // Pausa el juego
-		m_player.pausedPlayer();      // Deja al jugador quieto
-		Scene* pause = new PauseMenu();
-		game.setScene(pause);
+		game.isPaused();
 	}	
 }
 

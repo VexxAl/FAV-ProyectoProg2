@@ -1,4 +1,5 @@
 #include "PlatformMobile.h"
+#include <SFML/Window/Keyboard.hpp>
 
 PlatformMobile::PlatformMobile(sf::Vector2f position, float speed)
 	: Object("./media/plataforma.png") {
@@ -13,8 +14,10 @@ void PlatformMobile::draw (sf::RenderWindow & window) {
 }
 
 void PlatformMobile::update (float dt) {
-	m_sprite.move(-m_speed.x * dt, 0.f);
-	m_pos += m_speed * dt;
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+		m_sprite.move(-m_speed.x * dt, 0.f);
+		m_pos += m_speed * dt;
+	}
 	m_sprite.setTexture(m_texture);
 }
 

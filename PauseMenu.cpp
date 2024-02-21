@@ -1,4 +1,5 @@
 #include "PauseMenu.h"
+#include "Game.h"
 
 PauseMenu::PauseMenu() {
 	// Carga de la fuente
@@ -20,34 +21,34 @@ PauseMenu::PauseMenu() {
 	state = false;
 }
 
-void PauseMenu::update(Game &game, float dt) {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressed) {
-		m_selectedOption = (m_selectedOption - 1 + m_options.size()) % m_options.size();
-		upPressed = true;
-	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		upPressed = false;
-	}
-	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressed) {
-		m_selectedOption = (m_selectedOption + 1) % m_options.size();
-		downPressed = true;
-	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		downPressed = false;
-	}
-	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-		// Manejo de la opción seleccionada:
-		if (m_selectedOption == 0) {
-			if (dynamic_cast<Match1*>(game.getScene()) != nullptr) { /*dynamic_cast intenta convertir el puntero devuelto por game.getScene() a un puntero de tipo Match1*.*/
-				game.setScene(new Match2());
-			} else { //REVISAR ESTO PORQUE AMBAS REANUDAN EN MATCH1 (estoy muy cansada, no mas por hoy) 
-				game.setScene(new Match1());
+void PauseMenu::update(Game& game, float dt) {
+	if (game.getWindow().hasFocus()) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressed) {
+			m_selectedOption = (m_selectedOption - 1 + m_options.size()) % m_options.size();
+			upPressed = true;
+		}
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+			upPressed = false;
+		}
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressed) {
+			m_selectedOption = (m_selectedOption + 1) % m_options.size();
+			downPressed = true;
+		}
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+			downPressed = false;
+		}
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+			// Manejo de la opción seleccionada:
+			if (m_selectedOption == 0) {
+				game.isnotPaused();
 			}
-			state = false; // Reanudar el juego
-		} else if (m_selectedOption == 1) {
-			state = true;
-			Scene *newScene = new Menu();
-			game.setScene(newScene);
+			else if (m_selectedOption == 1) {
+				state = true;
+				Scene* newScene = new Menu();
+				game.setScene(newScene);
+			}
 		}
 	}
 }
