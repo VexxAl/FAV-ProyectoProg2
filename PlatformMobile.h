@@ -6,7 +6,6 @@
 class PlatformMobile : public Object {
 public:
 	PlatformMobile(sf::Vector2f position, float speed);
-	void draw (sf::RenderWindow & window) override;
 	void update (float dt);
 private:
 	float speed;

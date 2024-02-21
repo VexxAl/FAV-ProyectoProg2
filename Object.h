@@ -13,6 +13,9 @@ public:
 	virtual void draw(sf::RenderWindow &window);
 	virtual void update(float dt); // Método de actualización virtual
 	bool collideWith(Object &o);
+	sf::FloatRect getGlobalBounds();
+	float getPositionx() const;
+	float getWidth() const;
 	
 protected:
 	sf::Vector2f m_pos;

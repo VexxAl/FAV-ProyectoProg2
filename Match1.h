@@ -5,6 +5,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include "Player.h"
 #include "PlatformMobile.h"
+#include "Coin.h"
 
 
 
@@ -18,6 +19,14 @@ public:
 	void generateRandomPlatformsMobile();
 	void movePlatformsMobile(float dt); 
 private:
+	void generateRandomCoins();
+	void despawnCoins();
+	void moveCoins(float dt);
+	sf::Text coinText;
+	int coinCount;
+	std::vector<Coin> coins;
+	sf::Font font;
+	
 	sf::RectangleShape m_floor;
 	Player m_player;
 	sf::Texture textureMatch1;

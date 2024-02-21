@@ -9,9 +9,6 @@ PlatformMobile::PlatformMobile(sf::Vector2f position, float speed)
 	m_sprite.scale(4,4); //vimos tambien en 5
 }
 
-void PlatformMobile::draw (sf::RenderWindow & window) {
-	window.draw(m_sprite);
-}
 
 void PlatformMobile::update (float dt) {
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::P)){

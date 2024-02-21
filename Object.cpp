@@ -38,4 +38,15 @@ bool Object::collideWith(Object &o) {
 	return false;
 }
 
+sf::FloatRect Object::getGlobalBounds() {
+	return m_sprite.getGlobalBounds();
+}
+
+float Object::getPositionx() const{
+	return m_pos.x;
+}
+
+float Object::getWidth() const{
+	return m_sprite.getGlobalBounds().width;
+}
 
