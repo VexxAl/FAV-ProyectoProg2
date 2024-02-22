@@ -1,15 +1,19 @@
-#include "Match1.h"
-#include <SFML/Window/Keyboard.hpp>
 #include "Game.h"
-#include "PlatformMobile.h"
 #include "Coin.h"
+#include "Match1.h"
+#include "PlatformMobile.h"
+
+#include <SFML/Window/Keyboard.hpp>
+
 #include <iostream>
 
-Match1::Match1() : m_player("./media/player.png","./media/p1_jump.png","./media/p1_left.png","./media/p1_right.png",1.0f,1.0f), coinCount(0) {
+
+Match1::Match1() : m_player("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
+		"./media/images/match1/p1_right.png",1.0f,1.0f), coinCount(0) {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});
-	textureMatch1.loadFromFile("./media/backgroundSpace.png");
+	textureMatch1.loadFromFile("./media/images/match1/backgroundSpace.png");
 	spriteMatch1.setTexture(textureMatch1);
 	
 	if (!font.loadFromFile("./media/fonts/PixelEmulator.ttf")) {
@@ -25,7 +29,8 @@ Match1::Match1() : m_player("./media/player.png","./media/p1_jump.png","./media/
 	m_floorPause.setSize({400.0, 350.0});
 	m_floorPause.setFillColor({20, 0, 100, 150});
 	m_font.loadFromFile("./media/fonts/PixelGamer.otf");
-	// Creación de las opciones del menú
+
+	// Creacion de las opciones del menu
 	std::vector<std::string> optionNames = {"Reanudar","Reiniciar" ,"Salir al menu"};
 	for (int i = 0; i < optionNames.size(); i++) {
 		sf::Text text;
@@ -41,9 +46,9 @@ Match1::Match1() : m_player("./media/player.png","./media/p1_jump.png","./media/
 }
 
 void Match1::update(Game &game, float dt) {
-	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && pause == false){
 		pause = true;
+		game.playEnterSound();
 	}
 	
 	if (!pause){
@@ -59,6 +64,7 @@ void Match1::update(Game &game, float dt) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressed) {
 			m_selectedOption = (m_selectedOption - 1 + m_options.size()) % m_options.size();
 			upPressed = true;
+			game.playSelectSound();
 		}
 		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 			upPressed = false;
@@ -67,13 +73,16 @@ void Match1::update(Game &game, float dt) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressed) {
 			m_selectedOption = (m_selectedOption + 1) % m_options.size();
 			downPressed = true;
+			game.playSelectSound();
 		}
 		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 			downPressed = false;
 		}
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-			// Manejo de la opción seleccionada:
+			game.playEnterSound();
+			
+			// Manejo de la opcion seleccionada:
 			if (m_selectedOption == 0) {
 				pause = false;
 			}
@@ -136,16 +145,16 @@ void Match1::draw(sf::RenderWindow &window) {
 }
 
 void Match1::generateRandomPlatformsMobile() {
-	// Genera plataformas móviles aleatorias en la derecha de la pantalla
+	// Genera plataformas mï¿½viles aleatorias en la derecha de la pantalla
 	if (rand() % 200 == 0) {
 		sf::Vector2f platformPosition(800.f, rand() % 200 + 120.f); // Ajusta el rango vertical
-		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad según sea necesario
+		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad segï¿½n sea necesario
 		platformsMobile.emplace_back(platformPosition, platformSpeed);
 	}
 }
 
 void Match1::movePlatformsMobile(float dt) {
-	// Mueve las plataformas móviles de derecha a izquierda
+	// Mueve las plataformas mï¿½viles de derecha a izquierda
 	for (auto& platform : platformsMobile) {
 		platform.update(dt);
 	}
@@ -162,7 +171,7 @@ void Match1::generateRandomCoins() {
 	// Genera monedas aleatorias en la derecha de la pantalla
 	if (rand() % 100 == 1) {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
-		float coinSpeed = -100.f;  // Velocidad de la moneda (ajústala según sea necesario)
+		float coinSpeed = -100.f;  // Velocidad de la moneda (ajï¿½stala segï¿½n sea necesario)
 		coins.emplace_back(coinPosition, coinSpeed);
 	}
 }

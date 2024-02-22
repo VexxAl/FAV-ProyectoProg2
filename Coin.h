@@ -1,6 +1,8 @@
 #ifndef COIN_H
 #define COIN_H
+
 #include "Object.h"
+
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Font.hpp>
 

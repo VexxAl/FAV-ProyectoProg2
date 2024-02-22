@@ -1,10 +1,14 @@
 #include "Scene.h"
 #include "Menu.h"
 
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
-#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
+#include <iostream>
+
 
 Menu::Menu() {
 	m_font.loadFromFile("./media/fonts/PixelGamer.otf");
@@ -21,7 +25,7 @@ Menu::Menu() {
 	m_t2.setPosition(360,350);
 	m_t2.setCharacterSize(20);
 	
-	textureMenu.loadFromFile("./media/menu.jpg");
+	textureMenu.loadFromFile("./media/images/menu.jpg");
 	spriteMenu.setTexture(textureMenu);
 }
 
@@ -32,7 +36,9 @@ void Menu::update(Game &game, float dt) {
 	m_t1.setFillColor({r, g, b});
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
-		MenuSelect* menuS = new MenuSelect(); // Consider using shared_ptr or avoiding new
+		game.playEnterSound();
+
+		MenuSelect* menuS = new MenuSelect();
 		game.setScene(menuS);
 	}
 	

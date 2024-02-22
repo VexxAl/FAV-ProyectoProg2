@@ -1,13 +1,13 @@
 #ifndef MATCH1_H
 #define MATCH1_H
 
+#include "Coin.h"
 #include "Scene.h"
-#include <SFML/Graphics/RectangleShape.hpp>
 #include "Player.h"
 #include "PlatformMobile.h"
-#include "Coin.h"
-#include <SFML/Graphics/Text.hpp>
 
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 
 class Match1 : public Scene {

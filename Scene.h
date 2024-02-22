@@ -1,8 +1,10 @@
 #ifndef SCENE_H
 #define SCENE_H
-#include <SFML/Graphics/RenderWindow.hpp>
-class Game;
 
+#include <SFML/Graphics/RenderWindow.hpp>
+
+
+class Game;
 
 class Scene { 
 public:

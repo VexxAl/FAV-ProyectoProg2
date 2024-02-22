@@ -3,6 +3,8 @@
 
 #include "Object.h"
 
+#include <SFML/Audio.hpp>
+
 
 class Player : public Object {
 public:
@@ -21,6 +23,9 @@ private:
 	sf::Texture jumpTex;
 	sf::Texture leftTex;
 	sf::Texture rightTex;
+
+	sf::SoundBuffer jump_buffer;
+	sf::Sound jump_sound;
 };
 
 #endif

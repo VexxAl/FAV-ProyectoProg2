@@ -1,7 +1,10 @@
+#include "Game.h"
 #include "MenuSelect.h"
-#include "Game.h" // Include your Game class here
+
 #include <SFML/Window/Keyboard.hpp>
+
 #include <iostream>
+
 
 MenuSelect::MenuSelect() : m_selectedOption(0) {
 	m_font.loadFromFile("./media/fonts/PixelGamer.otf");
@@ -20,9 +23,12 @@ bool upPressedM = false;
 bool downPressedM = false;
 
 void MenuSelect::update(Game& game, float dt) {
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressedM) {
 		m_selectedOption = (m_selectedOption - 1 + m_options.size()) % m_options.size();
 		upPressedM = true;
+		game.playSelectSound();
+
 	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		upPressedM = false;
 	}
@@ -30,21 +36,29 @@ void MenuSelect::update(Game& game, float dt) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressedM) {
 		m_selectedOption = (m_selectedOption + 1) % m_options.size();
 		downPressedM = true;
+		game.playSelectSound();
+
 	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		downPressedM = false;
 	}
 		
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
+		game.playEnterSound();
+
 		Scene *match = nullptr;
 		if(m_selectedOption == 0){
 			match = new Match1();
+			game.stopMenuMusic();
+			game.playMatch1Music();
+			
 		} else if(m_selectedOption == 1){
 			match = new Match2();
 		} else {
 			match = new Menu();
+			game.playMenuMusic();
+			
 		};
-		game.setScene(match);
-		
+		game.setScene(match);		
 	}
 }
 

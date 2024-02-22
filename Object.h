@@ -4,14 +4,15 @@
 
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
-#include <string>
 #include <SFML/Graphics/RenderWindow.hpp>
+
+#include <string>
 
 class Object {
 public:
 	Object(std::string fname);
 	virtual void draw(sf::RenderWindow &window);
-	virtual void update(float dt); // Método de actualización virtual
+	virtual void update(float dt); // Metodo de actualizacion virtual
 	bool collideWith(Object &o);
 	sf::FloatRect getGlobalBounds();
 	float getPositionx() const;

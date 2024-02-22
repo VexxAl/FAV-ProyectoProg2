@@ -2,8 +2,10 @@
 #define MATCH2_H
 
 #include "Scene.h"
-#include <SFML/Graphics/RectangleShape.hpp>
 #include "Player.h"
+
+#include <SFML/Graphics/RectangleShape.hpp>
+
 
 class Match2 : public Scene {
 public:
