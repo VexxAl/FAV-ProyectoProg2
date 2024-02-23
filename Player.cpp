@@ -37,13 +37,13 @@ void Player::update(sf::FloatRect platformBounds, float dt) {
 	// Logica de actualizacion especifica del jugador
 	// Movement based on dt
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-		m_speed.x -= 55.f;
+		m_speed.x -= 20.f;
 		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || m_speed.y == 0.0f){
 			m_sprite.setTexture(leftTex);
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-		m_speed.x += 55.f;
+		m_speed.x += 20.f;
 		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || m_speed.y == 0.0f){
 			m_sprite.setTexture(rightTex);
 		}
@@ -61,13 +61,21 @@ void Player::update(sf::FloatRect platformBounds, float dt) {
 	m_sprite.setPosition(m_pos);
 	auto playerBounds = m_sprite.getGlobalBounds();
 	
-	// L�gica para mantener al jugador dentro de los bordes de la pantalla
+	// Logica para mantener al jugador dentro de los bordes de la pantalla
 	if (m_pos.x < 0) {
 		m_pos.x = 0;
 		m_speed.x = 0;
 	} else if (m_pos.x > 800 - playerBounds.width) {
 		m_pos.x = 800 - playerBounds.width;
 		m_speed.x = 0;
+	}
+
+	if (m_pos.y < 0) {
+		m_pos.y = 0;
+		m_speed.y = 0;
+	} else if (m_pos.y > 800 - playerBounds.width) {
+		m_pos.y = 800 - playerBounds.width;
+		m_speed.y = 0;
 	}
 	
 	

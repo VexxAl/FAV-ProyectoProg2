@@ -46,7 +46,7 @@ Match1::Match1() : m_player("./media/images/match1/player.png", "./media/images/
 }
 
 void Match1::update(Game &game, float dt) {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && pause == false){
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && pause == false){
 		pause = true;
 		game.playEnterSound();
 	}
