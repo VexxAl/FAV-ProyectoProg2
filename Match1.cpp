@@ -149,7 +149,7 @@ void Match1::generateRandomPlatformsMobile() {
 	if (rand() % 200 == 0) {
 		sf::Vector2f platformPosition(800.f, rand() % 200 + 120.f); // Ajusta el rango vertical
 		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad seg�n sea necesario
-		platformsMobile.emplace_back(platformPosition, platformSpeed);
+		platformsMobile.emplace_back(platformPosition, platformSpeed, "./media/images/match1/plataformaSpace.png");
 	}
 }
 
@@ -172,7 +172,7 @@ void Match1::generateRandomCoins() {
 	if (rand() % 100 == 1) {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
 		float coinSpeed = -100.f;  // Velocidad de la moneda (aj�stala seg�n sea necesario)
-		coins.emplace_back(coinPosition, coinSpeed);
+		coins.emplace_back(coinPosition, coinSpeed,"./media/images/coinSilver.png");
 	}
 }
 

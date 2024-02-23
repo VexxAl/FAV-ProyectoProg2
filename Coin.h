@@ -9,7 +9,7 @@
 
 class Coin : public Object {
 public:
-	Coin(sf::Vector2f position, float speed);
+	Coin(sf::Vector2f position, float speed, std::string fname);
 	bool isTaken() const;
 	void setTaken(bool taken);
 	void update (float dt);

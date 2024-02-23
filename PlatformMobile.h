@@ -8,7 +8,7 @@
 
 class PlatformMobile : public Object {
 public:
-	PlatformMobile(sf::Vector2f position, float speed);
+	PlatformMobile(sf::Vector2f position, float speed, std::string fname);
 	void update (float dt);
 private:
 	float speed;

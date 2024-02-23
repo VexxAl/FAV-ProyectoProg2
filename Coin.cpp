@@ -1,7 +1,7 @@
 #include "Coin.h"
 
-Coin::Coin(sf::Vector2f position, float speed)
-	: taken(false), speed(speed), Object("./media/images/coinSilver.png") {
+Coin::Coin(sf::Vector2f position, float speed, std::string fname)
+	: taken(false), speed(speed), Object(fname) {
 	m_sprite.setPosition(position);
 	m_pos = position;
 }

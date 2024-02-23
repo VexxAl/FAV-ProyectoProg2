@@ -7,6 +7,8 @@
 
 
 MenuSelect::MenuSelect() : m_selectedOption(0) {
+	textureSelect.loadFromFile("./media/images/backgroundSelect.jpg");
+	spriteSelect.setTexture(textureSelect);
 	m_font.loadFromFile("./media/fonts/PixelGamer.otf");
 	std::vector<std::string> optionNames = {"Jugar", "Modo FAV", "volver"};
 	
@@ -65,6 +67,7 @@ void MenuSelect::update(Game& game, float dt) {
 
 void MenuSelect::draw(sf::RenderWindow& window) {
 	window.clear();
+	window.draw(spriteSelect);
 	for (int i = 0; i < m_options.size(); i++) {
 		if (i == m_selectedOption) {
 			m_options[i].setFillColor({136, 0, 208});

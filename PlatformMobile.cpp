@@ -3,8 +3,8 @@
 #include <SFML/Window/Keyboard.hpp>
 
 
-PlatformMobile::PlatformMobile(sf::Vector2f position, float speed)
-	: Object("./media/images/match1/plataformaSpace.png") {
+PlatformMobile::PlatformMobile(sf::Vector2f position, float speed, std::string fname)
+	: Object(fname) {
 	m_pos = position;
 	m_sprite.setPosition(m_pos);
 	m_speed.x = speed;
