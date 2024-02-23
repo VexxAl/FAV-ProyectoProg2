@@ -14,7 +14,7 @@ Player::Player(std::string fname,std::string jumpName, std::string leftName, std
 	rightTex.loadFromFile(rightName);
 	m_sprite.setScale(e1,e2);
 
-	jump_buffer.loadFromFile("./media/sounds/jump_sound.wav");
+	jump_buffer.loadFromFile("./media/sounds/jump_sound2.wav");
 	jump_sound.setBuffer(jump_buffer);
 }
 

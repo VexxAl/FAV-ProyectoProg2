@@ -87,10 +87,16 @@ void Match1::update(Game &game, float dt) {
 				pause = false;
 			}
 			else if (m_selectedOption == 1) {
+				game.playMatch1Music();
+				
 				state = true;
 				Scene* newScene = new Match1();
 				game.setScene(newScene);
+
 			}else if (m_selectedOption == 2) {
+				game.stopMatch1Music();
+				game.playMenuMusic();
+				
 				state = true;
 				Scene* newScene = new Menu();
 				game.setScene(newScene);
@@ -107,6 +113,8 @@ void Match1::update(Game &game, float dt) {
 	
 	for (auto& coin : coins) {
 		if (!coin.isTaken() && m_player.getGlobalBounds().intersects(coin.getGlobalBounds())) {
+			game.playCoinSound();
+
 			coin.setTaken(true);
 			coinCount++;
 		}

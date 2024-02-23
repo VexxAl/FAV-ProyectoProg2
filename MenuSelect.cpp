@@ -50,14 +50,19 @@ void MenuSelect::update(Game& game, float dt) {
 		Scene *match = nullptr;
 		if(m_selectedOption == 0){
 			match = new Match1();
+
 			game.stopMenuMusic();
-			game.playMatch1Music();
-			
-		} else if(m_selectedOption == 1){
+			game.playMatch1Music();	
+		} 
+		else if(m_selectedOption == 1){
 			match = new Match2();
-		} else {
+
+
+			game.stopMenuMusic();
+			game.playMatch2Music();
+		} 
+		else {
 			match = new Menu();
-			game.playMenuMusic();
 			
 		};
 		game.setScene(match);		

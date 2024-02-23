@@ -20,11 +20,17 @@ Game::Game() : window(sf::VideoMode(800, 600), "FAV-Space"), currentScene(nullpt
 	match1_music.openFromFile("./media/sounds/spacetheme.wav");
 	match1_music.setLoop(true);
 
+	match2_music.openFromFile("./media/sounds/match2.wav");
+	match2_music.setLoop(true);
+
 	sel_buffer.loadFromFile("./media/sounds/select_sound.wav");
 	sel_sound.setBuffer(sel_buffer);
 
 	enter_buffer.loadFromFile("./media/sounds/enter_sound.wav");
 	enter_sound.setBuffer(enter_buffer);
+
+	coin_buffer.loadFromFile("./media/sounds/get_coin.wav");
+	coin_sound.setBuffer(coin_buffer);
 }
 
 void Game::run() {

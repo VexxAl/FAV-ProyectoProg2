@@ -25,7 +25,8 @@ Match2::Match2() : m_player("./media/images/match2/p2.png","./media/images/match
 	m_floorPause.setSize({400.0, 350.0});
 	m_floorPause.setFillColor({20, 0, 100, 150});
 	m_font.loadFromFile("./media/fonts/PixelGamer.otf");
-	// Creación de las opciones del menú
+	
+	// Creacion de las opciones del menu
 	std::vector<std::string> optionNames = {"Reanudar","Reiniciar" ,"Salir al menu"};
 	for (int i = 0; i < optionNames.size(); i++) {
 		sf::Text text;
@@ -43,6 +44,7 @@ Match2::Match2() : m_player("./media/images/match2/p2.png","./media/images/match
 void Match2::update(Game &game, float dt) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && pause == false){
 		pause = true;
+		game.playEnterSound();
 	}
 	
 	if (!pause){
@@ -58,6 +60,8 @@ void Match2::update(Game &game, float dt) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressed) {
 			m_selectedOption = (m_selectedOption - 1 + m_options.size()) % m_options.size();
 			upPressed = true;
+
+			game.playSelectSound();
 		}
 		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 			upPressed = false;
@@ -66,21 +70,31 @@ void Match2::update(Game &game, float dt) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressed) {
 			m_selectedOption = (m_selectedOption + 1) % m_options.size();
 			downPressed = true;
+
+			game.playSelectSound();
 		}
 		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 			downPressed = false;
 		}
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-			// Manejo de la opción seleccionada:
+			game.playEnterSound();
+			
+			// Manejo de la opcion seleccionada:
 			if (m_selectedOption == 0) {
 				pause = false;
-			}
+			} 
 			else if (m_selectedOption == 1) {
+				game.playMatch2Music();
+				
 				state = true;
 				Scene* newScene = new Match2();
 				game.setScene(newScene);
-			}else if (m_selectedOption == 2) {
+			}
+			else if (m_selectedOption == 2) {
+				game.stopMatch2Music();
+				game.playMenuMusic();
+				
 				state = true;
 				Scene* newScene = new Menu();
 				game.setScene(newScene);
@@ -98,6 +112,8 @@ void Match2::update(Game &game, float dt) {
 	for (auto& coin : coins) {
 		coinCount=0;
 		if (!coin.isTaken() && m_player.getGlobalBounds().intersects(coin.getGlobalBounds())) {
+			game.playCoinSound();
+
 			coin.setTaken(true);
 			coinCount++;
 		}
@@ -136,16 +152,16 @@ void Match2::draw(sf::RenderWindow &window) {
 }
 
 void Match2::generateRandomPlatformsMobile() {
-	// Genera plataformas móviles aleatorias en la derecha de la pantalla
+	// Genera plataformas moviles aleatorias en la derecha de la pantalla
 	if (rand() % 200 == 0) {
 		sf::Vector2f platformPosition(800.f, rand() % 200 + 120.f); // Ajusta el rango vertical
-		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad según sea necesario
+		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad segï¿½n sea necesario
 		platformsMobile.emplace_back(platformPosition, platformSpeed, "./media/images/match2/plataformaFAV.png");
 	}
 }
 
 void Match2::movePlatformsMobile(float dt) {
-	// Mueve las plataformas móviles de derecha a izquierda
+	// Mueve las plataformas moviles de derecha a izquierda
 	for (auto& platform : platformsMobile) {
 		platform.update(dt);
 	}
@@ -162,7 +178,7 @@ void Match2::generateRandomCoins() {
 	// Genera monedas aleatorias en la derecha de la pantalla
 	if (rand() % 100 == 1) {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
-		float coinSpeed = -100.f;  // Velocidad de la moneda (ajústala según sea necesario)
+		float coinSpeed = -100.f;  // Velocidad de la moneda (ajï¿½stala segï¿½n sea necesario)
 		coins.emplace_back(coinPosition, coinSpeed,"./media/images/match2/Sprite-Heart.png");
 	}
 }

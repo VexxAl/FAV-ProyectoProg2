@@ -25,8 +25,12 @@ public:
 	void stopMenuMusic() { menu_music.stop(); }
 
 	void playMatch1Music() { match1_music.play(); }
-	void stopMatch1Music() { match1_music.stop(); }	
+	void stopMatch1Music() { match1_music.stop(); }
 
+	void playMatch2Music() { match2_music.play(); }
+	void stopMatch2Music() { match2_music.stop(); }		
+
+	void playCoinSound() { coin_sound.play(); }
 	void playSelectSound() { sel_sound.play(); }
 	void playEnterSound() { enter_sound.play(); }
 
@@ -38,12 +42,16 @@ private:
 
 	sf::Music menu_music;
 	sf::Music match1_music;
+	sf::Music match2_music;
 
 	sf::SoundBuffer sel_buffer;
 	sf::Sound sel_sound;
 
 	sf::SoundBuffer enter_buffer;
 	sf::Sound enter_sound;
+
+	sf::SoundBuffer coin_buffer;
+	sf::Sound coin_sound;
 };
 
 #endif // GAME_H

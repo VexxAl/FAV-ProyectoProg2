@@ -15,7 +15,7 @@ void Object::draw(sf::RenderWindow &window) {
 }
 
 void Object::update(float dt) {
-	// L�gica de actualizaci�n gen�rica, puedes personalizarla en las clases derivadas
+	// Logica de actualizacion generica, puedes personalizarla en las clases derivadas
 }
 
 bool Object::collideWith(Object &o) {
