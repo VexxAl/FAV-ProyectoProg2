@@ -9,7 +9,7 @@
 
 
 Match1::Match1() : m_player("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
-		"./media/images/match1/p1_right.png",1.0f,1.0f), coinCount(0) {
+		"./media/images/match1/p1_right.png","./media/images/match2/p2_hurt.png",1.0f,1.0f), coinCount(0) {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});
@@ -52,7 +52,7 @@ void Match1::update(Game &game, float dt) {
 	}
 	
 	if (!pause){
-		m_player.update(m_floor.getGlobalBounds(), dt);
+		m_player.update(m_floor.getGlobalBounds(), dt, false);
 		generateRandomPlatformsMobile();
 		movePlatformsMobile(dt);
 		generateRandomCoins();
