@@ -51,7 +51,9 @@ void Match2::update(Game &game, float dt) {
 		game.playEnterSound();
 	}
 	
-	if(m_player.getLifes() <= 0) pause = true;
+	if(m_player.getLifes() <= 0){
+		GameOver* game = new GameOver(coinCount);
+	}
 	
 	if (!pause){
 		m_player.update(m_floor.getGlobalBounds(), dt, false);

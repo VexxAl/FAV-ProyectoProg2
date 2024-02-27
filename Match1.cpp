@@ -58,7 +58,10 @@ void Match1::update(Game &game, float dt) {
 		game.playEnterSound();
 	}
 
-	if(m_player.getLifes() <= 0) pause = true;
+	if(m_player.getLifes() <= 0){
+		GameOver* gameO= new GameOver(pointCount);
+		game.setScene(gameO);
+	}
 
 	if (!pause){
 		m_player.update(m_floor.getGlobalBounds(), dt, cooldown);
