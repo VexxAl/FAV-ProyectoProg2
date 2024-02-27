@@ -12,6 +12,7 @@ public:
 	bool collideWithPlayer(Object &o);
 	bool attackPlayer(Object &o);
 	
+	bool collideWithInmortal(Object &o);
 	bool getMoveEnemy() const;
 	bool getDespawnEnemy() const;
 	void setMoveEnemy(bool taken);

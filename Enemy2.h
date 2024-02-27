@@ -13,6 +13,7 @@ public:
 	void updateBullet(float dt, Player &p);
 	bool attackPlayer(Object &o);
 	bool collideWithPlayer(Object &o);
+	bool collideWithInmortal(Object &o);
 	
 private:
 	sf::Texture rightTex;

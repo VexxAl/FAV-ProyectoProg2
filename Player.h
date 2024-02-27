@@ -16,10 +16,10 @@ public:
 	int getLifes();
 	void updateLife();
 	
+	bool getInmortal();
+	void clockInmortality();
 	void setInmortal(bool inmortal);
-	void updateInmortality();
-	void killEnemy();
-	bool getInmortal(){return isInmortal;}
+	void updateInmortality(int aux);
 	
 	
 private:

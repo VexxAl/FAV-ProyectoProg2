@@ -139,25 +139,48 @@ void Player::setInmortal(bool inmortal) {
 	isInmortal = inmortal;
 }
 
-void Player::updateInmortality() {
-	if (isInmortal && inmortalClock.getElapsedTime() <= sf::seconds(5.0f)) {
-		// Still in the immortality duration
-		m_texture.loadFromFile("./media/images/match2/p2_hurt.png");
-		m_sprite.setTexture(m_texture);
-	} else {
-		// Immortality duration has passed
-		if (isInmortal) {
-			isInmortal = false;
-			m_texture.loadFromFile("./media/images/match2/p2.png");
-			m_sprite.setTexture(m_texture);
-			inmortalClock.restart();
+bool Player::getInmortal() {
+	return isInmortal;
+}
+
+void Player::updateInmortality(int aux) {
+	if (isInmortal && inmortalClock.getElapsedTime() <= sf::seconds(10.0f)) {
+		if(aux == 1){
+			m_texture.loadFromFile("./media/images/match1/p1_booster.png");
+			jumpTex.loadFromFile("./media/images/match1/p1_booster.png");
+			leftTex.loadFromFile("./media/images/match1/p1_booster.png");
+			rightTex.loadFromFile("./media/images/match1/p1_booster.png");
+			attackTex.loadFromFile("./media/images/match1/p1_booster.png");
 		}
+		if(aux == 2){
+			m_texture.loadFromFile("./media/images/match2/p2_booster.png");
+			jumpTex.loadFromFile("./media/images/match2/p2_booster.png");
+			leftTex.loadFromFile("./media/images/match2/p2_booster.png");
+			rightTex.loadFromFile("./media/images/match2/p2_booster.png");
+			attackTex.loadFromFile("./media/images/match2/p2_booster.png");
+		}
+	} 
+	if (isInmortal && inmortalClock.getElapsedTime() >= sf::seconds(10.0f)) {
+		if(aux == 1){
+			m_texture.loadFromFile("./media/images/match1/player.png");
+			jumpTex.loadFromFile("./media/images/match1/p1_jump.png");
+			leftTex.loadFromFile("./media/images/match1/p1_left.png");
+			rightTex.loadFromFile("./media/images/match1/p1_right.png");
+			attackTex.loadFromFile("./media/images/match1/p1_dead.png");
+		}
+		if(aux == 2){
+			m_texture.loadFromFile("./media/images/match2/p2.png");
+			jumpTex.loadFromFile("./media/images/match2/p2_jump.png");
+			leftTex.loadFromFile("./media/images/match2/p2_left.png");
+			rightTex.loadFromFile("./media/images/match2/p2_right.png");
+			attackTex.loadFromFile("./media/images/match2/p2_hurt.png");
+		}
+		isInmortal = false;
 	}
 }
 
-
-void Player::killEnemy() {
-	// L�gica para eliminar a un enemigo al pasar sobre �l.
+void Player::clockInmortality() {
+	inmortalClock.restart();
 }
 
 void Player::updateLife(){

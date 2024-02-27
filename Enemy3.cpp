@@ -50,3 +50,30 @@ bool Enemy3::attackPlayer(Object &o) {
 	}
 	return false;
 }
+
+
+bool Enemy3::collideWithInmortal(Object &o) {
+	auto r1 = m_sprite.getGlobalBounds();
+	auto r2 = o.getGlobalBounds();
+	if (r2.intersects(r1)) {
+		// Verifica si el jugador est� encima de la plataforma
+		if (r2.top + r2.height < r1.top + 0.9f * r1.height) {
+			// El jugador cae sobre la plataforma
+			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+				return true;
+			}
+		} else {
+			return true;
+		}
+		return true;
+	}
+	return false;
+}
+
+bool Enemy3::getMoveEnemy() const {
+	return moveEnemy;
+}
+
+void Enemy3::setMoveEnemy(bool aux) {
+	this->moveEnemy = aux;
+}

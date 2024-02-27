@@ -122,6 +122,9 @@ void Match1::update(Game &game, float dt) {
 		if(m_player.collideWith(platform)){
 			m_player.rewindJump(cooldown);
 		}
+		for (auto& enemy1 : enemylvl1) {
+			enemy1.collideWith(platform);
+		}
 		for (auto& enemy2 : enemylvl2) {
 			enemy2.collideWith(platform);
 		}
@@ -132,6 +135,22 @@ void Match1::update(Game &game, float dt) {
 			game.playCoinSound();
 			coin.setTaken(true);
 			pointCount++;
+		}
+	}
+	
+	for (auto& inmortal : inmortals) {
+		if (!inmortal.isTakenB() && m_player.getGlobalBounds().intersects(inmortal.getGlobalBounds())) {
+			inmortal.setTakenB(true);
+			m_player.setInmortal(true);
+			m_player.clockInmortality();
+		}
+		m_player.updateInmortality(1);
+	}
+	
+	for (auto& life : lifesBoost) {
+		if (!life.isTakenB() && m_player.getGlobalBounds().intersects(life.getGlobalBounds())&& m_player.getLifes()<5) {
+			life.setTakenB(true);
+			m_player.updateLife();
 		}
 	}
 }
@@ -170,7 +189,24 @@ void Match1::draw(sf::RenderWindow &window) {
 	}
 	
 	for (auto& enemy3 : enemylvl3) {
-		enemy3.draw(window);
+		if(enemy3.getMoveEnemy()){
+			enemy3.draw(window);
+		}
+	}
+	
+	for (auto& inmortal : inmortals) {
+		if (!inmortal.isTakenB()) {
+			inmortal.draw(window);
+		}
+		if(m_player.getInmortal()){
+			window.draw(inmortal.getSprite());
+		}
+	}
+	
+	for(auto& life: lifesBoost){
+		if(!life.isTakenB()){
+			life.draw(window);
+		}
 	}
 	
 	lifesText.setString("Lifes " + std::to_string(m_player.getLifes()));
@@ -210,6 +246,14 @@ void Match1::moveCoins(float dt) {
 	for (auto& coin : coins) {
 		coin.update(dt);
 	}
+	
+	for (auto& inmortal : inmortals) {
+		inmortal.update(dt);
+	}
+	
+	for(auto& life : lifesBoost) {
+		life.update(dt);
+	}
 }
 
 void Match1::generateRandomCoins() {
@@ -218,6 +262,18 @@ void Match1::generateRandomCoins() {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
 		float coinSpeed = -100.f;  // Velocidad de la moneda
 		coins.emplace_back(coinPosition, coinSpeed,"./media/images/match1/star.png");
+	}
+	
+	if (rand()% 500  == 1) {
+		sf::Vector2f positionInmortal(800.f, rand() % 250 + 250.f);  // Ajusta el rango vertical
+		float inmortalSpeed = -30.f;  // Velocidad del booster (ajústala según sea necesario)
+		inmortals.emplace_back(positionInmortal, inmortalSpeed,"./media/images/match1/InmortalBoost.png","./media/images/match1/InmortalBoost.png");
+	}
+	
+	if (rand()% 300  == 1) {
+		sf::Vector2f positionLife(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
+		float lifeSpeed = -100.f;  // Velocidad del booster (ajústala según sea necesario)
+		lifesBoost.emplace_back(positionLife, lifeSpeed,"./media/images/match2/Sprite-Heart.png");
 	}
 }
 
@@ -230,16 +286,15 @@ void Match1::despawnCoins() {
 
 void Match1::generateRandomEnemy() {
 	// Genera monedas aleatorias en la derecha de la pantalla
-	if (rand() % 300 == 1) {
+	if (rand() % 800 == 1) {
 		enemylvl1.emplace_back("./media/images/match1/Enemy1_left.png","./media/images/match1/Enemy1_right.png");
 	} 
 	
-	if (rand() % 300 == 1) {
+	if (rand() % 800 == 1) {
 		enemylvl2.emplace_back("./media/images/match1/Enemy2_left.png","./media/images/match1/Enemy2_right.png","./media/images/match1/BulletLeft.png","./media/images/match1/BulletRight.png");
 	}
 	
-	
-	if (rand() % 300 == 1) {
+	if (rand() % 800 == 1) {
 		float positionAux = rand() % 250 + 50.f;
 		enemylvl3.emplace_back("./media/images/match1/Enemy3.png", positionAux);
 	}
@@ -249,23 +304,25 @@ void Match1::enemy1Mecanic(float dt){
 	for (auto& enemy1 : enemylvl1) {
 		if(enemy1.getMoveEnemy()){
 			enemy1.update(dt,m_player);
-
-			if(enemy1.collideWithPlayer(m_player)){
+			if(!m_player.getInmortal()){
+				if(enemy1.collideWithPlayer(m_player)){
+					enemy1.setMoveEnemy(false);
+					timer.restart();
+				} else if(enemy1.attackPlayer(m_player) && cooldown == false ){
+					m_player.loseLife();
+					cooldown = true;
+					timer.restart();
+				}
+			}
+			if(m_player.getInmortal() && enemy1.collideWithInmortal(m_player)){
 				enemy1.setMoveEnemy(false);
-				timer.restart();
-			} 
-			else if(enemy1.attackPlayer(m_player) && cooldown == false){
-				m_player.loseLife();
-				cooldown = true;
 				timer.restart();
 			}
 		}
-
 		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
-
 		if(!enemy1.getMoveEnemy()){
 			if (timer.getElapsedTime() >= sf::seconds(3)) {
-				// Llama al metodo que deseas activar despues de 10 segundos
+				// Llama al método que deseas activar después de 10 segundos
 				enemy1.setDespawnEnemy(true);
 				
 			} 
@@ -277,23 +334,26 @@ void Match1::enemy2Mecanic(float dt){
 	for (auto& enemy2 : enemylvl2) {
 		if(enemy2.getMoveEnemy()){
 			enemy2.update(dt,m_player);
-			
-			if(enemy2.collideWithPlayer(m_player)){
+			if(!m_player.getInmortal()){
+				if(enemy2.collideWithPlayer(m_player)){
+					enemy2.setMoveEnemy(false);
+					timer.restart();
+				} else if(enemy2.attackPlayer(m_player) && cooldown == false){
+					m_player.loseLife();
+					cooldown = true;
+					timer.restart();
+				}
+			}
+			if(m_player.getInmortal() && enemy2.collideWithInmortal(m_player)){
 				enemy2.setMoveEnemy(false);
-				timer.restart();
-			} 
-			else if(enemy2.attackPlayer(m_player) && cooldown == false){
-				m_player.loseLife();
-				cooldown = true;
 				timer.restart();
 			}
 		}
 		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
 		if(!enemy2.getMoveEnemy()){
 			if (timer.getElapsedTime() >= sf::seconds(3)) {
-				// Llama al metodo que deseas activar despues de 10 segundos
+				// Llama al método que deseas activar después de 10 segundos
 				enemy2.setDespawnEnemy(true);
-				
 			} 
 		}
 	}
@@ -302,12 +362,21 @@ void Match1::enemy2Mecanic(float dt){
 void Match1::enemy3Mecanic(){
 	for (auto& enemy3 : enemylvl3) {
 		enemy3.update();
-		if(enemy3.attackPlayer(m_player) && cooldown == false){
-			m_player.loseLife();
-			cooldown = true;
+		if(!m_player.getInmortal()){
+			if(enemy3.attackPlayer(m_player) && cooldown == false){
+				if(!m_player.getInmortal()){
+					m_player.loseLife();
+					cooldown = true;
+					timer.restart();
+				}
+			}
+		}
+		if(m_player.getInmortal() && enemy3.collideWithInmortal(m_player)){
+			enemy3.setMoveEnemy(false);
 			timer.restart();
 		}
 		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
 	}
 }
+
 

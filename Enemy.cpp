@@ -62,6 +62,30 @@ bool Enemy::collideWithPlayer(Object &o) {
 	return false;
 }
 
+bool Enemy::collideWithInmortal(Object &o) {
+	auto r1 = m_sprite.getGlobalBounds();
+	auto r2 = o.getGlobalBounds();
+	if (r2.intersects(r1)) {
+		// Verifica si el jugador est� encima de la plataforma
+		if (r2.top + r2.height < r1.top + 0.9f * r1.height) {
+			// El jugador cae sobre la plataforma
+			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+				m_pos.y = m_pos.y + 30.f;
+				m_sprite.setPosition(m_pos);
+				m_sprite.setScale(1.2f,0.3f);
+				return true;
+			}
+		} else {
+			m_pos.y = m_pos.y + 30.f;
+			m_sprite.setPosition(m_pos);
+			m_sprite.setScale(1.2f,0.3f);
+			return true;
+		}
+		return true;
+	}
+	return false;
+}
+
 bool Enemy::attackPlayer(Object &o) {
 	auto r2 = m_sprite.getGlobalBounds();
 	auto r1 = o.getGlobalBounds();

@@ -11,6 +11,8 @@
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include "InmortalBooster.h"
+#include "LifeBooster.h"
 
 
 class Match1 : public Scene {
@@ -36,8 +38,8 @@ private:
 	bool cooldown;
 	sf::Text lifesText;
 	std::vector<Enemy> enemylvl1;
-	std::vector<Enemy3> enemylvl3;
 	std::vector<Enemy2> enemylvl2;
+	std::vector<Enemy3> enemylvl3;
 	sf::Clock attackBullTimer;
 	bool attackBull;
 	
@@ -45,6 +47,10 @@ private:
 	Player m_player;
 	sf::Texture textureMatch1;
 	sf::Sprite spriteMatch1;
+	
+	std::vector<InmortalBooster> inmortals;
+	
+	std::vector<LifeBooster> lifesBoost;
 	
 	std::vector<PlatformMobile> platformsMobile;
 	
@@ -61,6 +67,7 @@ private:
 	bool upPressed;
 	bool downPressed;
 	bool pause;
+
 };
 
 #endif

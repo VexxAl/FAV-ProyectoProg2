@@ -35,7 +35,21 @@ public:
 	void despawnItems();
 	void moveItems(float dt);
 	
+	void generateRandomEnemy();
+	void enemy1Mecanic(float dt);
+	void enemy2Mecanic(float dt);
+	void enemy3Mecanic();
+	
 private:
+	sf::Clock timer; 
+	bool cooldown;
+	sf::Text lifesText;
+	std::vector<Enemy> enemylvl1;
+	std::vector<Enemy3> enemylvl3;
+	std::vector<Enemy2> enemylvl2;
+	sf::Clock attackBullTimer;
+	bool attackBull;
+	
 	sf::RectangleShape m_floor;
 	sf::Texture textureMatch2;
 	sf::Sprite spriteMatch2;
@@ -61,8 +75,6 @@ private:
 	bool upPressed;
 	bool downPressed;
 	bool pause;
-	
-	sf::Text lifesText;
 };
 
 #endif

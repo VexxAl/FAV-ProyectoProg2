@@ -6,7 +6,7 @@
 
 class InmortalBooster : public Object {
 public:
-	InmortalBooster(sf::Vector2f position, float speed, std::string fname);
+	InmortalBooster(sf::Vector2f position, float speed, std::string fname, std::string imagen);
 	bool isTakenB() const {return taken;}
 	void setTakenB(bool taken);
 	void update (float dt);
@@ -21,4 +21,5 @@ private:
 };
 
 #endif
+
 
