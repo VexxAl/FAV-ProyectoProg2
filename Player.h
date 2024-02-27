@@ -5,14 +5,12 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/System/Clock.hpp>
-#include <SFML/System/Time.hpp>
-
 
 class Player : public Object {
 public:
 	Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName, float e1, float e2);
-	void update(sf::FloatRect platformBounds, float dt, bool cool);
-	void rewindJump();
+	void update(sf::FloatRect platformBounds, float dt, bool cooldown);
+	void rewindJump(bool cooldown);
 	
 	void loseLife();
 	int getLifes();
@@ -29,18 +27,17 @@ private:
 	bool SpacePresed;
 	sf::Vector2f previousPosition;
 	bool isPaused;
-		
+	
 	sf::Texture jumpTex;
 	sf::Texture leftTex;
 	sf::Texture rightTex;
-		
+	
 	sf::Texture attackTex;
-	bool cooldown;
 	int lifes;
-		
+	
 	sf::SoundBuffer jump_buffer;
 	sf::Sound jump_sound;
-		
+	
 	bool isInmortal;
 	sf::Clock inmortalClock;
 };

@@ -96,7 +96,7 @@ void Match2::update(Game &game, float dt) {
 	
 	for (auto& platform : platformsMobile) {
 		if(m_player.collideWith(platform)){
-			m_player.rewindJump();
+			m_player.rewindJump(false);
 		}
 	}
 	

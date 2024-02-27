@@ -23,10 +23,9 @@ Player::Player(std::string fname,std::string jumpName, std::string leftName, std
 }
 
 
-void Player::update(sf::FloatRect platformBounds, float dt, bool cool) {
+void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 	// Logica de actualizacion especifica del jugador
 	// Movement based on dt
-	cooldown = cool;
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		m_speed.x -= 55.f;
@@ -103,10 +102,14 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cool) {
 	}
 }
 
-void Player::rewindJump(){
+void Player::rewindJump(bool cooldown){
 	jumpCount = 0;
 	if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-		m_sprite.setTexture(m_texture);
+		if(cooldown){
+			m_sprite.setTexture(attackTex);
+		} else {
+			m_sprite.setTexture(m_texture);
+		}
 	}
 }
 

@@ -9,7 +9,7 @@
 
 
 Match1::Match1() : m_player("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
-		"./media/images/match1/p1_right.png","./media/images/match2/p2_hurt.png",1.0f,1.0f), coinCount(0) {
+		"./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png",1.0f,1.0f), pointCount(0) {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});
@@ -20,10 +20,15 @@ Match1::Match1() : m_player("./media/images/match1/player.png", "./media/images/
 		std::cerr << "Error al cargar la fuente" << std::endl;
 	}
 	
-	coinText.setFont(font);
-	coinText.setCharacterSize(24);
-	coinText.setFillColor(sf::Color::White);
-	coinText.setPosition(10.f, 10.f);
+	pointText.setFont(font);
+	pointText.setCharacterSize(24);
+	pointText.setFillColor(sf::Color::White);
+	pointText.setPosition(10.f, 10.f);
+	
+	lifesText.setFont(font);
+	lifesText.setCharacterSize(24);
+	lifesText.setFillColor(sf::Color::Cyan);
+	lifesText.setPosition(670.f, 10.f);
 	
 	m_floorPause.setPosition({200.0, 100.0});
 	m_floorPause.setSize({400.0, 350.0});
@@ -43,6 +48,8 @@ Match1::Match1() : m_player("./media/images/match1/player.png", "./media/images/
 	upPressed = false;
 	downPressed = false;
 	state = false;
+	cooldown = false;
+	attackBull = false;
 }
 
 void Match1::update(Game &game, float dt) {
@@ -50,14 +57,21 @@ void Match1::update(Game &game, float dt) {
 		pause = true;
 		game.playEnterSound();
 	}
+	if(m_player.getLifes() <= 0) pause = true;
 	
 	if (!pause){
-		m_player.update(m_floor.getGlobalBounds(), dt, false);
+		m_player.update(m_floor.getGlobalBounds(), dt, cooldown);
+		generateRandomEnemy();
+		enemy1Mecanic(dt);
+		enemy2Mecanic(dt);
+		enemy3Mecanic();
 		generateRandomPlatformsMobile();
 		movePlatformsMobile(dt);
+		
 		generateRandomCoins();
 		despawnCoins();
 		moveCoins(dt);
+		// */
 	}
 	
 	if (pause) {
@@ -81,22 +95,18 @@ void Match1::update(Game &game, float dt) {
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 			game.playEnterSound();
-			
 			// Manejo de la opcion seleccionada:
 			if (m_selectedOption == 0) {
 				pause = false;
 			}
 			else if (m_selectedOption == 1) {
 				game.playMatch1Music();
-				
 				state = true;
 				Scene* newScene = new Match1();
 				game.setScene(newScene);
-
-			}else if (m_selectedOption == 2) {
+			} else if (m_selectedOption == 2) {
 				game.stopMatch1Music();
 				game.playMenuMusic();
-				
 				state = true;
 				Scene* newScene = new Menu();
 				game.setScene(newScene);
@@ -107,16 +117,18 @@ void Match1::update(Game &game, float dt) {
 	
 	for (auto& platform : platformsMobile) {
 		if(m_player.collideWith(platform)){
-			m_player.rewindJump();
+			m_player.rewindJump(cooldown);
+		}
+		for (auto& enemy2 : enemylvl2) {
+			enemy2.collideWith(platform);
 		}
 	}
 	
 	for (auto& coin : coins) {
 		if (!coin.isTaken() && m_player.getGlobalBounds().intersects(coin.getGlobalBounds())) {
 			game.playCoinSound();
-
 			coin.setTaken(true);
-			coinCount++;
+			pointCount++;
 		}
 	}
 }
@@ -136,8 +148,30 @@ void Match1::draw(sf::RenderWindow &window) {
 			coin.draw(window);
 		}
 	}
-	coinText.setString("Coins " + std::to_string(coinCount));
-	window.draw(coinText);
+	pointText.setString("Points " + std::to_string(pointCount));
+	window.draw(pointText);
+	
+	for (auto& enemy1 : enemylvl1) {
+		if(enemy1.getMoveEnemy() || !enemy1.getDespawnEnemy()){
+			enemy1.draw(window);
+		}
+	}
+	
+	for (auto& enemy2 : enemylvl2) {
+		if(enemy2.getMoveEnemy() || !enemy2.getDespawnEnemy()){
+			enemy2.draw(window);
+		}
+		if(enemy2.getMoveEnemy()){
+			enemy2.drawBullet(window);
+		}
+	}
+	
+	for (auto& enemy3 : enemylvl3) {
+		enemy3.draw(window);
+	}
+	
+	lifesText.setString("Lifes " + std::to_string(m_player.getLifes()));
+	window.draw(lifesText);
 	
 	if (pause){
 		window.draw(m_floorPause);
@@ -191,4 +225,80 @@ void Match1::despawnCoins() {
 	}), coins.end());
 }
 
+void Match1::generateRandomEnemy() {
+	// Genera monedas aleatorias en la derecha de la pantalla
+	if (rand() % 300 == 1) {
+		enemylvl1.emplace_back("./media/images/match1/Enemy1_left.png","./media/images/match1/Enemy1_right.png");
+	} 
+	
+	if (rand() % 300 == 1) {
+		enemylvl2.emplace_back("./media/images/match1/Enemy2_left.png","./media/images/match1/Enemy2_right.png","./media/images/match1/BulletLeft.png","./media/images/match1/BulletRight.png");
+	}
+	
+	
+	if (rand() % 300 == 1) {
+		float positionAux = rand() % 250 + 50.f;
+		enemylvl3.emplace_back("./media/images/match1/Enemy3.png", positionAux);
+	}
+}
+
+void Match1::enemy1Mecanic(float dt){
+	for (auto& enemy1 : enemylvl1) {
+		if(enemy1.getMoveEnemy()){
+			enemy1.update(dt,m_player);
+			if(enemy1.collideWithPlayer(m_player)){
+				enemy1.setMoveEnemy(false);
+				timer.restart();
+			} else if(enemy1.attackPlayer(m_player) && cooldown == false){
+				m_player.loseLife();
+				cooldown = true;
+				timer.restart();
+			}
+		}
+		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
+		if(!enemy1.getMoveEnemy()){
+			if (timer.getElapsedTime() >= sf::seconds(3)) {
+				// Llama al método que deseas activar después de 10 segundos
+				enemy1.setDespawnEnemy(true);
+				
+			} 
+		}
+	}
+}
+
+void Match1::enemy2Mecanic(float dt){
+	for (auto& enemy2 : enemylvl2) {
+		if(enemy2.getMoveEnemy()){
+			enemy2.update(dt,m_player);
+			if(enemy2.collideWithPlayer(m_player)){
+				enemy2.setMoveEnemy(false);
+				timer.restart();
+			} else if(enemy2.attackPlayer(m_player) && cooldown == false){
+				m_player.loseLife();
+				cooldown = true;
+				timer.restart();
+			}
+		}
+		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
+		if(!enemy2.getMoveEnemy()){
+			if (timer.getElapsedTime() >= sf::seconds(3)) {
+				// Llama al método que deseas activar después de 10 segundos
+				enemy2.setDespawnEnemy(true);
+				
+			} 
+		}
+	}
+}
+
+void Match1::enemy3Mecanic(){
+	for (auto& enemy3 : enemylvl3) {
+		enemy3.update();
+		if(enemy3.attackPlayer(m_player) && cooldown == false){
+			m_player.loseLife();
+			cooldown = true;
+			timer.restart();
+		}
+		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
+	}
+}
 
