@@ -17,6 +17,7 @@ private:
 	sf::Texture rightTex;
 	int speedBullet;
 	bool left;
+	bool leftEnemy2;
 	
 	sf::Texture BulletTexRight;
 	sf::Texture BulletTexLeft;

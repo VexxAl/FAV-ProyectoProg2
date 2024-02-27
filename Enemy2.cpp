@@ -23,8 +23,8 @@ void Enemy2::update(float dt, Player &p) {
 		m_speed.x = 0;
 	}
 	
-
-	if (rand() % 350 == 1 && m_pos.y == 425.f) {
+	
+	if (rand() % 50 == 1 && m_pos.y == 425.f) {
 		m_speed.y = -1500.f; 
 	} else if (m_pos.y >= 425.f){
 		m_speed.y = 0.0f;
@@ -36,9 +36,11 @@ void Enemy2::update(float dt, Player &p) {
 	if (p.getPositionx() < m_pos.x) {
 		m_speed.x -= 2.f;
 		m_sprite.setTexture(m_texture);
+		leftEnemy2 = true; 
 	} else {
 		m_speed.x += 2.f;
 		m_sprite.setTexture(rightTex);
+		leftEnemy2 = false; 
 	}
 	// Actualiza la posición de la bala y maneja su lógica
 	updateBullet(dt, p);
@@ -93,10 +95,20 @@ bool Enemy2::collideWithPlayer(Object &o) {
 			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 				m_pos.y = m_pos.y + 75.f;
 				m_sprite.setPosition(m_pos);
+				if(leftEnemy2){
+					m_sprite.setTexture(m_texture);
+				} else {
+					m_sprite.setTexture(rightTex);
+				}
 				m_sprite.setScale(2.f,0.3f);
 				return true;
 			}
 		} else {
+			if(leftEnemy2){
+				m_sprite.setTexture(m_texture);
+			} else {
+				m_sprite.setTexture(rightTex);
+			}
 			return false;
 		}
 		return false;
@@ -121,3 +133,4 @@ bool Enemy2::attackPlayer(Object &o) {
 	}
 	return false;
 }
+
