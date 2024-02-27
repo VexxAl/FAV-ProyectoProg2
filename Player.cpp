@@ -6,8 +6,8 @@
 #include <iostream>
 
 
-Player::Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName, float e1, float e2)
-	: Object(fname), jumpCount(0), SpacePresed(false), lifes(3) {
+Player::Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName,std::string boosterName, float e1, float e2)
+	: Object(fname), jumpCount(0), SpacePresed(false), lifes(3), m_textureTexpun(nullptr), rightTexpun(nullptr), jumpTexpun(nullptr), leftTexpun(nullptr) {
 	m_sprite.setPosition(450, 400); // Establece la posicion inicial del jugador
 	m_pos.x = 400.0f;
 	m_pos.y = 450.0f;
@@ -15,11 +15,15 @@ Player::Player(std::string fname,std::string jumpName, std::string leftName, std
 	leftTex.loadFromFile(leftName);
 	rightTex.loadFromFile(rightName);
 	attackTex.loadFromFile(attackName);
+	boosterTex.loadFromFile(boosterName);
+	
+	setInmortal(false);
+	
 	m_sprite.setScale(e1,e2);
 	
 	jump_buffer.loadFromFile("./media/sounds/jump_sound.wav");
 	jump_sound.setBuffer(jump_buffer);
-
+	
 	hurt_buffer.loadFromFile("./media/sounds/hurt_sound.wav");
 	hurt_sound.setBuffer(hurt_buffer);
 	
@@ -36,7 +40,7 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 			if(cooldown){
 				m_sprite.setTexture(attackTex);
 			} else {
-				m_sprite.setTexture(leftTex);
+				m_sprite.setTexture(*leftTexpun);
 			}
 		}
 	}
@@ -46,7 +50,7 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 			if(cooldown){
 				m_sprite.setTexture(attackTex);
 			} else {
-				m_sprite.setTexture(rightTex);
+				m_sprite.setTexture(*rightTexpun);
 			}
 		}
 	}
@@ -92,7 +96,7 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 			if(cooldown){
 				m_sprite.setTexture(attackTex);
 			} else {
-				m_sprite.setTexture(m_texture);
+				m_sprite.setTexture(*m_textureTexpun);
 			}
 		}
 	}
@@ -105,7 +109,7 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 		if(cooldown){
 			m_sprite.setTexture(attackTex);
 		} else {
-			m_sprite.setTexture(jumpTex);
+			m_sprite.setTexture(*jumpTexpun);
 		}
 	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		SpacePresed = false;
@@ -118,7 +122,7 @@ void Player::rewindJump(bool cooldown){
 		if(cooldown){
 			m_sprite.setTexture(attackTex);
 		} else {
-			m_sprite.setTexture(m_texture);
+			m_sprite.setTexture(*m_textureTexpun);
 		}
 	}
 }
@@ -126,7 +130,7 @@ void Player::rewindJump(bool cooldown){
 void Player::loseLife(){
 	m_sprite.setTexture(attackTex);
 	lifes--;
-
+	
 	hurt_sound.play();
 }
 
@@ -137,45 +141,28 @@ int Player::getLifes(){
 
 void Player::setInmortal(bool inmortal) {
 	isInmortal = inmortal;
+	if (isInmortal) {
+		m_textureTexpun = &boosterTex;
+		rightTexpun = &boosterTex;
+		jumpTexpun = &boosterTex;
+		leftTexpun = &boosterTex;
+	} else {
+		m_textureTexpun = &m_texture;
+		rightTexpun = &rightTex;
+		jumpTexpun = &jumpTex;
+		leftTexpun = &leftTex;
+	}
 }
 
 bool Player::getInmortal() {
 	return isInmortal;
 }
 
-void Player::updateInmortality(int aux) {
+void Player::updateInmortality() {
 	if (isInmortal && inmortalClock.getElapsedTime() <= sf::seconds(10.0f)) {
-		if(aux == 1){
-			m_texture.loadFromFile("./media/images/match1/p1_booster.png");
-			jumpTex.loadFromFile("./media/images/match1/p1_booster.png");
-			leftTex.loadFromFile("./media/images/match1/p1_booster.png");
-			rightTex.loadFromFile("./media/images/match1/p1_booster.png");
-			attackTex.loadFromFile("./media/images/match1/p1_booster.png");
-		}
-		if(aux == 2){
-			m_texture.loadFromFile("./media/images/match2/p2_booster.png");
-			jumpTex.loadFromFile("./media/images/match2/p2_booster.png");
-			leftTex.loadFromFile("./media/images/match2/p2_booster.png");
-			rightTex.loadFromFile("./media/images/match2/p2_booster.png");
-			attackTex.loadFromFile("./media/images/match2/p2_booster.png");
-		}
 	} 
 	if (isInmortal && inmortalClock.getElapsedTime() >= sf::seconds(10.0f)) {
-		if(aux == 1){
-			m_texture.loadFromFile("./media/images/match1/player.png");
-			jumpTex.loadFromFile("./media/images/match1/p1_jump.png");
-			leftTex.loadFromFile("./media/images/match1/p1_left.png");
-			rightTex.loadFromFile("./media/images/match1/p1_right.png");
-			attackTex.loadFromFile("./media/images/match1/p1_dead.png");
-		}
-		if(aux == 2){
-			m_texture.loadFromFile("./media/images/match2/p2.png");
-			jumpTex.loadFromFile("./media/images/match2/p2_jump.png");
-			leftTex.loadFromFile("./media/images/match2/p2_left.png");
-			rightTex.loadFromFile("./media/images/match2/p2_right.png");
-			attackTex.loadFromFile("./media/images/match2/p2_hurt.png");
-		}
-		isInmortal = false;
+		setInmortal(false);
 	}
 }
 
@@ -186,3 +173,4 @@ void Player::clockInmortality() {
 void Player::updateLife(){
 	lifes++;
 }
+

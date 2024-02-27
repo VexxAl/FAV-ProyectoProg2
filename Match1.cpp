@@ -6,10 +6,11 @@
 #include <SFML/Window/Keyboard.hpp>
 
 #include <iostream>
+#include "GameOver.h"
 
 
 Match1::Match1() : m_player("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
-		"./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png",1.0f,1.0f), pointCount(0) {
+		"./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png","./media/images/match1/p1_booster.png",1.0f,1.0f), pointCount(0) {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});
@@ -147,7 +148,7 @@ void Match1::update(Game &game, float dt) {
 			m_player.setInmortal(true);
 			m_player.clockInmortality();
 		}
-		m_player.updateInmortality(1);
+		m_player.updateInmortality();
 	}
 	
 	for (auto& life : lifesBoost) {

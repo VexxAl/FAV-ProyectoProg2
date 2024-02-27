@@ -8,7 +8,7 @@
 
 class Player : public Object {
 public:
-	Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName, float e1, float e2);
+	Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName,std::string boosterName, float e1, float e2);
 	void update(sf::FloatRect platformBounds, float dt, bool cooldown);
 	void rewindJump(bool cooldown);
 	
@@ -19,7 +19,7 @@ public:
 	bool getInmortal();
 	void clockInmortality();
 	void setInmortal(bool inmortal);
-	void updateInmortality(int aux);
+	void updateInmortality();
 	
 	
 private:
@@ -31,13 +31,20 @@ private:
 	sf::Texture jumpTex;
 	sf::Texture leftTex;
 	sf::Texture rightTex;
-	
+	sf::Texture boosterTex;
 	sf::Texture attackTex;
+	
+	
+	sf::Texture* m_textureTexpun;
+	sf::Texture* rightTexpun;
+	sf::Texture* jumpTexpun;
+	sf::Texture* leftTexpun;
+	
 	int lifes;
 	
 	sf::SoundBuffer jump_buffer;
 	sf::Sound jump_sound;
-
+	
 	sf::SoundBuffer hurt_buffer;
 	sf::Sound hurt_sound;
 	
@@ -46,3 +53,5 @@ private:
 };
 
 #endif
+
+

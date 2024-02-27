@@ -12,6 +12,9 @@
 #include <SFML/Graphics/Text.hpp>
 #include "InmortalBooster.h"
 #include "LifeBooster.h"
+#include "Enemy.h"
+#include "Enemy3.h"
+#include "Enemy2.h"
 
 
 class Match2 : public Scene {

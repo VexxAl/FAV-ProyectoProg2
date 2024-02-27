@@ -3,9 +3,10 @@
 
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
+#include "GameOver.h"
 
 Match2::Match2() : m_player("./media/images/match2/p2.png","./media/images/match2/p2_jumpPrueba.png",
-							"./media/images/match2/p2_left.png","./media/images/match2/p2_right.png","./media/images/match2/p2_hurt.png",2.6f,2.6f) {
+							"./media/images/match2/p2_left.png","./media/images/match2/p2_right.png","./media/images/match2/p2_hurt.png","./media/images/match1/p1_booster.png",2.6f,2.6f) {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});
@@ -135,7 +136,7 @@ void Match2::update(Game &game, float dt) {
 			m_player.setInmortal(true);
 			m_player.clockInmortality();
 		}
-		m_player.updateInmortality(2);
+		m_player.updateInmortality();
 	}
 	
 	for (auto& life : lifesBoost) {
