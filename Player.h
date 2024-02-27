@@ -37,6 +37,9 @@ private:
 	
 	sf::SoundBuffer jump_buffer;
 	sf::Sound jump_sound;
+
+	sf::SoundBuffer hurt_buffer;
+	sf::Sound hurt_sound;
 	
 	bool isInmortal;
 	sf::Clock inmortalClock;

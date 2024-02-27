@@ -1,7 +1,9 @@
 #ifndef ENEMY_H
 #define ENEMY_H
+
 #include "Object.h"
 #include "Player.h"
+
 
 class Enemy : public Object {
 public:
@@ -19,6 +21,9 @@ private:
 	
 	bool moveEnemy;
 	bool despawnEnemy;
+
+	sf::SoundBuffer kill_enemy1_buffer;
+	sf::Sound kill_enemy1_sound;
 };
 
 #endif

@@ -33,6 +33,7 @@ public:
 	void playCoinSound() { coin_sound.play(); }
 	void playSelectSound() { sel_sound.play(); }
 	void playEnterSound() { enter_sound.play(); }
+	void playGameOverSound() { game_over_sound.play(); }
 
 private:
 	sf::RenderWindow window;
@@ -52,6 +53,9 @@ private:
 
 	sf::SoundBuffer coin_buffer;
 	sf::Sound coin_sound;
+
+	sf::SoundBuffer game_over_buffer;
+	sf::Sound game_over_sound;
 };
 
 #endif // GAME_H

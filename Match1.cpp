@@ -57,8 +57,9 @@ void Match1::update(Game &game, float dt) {
 		pause = true;
 		game.playEnterSound();
 	}
+
 	if(m_player.getLifes() <= 0) pause = true;
-	
+
 	if (!pause){
 		m_player.update(m_floor.getGlobalBounds(), dt, cooldown);
 		generateRandomEnemy();
@@ -71,7 +72,6 @@ void Match1::update(Game &game, float dt) {
 		generateRandomCoins();
 		despawnCoins();
 		moveCoins(dt);
-		// */
 	}
 	
 	if (pause) {
@@ -95,18 +95,21 @@ void Match1::update(Game &game, float dt) {
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 			game.playEnterSound();
+			
 			// Manejo de la opcion seleccionada:
 			if (m_selectedOption == 0) {
 				pause = false;
 			}
 			else if (m_selectedOption == 1) {
 				game.playMatch1Music();
+				
 				state = true;
 				Scene* newScene = new Match1();
 				game.setScene(newScene);
 			} else if (m_selectedOption == 2) {
 				game.stopMatch1Music();
 				game.playMenuMusic();
+				
 				state = true;
 				Scene* newScene = new Menu();
 				game.setScene(newScene);
@@ -187,10 +190,10 @@ void Match1::draw(sf::RenderWindow &window) {
 }
 
 void Match1::generateRandomPlatformsMobile() {
-	// Genera plataformas mï¿½viles aleatorias en la derecha de la pantalla
+	// Genera plataformas moviles aleatorias en la derecha de la pantalla
 	if (rand() % 200 == 0) {
 		sf::Vector2f platformPosition(800.f, rand() % 200 + 120.f); // Ajusta el rango vertical
-		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad segï¿½n sea necesario
+		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad segun sea necesario
 		platformsMobile.emplace_back(platformPosition, platformSpeed, "./media/images/match1/plataformaSpace.png");
 	}
 }
@@ -213,7 +216,7 @@ void Match1::generateRandomCoins() {
 	// Genera monedas aleatorias en la derecha de la pantalla
 	if (rand() % 100 == 1) {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
-		float coinSpeed = -100.f;  // Velocidad de la moneda (ajï¿½stala segï¿½n sea necesario)
+		float coinSpeed = -100.f;  // Velocidad de la moneda
 		coins.emplace_back(coinPosition, coinSpeed,"./media/images/match1/star.png");
 	}
 }
@@ -246,19 +249,23 @@ void Match1::enemy1Mecanic(float dt){
 	for (auto& enemy1 : enemylvl1) {
 		if(enemy1.getMoveEnemy()){
 			enemy1.update(dt,m_player);
+
 			if(enemy1.collideWithPlayer(m_player)){
 				enemy1.setMoveEnemy(false);
 				timer.restart();
-			} else if(enemy1.attackPlayer(m_player) && cooldown == false){
+			} 
+			else if(enemy1.attackPlayer(m_player) && cooldown == false){
 				m_player.loseLife();
 				cooldown = true;
 				timer.restart();
 			}
 		}
+
 		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
+
 		if(!enemy1.getMoveEnemy()){
 			if (timer.getElapsedTime() >= sf::seconds(3)) {
-				// Llama al método que deseas activar después de 10 segundos
+				// Llama al metodo que deseas activar despues de 10 segundos
 				enemy1.setDespawnEnemy(true);
 				
 			} 
@@ -270,10 +277,12 @@ void Match1::enemy2Mecanic(float dt){
 	for (auto& enemy2 : enemylvl2) {
 		if(enemy2.getMoveEnemy()){
 			enemy2.update(dt,m_player);
+			
 			if(enemy2.collideWithPlayer(m_player)){
 				enemy2.setMoveEnemy(false);
 				timer.restart();
-			} else if(enemy2.attackPlayer(m_player) && cooldown == false){
+			} 
+			else if(enemy2.attackPlayer(m_player) && cooldown == false){
 				m_player.loseLife();
 				cooldown = true;
 				timer.restart();
@@ -282,7 +291,7 @@ void Match1::enemy2Mecanic(float dt){
 		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
 		if(!enemy2.getMoveEnemy()){
 			if (timer.getElapsedTime() >= sf::seconds(3)) {
-				// Llama al método que deseas activar después de 10 segundos
+				// Llama al metodo que deseas activar despues de 10 segundos
 				enemy2.setDespawnEnemy(true);
 				
 			} 

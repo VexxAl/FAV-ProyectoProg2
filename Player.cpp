@@ -19,6 +19,9 @@ Player::Player(std::string fname,std::string jumpName, std::string leftName, std
 	
 	jump_buffer.loadFromFile("./media/sounds/jump_sound.wav");
 	jump_sound.setBuffer(jump_buffer);
+
+	hurt_buffer.loadFromFile("./media/sounds/hurt_sound.wav");
+	hurt_sound.setBuffer(hurt_buffer);
 	
 }
 
@@ -60,7 +63,7 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 	m_sprite.setPosition(m_pos);
 	auto playerBounds = m_sprite.getGlobalBounds();
 	
-	// Lï¿½gica para mantener al jugador dentro de los bordes de la pantalla
+	// Logica para mantener al jugador dentro de los bordes de la pantalla
 	if (m_pos.x < 0) {
 		m_pos.x = 0;
 		m_speed.x = 0;
@@ -69,6 +72,13 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 		m_speed.x = 0;
 	}
 	
+	if (m_pos.y < 0) {
+		m_pos.y = 0;
+		m_speed.y = 0;
+	} else if (m_pos.y > 800 - playerBounds.width) {
+		m_pos.y = 800 - playerBounds.width;
+		m_speed.y = 0;
+	}
 	
 	// Collision handling with platform considering dt
 	if (playerBounds.intersects(platformBounds)) {
@@ -116,6 +126,8 @@ void Player::rewindJump(bool cooldown){
 void Player::loseLife(){
 	m_sprite.setTexture(attackTex);
 	lifes--;
+
+	hurt_sound.play();
 }
 
 int Player::getLifes(){
@@ -145,7 +157,7 @@ void Player::updateInmortality() {
 
 
 void Player::killEnemy() {
-	// Lógica para eliminar a un enemigo al pasar sobre él.
+	// Lï¿½gica para eliminar a un enemigo al pasar sobre ï¿½l.
 }
 
 void Player::updateLife(){

@@ -3,14 +3,14 @@
 
 #include "Coin.h"
 #include "Scene.h"
+#include "Enemy.h"
+#include "Enemy2.h"
+#include "Enemy3.h"
 #include "Player.h"
 #include "PlatformMobile.h"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-#include "Enemy.h"
-#include "Enemy2.h"
-#include "Enemy3.h"
 
 
 class Match1 : public Scene {
