@@ -46,8 +46,9 @@ Match2::Match2() : m_player("./media/images/match2/p2.png","./media/images/match
 }
 
 void Match2::update(Game &game, float dt) {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && pause == false){
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && pause == false){
 		pause = true;
+		game.playEnterSound();
 	}
 	
 	if (!pause){
@@ -185,7 +186,7 @@ void Match2::generateRandomItems(){
 	if (rand() % 100 == 1) {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
 		float coinSpeed = -100.f;  // Velocidad de la moneda (ajústala según sea necesario)
-		coins.emplace_back(coinPosition, coinSpeed,"./media/images/match2/LikeP.png");
+		coins.emplace_back(coinPosition, coinSpeed,"./media/images/match2/likeP.png");
 	}
 	
 	if (rand()% 100  == 1) {

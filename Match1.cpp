@@ -214,7 +214,7 @@ void Match1::generateRandomCoins() {
 	if (rand() % 100 == 1) {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
 		float coinSpeed = -100.f;  // Velocidad de la moneda (aj�stala seg�n sea necesario)
-		coins.emplace_back(coinPosition, coinSpeed,"./media/images/coinSilver.png");
+		coins.emplace_back(coinPosition, coinSpeed,"./media/images/match1/star.png");
 	}
 }
 
