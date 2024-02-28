@@ -76,7 +76,6 @@ void Match2::update(Game &game, float dt) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressed) {
 			m_selectedOption = (m_selectedOption - 1 + m_options.size()) % m_options.size();
 			upPressed = true;
-
 			game.playSelectSound();
 		}
 		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
@@ -86,7 +85,6 @@ void Match2::update(Game &game, float dt) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressed) {
 			m_selectedOption = (m_selectedOption + 1) % m_options.size();
 			downPressed = true;
-
 			game.playSelectSound();
 		}
 		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
@@ -226,25 +224,25 @@ void Match2::draw(sf::RenderWindow &window) {
 
 void Match2::generateRandomItems(){
 	// Genera plataformas moviles aleatorias en la derecha de la pantalla
-	if (rand() % 200 == 0) {
+	if (rand() % 700 == 0) {
 		sf::Vector2f platformPosition(800.f, rand() % 200 + 120.f); // Ajusta el rango vertical
 		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad seg�n sea necesario
 		platformsMobile.emplace_back(platformPosition, platformSpeed, "./media/images/match2/plataformaFAV.png");
 	}
 	// Genera monedas aleatorias en la derecha de la pantalla
-	if (rand() % 100 == 1) {
+	if (rand() % 700 == 1) {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
 		float coinSpeed = -100.f;  // Velocidad de la moneda 
 		coins.emplace_back(coinPosition, coinSpeed,"./media/images/match2/likeP.png");
 	}
 	
-	if (rand()% 100  == 1) {
+	if (rand()% 700  == 1) {
 		sf::Vector2f positionInmortal(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
 		float inmortalSpeed = -100.f;  // Velocidad del booster
-		inmortals.emplace_back(positionInmortal, inmortalSpeed,"./media/images/Repost-Booster.png","./media/images/Repost-Booster.png");
+		inmortals.emplace_back(positionInmortal, inmortalSpeed,"./media/images/match2/Repost-Booster.png","./media/images/match2/Repost-Booster.png");
 	}
 	
-	if (rand()% 100  == 1) {
+	if (rand()% 700  == 1) {
 		sf::Vector2f positionLife(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
 		float lifeSpeed = -100.f;  // Velocidad del booster
 		lifesBoost.emplace_back(positionLife, lifeSpeed,"./media/images/match2/Sprite-Heart.png");

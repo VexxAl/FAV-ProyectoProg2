@@ -26,7 +26,7 @@ path=Game.cpp
 cursor=13:84
 [source]
 path=Match2.cpp
-cursor=130:2
+cursor=241:123
 open=true
 [source]
 path=Scene.cpp
