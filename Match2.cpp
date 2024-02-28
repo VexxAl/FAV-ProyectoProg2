@@ -6,7 +6,7 @@
 #include "GameOver.h"
 
 Match2::Match2() : m_player("./media/images/match2/p2.png","./media/images/match2/p2_jumpPrueba.png",
-							"./media/images/match2/p2_left.png","./media/images/match2/p2_right.png","./media/images/match2/p2_hurt.png","./media/images/match1/p1_booster.png",2.6f,2.6f) {
+							"./media/images/match2/p2_left.png","./media/images/match2/p2_right.png","./media/images/match2/p2_attack.png","./media/images/match2/p2_booster.png",2.6f,2.6f) {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});
@@ -44,6 +44,8 @@ Match2::Match2() : m_player("./media/images/match2/p2.png","./media/images/match
 	upPressed = false;
 	downPressed = false;
 	state = false;
+	cooldown = false;
+	attackBull = false;
 }
 
 void Match2::update(Game &game, float dt) {
@@ -57,7 +59,7 @@ void Match2::update(Game &game, float dt) {
 	}
 	
 	if (!pause){
-		m_player.update(m_floor.getGlobalBounds(), dt, false);
+		m_player.update(m_floor.getGlobalBounds(), dt, cooldown);
 		
 		generateRandomEnemy();
 		enemy1Mecanic(dt);
@@ -109,7 +111,6 @@ void Match2::update(Game &game, float dt) {
 				state = true;
 				Scene* newScene = new Menu();
 				game.setScene(newScene);
-
 				game.stopMatch2Music();
 				game.playMenuMusic();
 			}
@@ -119,7 +120,13 @@ void Match2::update(Game &game, float dt) {
 	
 	for (auto& platform : platformsMobile) {
 		if(m_player.collideWith(platform)){
-			m_player.rewindJump(false);
+			m_player.rewindJump(cooldown);
+		}
+		for (auto& enemy1 : enemylvl1) {
+			enemy1.collideWith(platform);
+		}
+		for (auto& enemy2 : enemylvl2) {
+			enemy2.collideWith(platform);
 		}
 	}
 	
@@ -367,7 +374,6 @@ void Match2::enemy3Mecanic(){
 		}
 		if(m_player.getInmortal() && enemy3.collideWithInmortal(m_player)){
 			enemy3.setMoveEnemy(false);
-			timer.restart();
 		}
 		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
 	}

@@ -377,7 +377,6 @@ void Match1::enemy3Mecanic(){
 		}
 		if(m_player.getInmortal() && enemy3.collideWithInmortal(m_player)){
 			enemy3.setMoveEnemy(false);
-			timer.restart();
 		}
 		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
 	}

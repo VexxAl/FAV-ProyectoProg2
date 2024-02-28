@@ -146,7 +146,7 @@ void Player::setInmortal(bool inmortal) {
 		rightTexpun = &boosterTex;
 		jumpTexpun = &boosterTex;
 		leftTexpun = &boosterTex;
-	} else {
+	} else if (!isInmortal) {
 		m_textureTexpun = &m_texture;
 		rightTexpun = &rightTex;
 		jumpTexpun = &jumpTex;
@@ -159,7 +159,7 @@ bool Player::getInmortal() {
 }
 
 void Player::updateInmortality() {
-	if (isInmortal && inmortalClock.getElapsedTime() <= sf::seconds(10.0f)) {
+	if (isInmortal) {
 	} 
 	if (isInmortal && inmortalClock.getElapsedTime() >= sf::seconds(10.0f)) {
 		setInmortal(false);
