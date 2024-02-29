@@ -13,7 +13,7 @@ Enemy1::Enemy1(std::string nameLeft,std::string nameRight) : Enemy(nameLeft) {
 	kill_enemy1_sound.setBuffer(kill_enemy1_buffer);
 }
 
-void Enemy1::update (float dt, Player p) {
+void Enemy1::update (float dt, Player &p) {
 	m_pos += m_speed * dt;
 	m_sprite.setPosition(m_pos);
 	

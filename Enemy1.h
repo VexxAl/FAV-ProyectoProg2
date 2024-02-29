@@ -9,7 +9,7 @@ class Enemy1 : public Enemy {
 public:
 	Enemy1(std::string nameLeft,std::string nameRight);
 	
-	void update(float dt, Player p);
+	void update(float dt, Player &p) override;
 	bool collideWithPlayer(Object &o) override;
 	bool attackPlayer(Object &o) override;
 	bool collideWithInmortal(Object &o) override;

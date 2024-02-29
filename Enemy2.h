@@ -9,7 +9,7 @@ class Enemy2 : public Enemy {
 public:
 	Enemy2(std::string nameLeft, std::string nameRight, std::string nameBulletLeft, std::string nameBulletRight);
 
-	void update(float dt, Player &p);
+	void update(float dt, Player &p) override;
 	bool attackPlayer(Object &o) override;
 	bool collideWithPlayer(Object &o) override;
 	bool collideWithInmortal(Object &o) override;
@@ -24,6 +24,7 @@ private:
 	bool left;
 	bool leftEnemy2;
 	
+	sf::Vector2f posBullet;
 	int speedBullet;
 	sf::Texture BulletTexRight;
 	sf::Texture BulletTexLeft;

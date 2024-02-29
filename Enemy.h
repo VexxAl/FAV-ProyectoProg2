@@ -7,6 +7,7 @@ class Enemy : public Object {
 public:
 	Enemy(std::string nameLeft);
 
+	virtual void update(float dt, Player &p)=0;
 	virtual bool attackPlayer(Object &o)=0;
 	virtual bool collideWithInmortal(Object &o)=0;
 	virtual bool collideWithPlayer(Object &o)=0;

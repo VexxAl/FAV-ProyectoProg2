@@ -83,7 +83,7 @@ void Enemy2::updateBullet(float dt, Player &p) {
 	}
 	
 	// Actualiza la posicion de la bala
-	sf::Vector2f posBullet = Bullet.getPosition();
+	posBullet = Bullet.getPosition();
 	posBullet.x += speedBullet * dt;
 	Bullet.setPosition(posBullet);
 	
@@ -97,7 +97,7 @@ void Enemy2::updateBullet(float dt, Player &p) {
 
 void Enemy2::draw(sf::RenderWindow &window) {
 	Object::draw(window);
-	if(moveEnemy){
+	if(moveEnemy && posBullet.y > 50.f){
 		window.draw(Bullet);
 	}
 }

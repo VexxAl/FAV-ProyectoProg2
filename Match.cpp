@@ -1,12 +1,14 @@
 #include "Game.h"
 #include "Coin.h"
-#include "Match1.h"
+#include "Match.h"
 #include "PlatformMobile.h"
+#include <typeinfo>
 
 #include <SFML/Window/Keyboard.hpp>
 
 #include <iostream>
 #include "GameOver.h"
+#include "Enemy.h"
 
 
 Match::Match(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName,std::string boosterName, float e1, float e2)
@@ -112,11 +114,12 @@ void Match::update(Game &game, float dt) {
 		if(m_player.collideWith(platform)){
 			m_player.rewindJump(cooldown);
 		}
-		for (auto& enemy1 : enemylvl1) {
-			enemy1.collideWith(platform);
-		}
-		for (auto& enemy2 : enemylvl2) {
-			enemy2.collideWith(platform);
+		for (Enemy* enemy : enemyMatch) {
+			// Verificar si el objeto no es de tipo Enemy3
+			if (typeid(*enemy) != typeid(Enemy3)) {
+				// Llamar a collideWith solo para objetos que no son de tipo Enemy3
+				enemy->collideWith(platform);
+			}
 		}
 	}
 	
@@ -162,21 +165,9 @@ void Match::draw(sf::RenderWindow &window) {
 	}
 	window.draw(pointText);
 	
-	for (auto& enemy1 : enemylvl1) {
-		if(enemy1.getMoveEnemy() || !enemy1.getDespawnEnemy()){
-			enemy1.draw(window);
-		}
-	}
-	
-	for (auto& enemy2 : enemylvl2) {
-		if(enemy2.getMoveEnemy() || !enemy2.getDespawnEnemy()){
-			enemy2.draw(window);
-		}
-	}
-	
-	for (auto& enemy3 : enemylvl3) {
-		if(enemy3.getMoveEnemy() || !enemy3.getDespawnEnemy()){
-			enemy3.draw(window);
+	for (Enemy* enemy : enemyMatch) {
+		if(enemy->getMoveEnemy() || !enemy->getDespawnEnemy()){
+			enemy->draw(window);
 		}
 	}
 	
@@ -195,6 +186,7 @@ void Match::draw(sf::RenderWindow &window) {
 		}
 	}
 	
+	lifesText.setString("Lifes " + std::to_string(m_player.getLifes()));
 	window.draw(lifesText);
 	
 	if (pause){
@@ -231,96 +223,62 @@ void Match::moveItems(float dt){
 
 
 void Match::despawnItems(){
-	// Elimina las monedas que han salido de la pantalla por la izquierda
+	
+	platformsMobile.erase(std::remove_if(platformsMobile.begin(), platformsMobile.end(), [](const PlatformMobile& platformsMobile) {
+		return platformsMobile.getPositionx() + platformsMobile.getWidth() < 0.f;
+	}), platformsMobile.end());
+	
 	coins.erase(std::remove_if(coins.begin(), coins.end(), [](const Coin& coin) {
 		return coin.getPositionx() + coin.getWidth() < 0.f;
 	}), coins.end());
-	// Elimina las monedas que han salido de la pantalla por la izquierda
+
 	inmortals.erase(std::remove_if(inmortals.begin(), inmortals.end(), [](const InmortalBooster& inmortal) {
 		return inmortal.getPositionx() + inmortal.getWidth() < 0.f;
 	}), inmortals.end());
+	
 	lifesBoost.erase(std::remove_if(lifesBoost.begin(), lifesBoost.end(), [](const LifeBooster& life) {
 		return life.getPositionx() + life.getWidth() < 0.f;
 	}), lifesBoost.end());
 	
+	enemyMatch.erase(std::remove_if(enemyMatch.begin(), enemyMatch.end(), [](const Enemy* enemy) {
+		return !(enemy->getMoveEnemy() || !enemy->getDespawnEnemy());
+	}), enemyMatch.end());
+	
 }
 
 
-void Match::enemy1Mecanic(float dt){
-	for (auto& enemy1 : enemylvl1) {
-		if(enemy1.getMoveEnemy()){
-			enemy1.update(dt,m_player);
+void Match::enemyMecanic(float dt){
+	for (Enemy* enemy : enemyMatch) {
+		if(enemy->getMoveEnemy()){
+			enemy->update(dt,m_player);
 			if(!m_player.getInmortal()){
-				if(enemy1.collideWithPlayer(m_player)){
-					enemy1.setMoveEnemy(false);
+				if(enemy->collideWithPlayer(m_player)){
+					enemy->setMoveEnemy(false);
 					timer.restart();
-				} else if(enemy1.attackPlayer(m_player) && cooldown == false ){
+				} else if(enemy->attackPlayer(m_player) && cooldown == false ){
 					m_player.loseLife();
 					cooldown = true;
 					timer.restart();
 				}
 			}
-			if(m_player.getInmortal() && enemy1.collideWithInmortal(m_player)){
-				enemy1.setMoveEnemy(false);
+			if(m_player.getInmortal() && enemy->collideWithInmortal(m_player)){
+				enemy->setMoveEnemy(false);
 				timer.restart();
 			}
 		}
 		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
-		if(!enemy1.getMoveEnemy()){
+		if(!enemy->getMoveEnemy()){
 			if (timer.getElapsedTime() >= sf::seconds(3)) {
 				// Llama al método que deseas activar después de 10 segundos
-				enemy1.setDespawnEnemy(true);
+				enemy->setDespawnEnemy(true);
 				
 			} 
 		}
 	}
 }
 
-void Match::enemy2Mecanic(float dt){
-	for (auto& enemy2 : enemylvl2) {
-		if(enemy2.getMoveEnemy()){
-			enemy2.update(dt,m_player);
-			if(!m_player.getInmortal()){
-				if(enemy2.collideWithPlayer(m_player)){
-					enemy2.setMoveEnemy(false);
-					timer.restart();
-				} else if(enemy2.attackPlayer(m_player) && cooldown == false){
-					m_player.loseLife();
-					cooldown = true;
-					timer.restart();
-				}
-			}
-			if(m_player.getInmortal() && enemy2.collideWithInmortal(m_player)){
-				enemy2.setMoveEnemy(false);
-				timer.restart();
-			}
-		}
-		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
-		if(!enemy2.getMoveEnemy()){
-			if (timer.getElapsedTime() >= sf::seconds(3)) {
-				// Llama al método que deseas activar después de 10 segundos
-				enemy2.setDespawnEnemy(true);
-			} 
-		}
-	}
-}
 
-void Match::enemy3Mecanic(float dt){
-	for (auto& enemy3 : enemylvl3) {
-		enemy3.update(dt,m_player);
-		if(!m_player.getInmortal()){
-			if(enemy3.attackPlayer(m_player) && cooldown == false){
-				if(!m_player.getInmortal()){
-					m_player.loseLife();
-					cooldown = true;
-					timer.restart();
-				}
-			}
-		}
-		if(m_player.getInmortal() && enemy3.collideWithInmortal(m_player)){
-			enemy3.setMoveEnemy(false);
-		}
-		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
-	}
+Match::~Match() {
+
 }
 

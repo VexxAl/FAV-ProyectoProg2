@@ -3,6 +3,7 @@
 
 #include "Coin.h"
 #include "Scene.h"
+#include "Enemy.h"
 #include "Enemy1.h"
 #include "Enemy2.h"
 #include "Enemy3.h"
@@ -25,17 +26,15 @@ public:
 	void despawnItems();
 	void moveItems(float dt);
 	
-	void enemy1Mecanic(float dt);
-	void enemy2Mecanic(float dt);
-	void enemy3Mecanic(float dt);
+	void enemyMecanic(float dt);
+	
+	~Match();
 	
 protected:
 	sf::Clock timer; 
 	bool cooldown;
 	sf::Text lifesText;
-	std::vector<Enemy1> enemylvl1;
-	std::vector<Enemy2> enemylvl2;
-	std::vector<Enemy3> enemylvl3;
+	std::vector<Enemy*> enemyMatch;
 	sf::Clock attackBullTimer;
 	bool attackBull;
 	
