@@ -39,7 +39,7 @@ Game::Game() : window(sf::VideoMode(800, 600), "FAV-Space"), currentScene(nullpt
 void Game::run() {
 	this->playMenuMusic();
 
-	Menu* menuScene = new Menu();
+	Scene* menuScene = new Menu();
 	setScene(menuScene);
 	
 	while (window.isOpen()) {
@@ -71,13 +71,8 @@ void Game::processEvents() {
 		if (event.type == sf::Event::Closed) {
 			window.close();
 		}
-		
-		// Agrega esta logica para pausar/despausar al presionar una tecla especifica
-		if (event.type == sf::Event::KeyPressed) {
-			if (event.key.code == sf::Keyboard::P) {
-				// Toggle entre pausar y despausar (dt = 0 o dt = el valor real)
-				dt = (dt == sf::Time::Zero) ? clock.restart() : sf::Time::Zero;
-			}
+		if (currentScene) {
+			currentScene->handleEvent(event); // Notifica el evento a la Escena actual
 		}
 	}
 }
