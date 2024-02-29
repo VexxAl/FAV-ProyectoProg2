@@ -6,6 +6,8 @@
 #include "MenuSelect.h"
 #include "Match1.h"
 #include "Match2.h"
+#include "BossScene.h"
+
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>

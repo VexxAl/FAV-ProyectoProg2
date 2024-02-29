@@ -5,8 +5,6 @@
 
 BossScene::BossScene(std::string fname, std::string jumpName, std::string leftName, std::string rightName, std::string attackName, std::string boosterName, float e1, float e2)
 	: Match(fname, jumpName, leftName, rightName, attackName, boosterName, e1, e2) {
-	textureMatch1.loadFromFile("./media/images/match1/backgroundBoss.png");
-	spriteMatch1.setTexture(textureMatch1);
 	
 	platformsMobile.emplace_back(sf::Vector2f(400.f, 300.f), 0.f, "./media/images/match1/plataformaSpace.png");
 	platformsMobile.emplace_back(sf::Vector2f(400.f, 300.f), 0.f, "./media/images/match1/BossMatch/plataformBoss.png");
@@ -14,6 +12,8 @@ BossScene::BossScene(std::string fname, std::string jumpName, std::string leftNa
 	
 	bossTexture.loadFromFile("./media/images/match1/BossMatch/bossWatching.png");
 	bossSprite.setTexture(bossTexture);
+	
+	lifesText.setFillColor(sf::Color::Cyan);
 }
 
 
@@ -25,9 +25,7 @@ void BossScene::update(Game &game, float dt) {
 		m_player.update(m_floor.getGlobalBounds(), dt, cooldown);
 		
 		generateRandomEnemy();
-		enemy1Mecanic(dt);
-		enemy2Mecanic(dt);
-		enemy3Mecanic(dt);
+		enemyMecanic(dt);
 		
 		generateRandomItems();
 		despawnItems();
@@ -42,12 +40,15 @@ void BossScene::draw(sf::RenderWindow &window) {
 	
 	pointText.setString("Points " + std::to_string(pointCount));
 	
-	lifesText.setString("Lifes " + std::to_string(m_player.getLifes()));
-	
 }
 
 void BossScene::generateRandomItems(){
 	
+	if (rand() % 200 == 0) {
+		sf::Vector2f platformPosition(800.f, rand() % 200 + 120.f); // Ajusta el rango vertical
+		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad segun sea necesario
+		platformsMobile.emplace_back(platformPosition, platformSpeed, "./media/images/match1/plataformaSpace.png");
+	}
 	
 	if (rand() % 100 == 1) {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
@@ -70,18 +71,22 @@ void BossScene::generateRandomItems(){
 
 
 void BossScene::generateRandomEnemy() {
-	// Genera monedas aleatorias en la derecha de la pantalla
 	if (rand() % 800 == 1) {
-		enemylvl1.emplace_back("./media/images/match1/Enemy1_left.png","./media/images/match1/Enemy1_right.png");
+		enemyMatch.push_back(new Enemy1("./media/images/match1/Enemy1_left.png", "./media/images/match1/Enemy1_right.png"));
 	} 
 	
 	if (rand() % 400 == 1) {
-		enemylvl2.emplace_back("./media/images/match1/Enemy2_left.png","./media/images/match1/Enemy2_right.png","./media/images/match1/BulletLeft.png","./media/images/match1/BulletRight.png");
+		enemyMatch.push_back(new Enemy2("./media/images/match1/Enemy2_left.png", "./media/images/match1/Enemy2_right.png", "./media/images/match1/BulletLeft.png", "./media/images/match1/BulletRight.png"));
 	}
 	
 	if (rand() % 800 == 1) {
 		float positionAux = rand() % 250 + 50.f;
-		enemylvl3.emplace_back("./media/images/match1/Enemy3.png", positionAux);
+		enemyMatch.push_back(new Enemy3("./media/images/match1/Enemy3.png", positionAux));
 	}
 }
 
+BossScene::~BossScene() {
+	for (auto& enemy : enemyMatch) {
+		delete enemy;
+	}
+}
