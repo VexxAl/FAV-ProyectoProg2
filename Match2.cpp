@@ -242,7 +242,7 @@ void Match2::generateRandomItems(){
 	if (rand()% 700  == 1) {
 		sf::Vector2f positionLife(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
 		float lifeSpeed = -100.f;  // Velocidad del booster
-		lifesBoost.emplace_back(positionLife, lifeSpeed,"./media/images/match2/Sprite-Heart.png");
+		lifesBoost.emplace_back(positionLife, lifeSpeed,"./media/images/match2/SaludBooster.png");
 	}
 }
 
@@ -283,16 +283,16 @@ void Match2::moveItems(float dt){
 void Match2::generateRandomEnemy() {
 	// Genera monedas aleatorias en la derecha de la pantalla
 	if (rand() % 800 == 1) {
-		enemylvl1.emplace_back("./media/images/match1/Enemy1_left.png","./media/images/match1/Enemy1_right.png");
+		enemylvl1.emplace_back("./media/images/match2/Enemy1_left.png","./media/images/match2/Enemy1_right.png");
 	} 
 	
 	if (rand() % 800 == 1) {
-		enemylvl2.emplace_back("./media/images/match1/Enemy2_left.png","./media/images/match1/Enemy2_right.png","./media/images/match1/BulletLeft.png","./media/images/match1/BulletRight.png");
+		enemylvl2.emplace_back("./media/images/match2/Enemy2_left.png","./media/images/match2/Enemy2_right.png","./media/images/match2/BulletLeft.png","./media/images/match2/BulletRight.png");
 	}
 	
 	if (rand() % 800 == 1) {
 		float positionAux = rand() % 250 + 50.f;
-		enemylvl3.emplace_back("./media/images/match1/Enemy3.png", positionAux);
+		enemylvl3.emplace_back("./media/images/match2/Enemy3.png", positionAux);
 	}
 }
 

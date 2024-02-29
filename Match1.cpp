@@ -60,7 +60,7 @@ void Match1::generateRandomItems(){
 	if (rand()% 300  == 1) {
 		sf::Vector2f positionLife(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
 		float lifeSpeed = -100.f;  // Velocidad del booster (ajústala según sea necesario)
-		lifesBoost.emplace_back(positionLife, lifeSpeed,"./media/images/match2/Sprite-Heart.png");
+		lifesBoost.emplace_back(positionLife, lifeSpeed,"./media/images/match1/SaludBooster.png");
 	}
 }
 

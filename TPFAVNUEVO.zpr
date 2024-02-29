@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=Match1.h
+current_source=Match2.cpp
 path_char=\
 [source]
 path=main.cpp
@@ -26,7 +26,7 @@ path=Game.cpp
 cursor=88:3
 [source]
 path=Match2.cpp
-cursor=221:35
+cursor=244:85
 open=true
 [source]
 path=Scene.cpp
@@ -43,7 +43,7 @@ path=Object.cpp
 cursor=13:23
 [source]
 path=Match1.cpp
-cursor=45:2
+cursor=56:38
 open=true
 [source]
 path=MenuSelect.cpp
