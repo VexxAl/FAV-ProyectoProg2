@@ -19,9 +19,15 @@ Game::Game() : window(sf::VideoMode(800, 600), "FAV-Space"), currentScene(nullpt
 
 	match1_music.openFromFile("./media/sounds/spacetheme.wav");
 	match1_music.setLoop(true);
+	
+	boss_music.openFromFile("./media/sounds/God_Of_Thunder.wav");
+	boss_music.setLoop(true);
 
 	match2_music.openFromFile("./media/sounds/match2.wav");
 	match2_music.setLoop(true);
+	
+	cred_music.openFromFile("./media/sounds/bit_space.wav");
+	cred_music.setLoop(true);
 
 	sel_buffer.loadFromFile("./media/sounds/select_sound.wav");
 	sel_sound.setBuffer(sel_buffer);

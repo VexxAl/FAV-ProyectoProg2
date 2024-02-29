@@ -36,6 +36,12 @@ public:
 	void playSelectSound() { sel_sound.play(); }
 	void playEnterSound() { enter_sound.play(); }
 	void playGameOverSound() { game_over_sound.play(); }
+	
+	void playCreditosMusic(){cred_music.play();}
+	void stopCreditosMusic() { cred_music.stop(); }
+	
+	void playBossMusic(){boss_music.play();}
+	void stopBossMusic() { boss_music.stop(); }
 
 private:
 	sf::RenderWindow window;
@@ -45,10 +51,13 @@ private:
 
 	sf::Music menu_music;
 	sf::Music match1_music;
+	sf::Music boss_music;
 	sf::Music match2_music;
+	sf::Music cred_music;
 
 	sf::SoundBuffer sel_buffer;
 	sf::Sound sel_sound;
+	
 
 	sf::SoundBuffer enter_buffer;
 	sf::Sound enter_sound;

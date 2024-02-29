@@ -22,6 +22,7 @@ BossScene::BossScene(std::string fname, std::string jumpName, std::string leftNa
 	lifesText.setFillColor(sf::Color::Cyan);
 	
 	itemGenerationClock.restart();
+	pause=false;
 }
 
 
@@ -66,13 +67,14 @@ void BossScene::update(Game &game, float dt) {
 				pause = false;
 			}
 			else if (m_selectedOption == 1) {
+				game.stopBossMusic();
 				game.playMatch1Music();
 				state = true;
 				Scene* newScene = new Match1("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
 												"./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png","./media/images/match1/p1_booster.png",1.0f,1.0f);
 				game.setScene(newScene);
 			} else if (m_selectedOption == 2) {
-				game.stopMatch1Music();
+				game.stopBossMusic();
 				game.playMenuMusic();
 				state = true;
 				Scene* newScene = new Menu();

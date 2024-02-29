@@ -13,6 +13,7 @@ Match1::Match1(std::string fname,std::string jumpName, std::string leftName, std
 	lifesText.setFillColor(sf::Color::Cyan);
 	
 	QPressed = false;
+	pause=false;
 }
 
 void Match1::update(Game &game, float dt) {
@@ -79,9 +80,12 @@ void Match1::update(Game &game, float dt) {
 	} else if(pointCount == 350){
 		CoefSpeed = 2.8f;
 	}else if(pointCount == 500){
+		game.stopMatch1Music();
+		game.playBossMusic();
 		Scene* newScene = new BossScene("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
 									 "./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png","./media/images/match1/p1_booster.png",1.0f,1.0f);
 		game.setScene(newScene);
+		pause=false;
 		
 	}
 	
