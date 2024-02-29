@@ -40,8 +40,8 @@ protected:
 	
 	sf::RectangleShape m_floor;
 	Player m_player;
-	sf::Texture textureMatch1;
-	sf::Sprite spriteMatch1;
+	sf::Texture textureMatch;
+	sf::Sprite spriteMatch;
 	
 	std::vector<InmortalBooster> inmortals;
 	

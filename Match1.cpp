@@ -2,9 +2,13 @@
 #include <SFML/Window/Keyboard.hpp>
 
 #include <iostream>
+#include "Game.h"
 
 Match1::Match1(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName,std::string boosterName, float e1, float e2)
 	:  Match(fname,jumpName,leftName,rightName,attackName,boosterName,e1, e2) {
+	
+	textureMatch.loadFromFile("./media/images/match1/backgroundSpace.png");
+	spriteMatch.setTexture(textureMatch);
 	
 	lifesText.setFillColor(sf::Color::Cyan);
 	
@@ -23,6 +27,48 @@ void Match1::update(Game &game, float dt) {
 		generateRandomItems();
 		despawnItems();
 		moveItems(dt);
+	}
+	if (pause) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressed) {
+			m_selectedOption = (m_selectedOption - 1 + m_options.size()) % m_options.size();
+			upPressed = true;
+			game.playSelectSound();
+		}
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+			upPressed = false;
+		}
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressed) {
+			m_selectedOption = (m_selectedOption + 1) % m_options.size();
+			downPressed = true;
+			game.playSelectSound();
+		}
+		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+			downPressed = false;
+		}
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+			game.playEnterSound();
+			
+			// Manejo de la opcion seleccionada:
+			if (m_selectedOption == 0) {
+				pause = false;
+			}
+			else if (m_selectedOption == 1) {
+				game.playMatch1Music();
+				state = true;
+				Scene* newScene = new Match1("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
+											 "./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png","./media/images/match1/p1_booster.png",1.0f,1.0f);
+				game.setScene(newScene);
+			} else if (m_selectedOption == 2) {
+				game.stopMatch1Music();
+				game.playMenuMusic();
+				state = true;
+				Scene* newScene = new Menu();
+				game.setScene(newScene);
+			}
+			
+		}
 	}
 	
 }

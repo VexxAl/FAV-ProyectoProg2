@@ -16,8 +16,7 @@ Match::Match(std::string fname,std::string jumpName, std::string leftName, std::
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});
-	textureMatch1.loadFromFile("./media/images/match1/backgroundSpace.png");
-	spriteMatch1.setTexture(textureMatch1);
+
 	
 	if (!font.loadFromFile("./media/fonts/PixelEmulator.ttf")) {
 		std::cerr << "Error al cargar la fuente" << std::endl;
@@ -67,49 +66,6 @@ void Match::update(Game &game, float dt) {
 	}
 	
 	
-	if (pause) {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upPressed) {
-			m_selectedOption = (m_selectedOption - 1 + m_options.size()) % m_options.size();
-			upPressed = true;
-			game.playSelectSound();
-		}
-		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-			upPressed = false;
-		}
-		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downPressed) {
-			m_selectedOption = (m_selectedOption + 1) % m_options.size();
-			downPressed = true;
-			game.playSelectSound();
-		}
-		else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-			downPressed = false;
-		}
-		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-			game.playEnterSound();
-			
-			// Manejo de la opcion seleccionada:
-			if (m_selectedOption == 0) {
-				pause = false;
-			}
-			else if (m_selectedOption == 1) {
-				game.playMatch1Music();
-				state = true;
-				Scene* newScene = new Match1("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
-											 "./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png","./media/images/match1/p1_booster.png",1.0f,1.0f);
-				game.setScene(newScene);
-			} else if (m_selectedOption == 2) {
-				game.stopMatch1Music();
-				game.playMenuMusic();
-				state = true;
-				Scene* newScene = new Menu();
-				game.setScene(newScene);
-			}
-			
-		}
-	}
-	
 	for (auto& platform : platformsMobile) {
 		if(m_player.collideWith(platform)){
 			m_player.rewindJump(cooldown);
@@ -150,7 +106,7 @@ void Match::update(Game &game, float dt) {
 
 void Match::draw(sf::RenderWindow &window) {
 	window.clear(sf::Color(150, 255, 255));
-	window.draw(spriteMatch1);
+	window.draw(spriteMatch);
 	window.draw(m_floor);
 	m_player.draw(window);
 	

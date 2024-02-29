@@ -55,7 +55,8 @@ void MenuSelect::update(Game& game, float dt) {
 			game.playMatch1Music();	
 		} 
 		else if(m_selectedOption == 1){
-			match = new Match2();
+			match = new Match2("./media/images/match2/p2.png", "./media/images/match2/p2_jumpPrueba.png", "./media/images/match2/p2_left.png",
+							   "./media/images/match2/p2_right.png","./media/images/match2/p2_dead.png","./media/images/match2/p2_booster.png",2.6f,2.6f);
 			game.stopMenuMusic();
 			game.playMatch2Music();
 		} 
