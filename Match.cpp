@@ -12,7 +12,7 @@
 
 
 Match::Match(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName,std::string boosterName, float e1, float e2)
-	:  m_player(fname,jumpName,leftName,rightName, attackName,boosterName,e1,e2), pointCount(0) {
+	:  m_player(fname,jumpName,leftName,rightName, attackName,boosterName,e1,e2), pointCount(0), CoefSpeed(1.f) {
 	m_floor.setSize({800.0, 100.0});
 	m_floor.setPosition({0.0, 500.0});
 	m_floor.setFillColor({0, 0, 0, 0});
@@ -92,6 +92,7 @@ void Match::update(Game &game, float dt) {
 			inmortal.setTakenB(true);
 			m_player.setInmortal(true);
 			m_player.clockInmortality();
+			pointCount++;
 		}
 		m_player.updateInmortality();
 	}
@@ -100,6 +101,7 @@ void Match::update(Game &game, float dt) {
 		if (!life.isTakenB() && m_player.getGlobalBounds().intersects(life.getGlobalBounds())&& m_player.getLifes()<5) {
 			life.setTakenB(true);
 			m_player.updateLife();
+			pointCount++;
 		}
 	}
 }
@@ -119,6 +121,7 @@ void Match::draw(sf::RenderWindow &window) {
 			coin.draw(window);
 		}
 	}
+	
 	window.draw(pointText);
 	
 	for (Enemy* enemy : enemyMatch) {
@@ -206,9 +209,10 @@ void Match::despawnItems(){
 void Match::enemyMecanic(float dt){
 	for (Enemy* enemy : enemyMatch) {
 		if(enemy->getMoveEnemy()){
-			enemy->update(dt,m_player);
+			enemy->update(dt,m_player, CoefSpeed);
 			if(!m_player.getInmortal()){
 				if(enemy->collideWithPlayer(m_player)){
+					pointCount += 5;
 					enemy->setMoveEnemy(false);
 					timer.restart();
 				} else if(enemy->attackPlayer(m_player) && cooldown == false ){
@@ -218,6 +222,7 @@ void Match::enemyMecanic(float dt){
 				}
 			}
 			if(m_player.getInmortal() && enemy->collideWithInmortal(m_player)){
+				pointCount += 3;
 				enemy->setMoveEnemy(false);
 				timer.restart();
 			}

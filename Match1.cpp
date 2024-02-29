@@ -12,6 +12,7 @@ Match1::Match1(std::string fname,std::string jumpName, std::string leftName, std
 	
 	lifesText.setFillColor(sf::Color::Cyan);
 	
+	QPressed = false;
 }
 
 void Match1::update(Game &game, float dt) {
@@ -71,6 +72,32 @@ void Match1::update(Game &game, float dt) {
 		}
 	}
 	
+	if(pointCount == 100){
+		CoefSpeed = 1.7f;
+	} else if(pointCount == 200){
+		CoefSpeed = 2.3f;
+	} else if(pointCount == 350){
+		CoefSpeed = 2.8f;
+	}else if(pointCount == 500){
+		Scene* newScene = new BossScene("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
+									 "./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png","./media/images/match1/p1_booster.png",1.0f,1.0f);
+		game.setScene(newScene);
+		
+	}
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+		pointCount = 100;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		pointCount = 200;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+		pointCount = 350;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+		pointCount = 500;
+	}
+	
 }
 
 void Match1::draw(sf::RenderWindow &window) {
@@ -83,29 +110,30 @@ void Match1::draw(sf::RenderWindow &window) {
 
 void Match1::generateRandomItems(){
 	
-	if (rand() % 200 == 0) {
+	if (rand() % 50 == 1) {
 		sf::Vector2f platformPosition(800.f, rand() % 200 + 120.f); // Ajusta el rango vertical
-		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad segun sea necesario
-		platformsMobile.emplace_back(platformPosition, platformSpeed, "./media/images/match1/plataformaSpace.png");
+		float platformSpeed = 130.f; // Ajusta la velocidad segun sea necesario
+		platformsMobile.emplace_back(platformPosition, platformSpeed * CoefSpeed, "./media/images/match1/plataformaSpace.png");
 	}
 	
 	if (rand() % 100 == 1) {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
-		float coinSpeed = -100.f;  // Velocidad de la moneda
-		coins.emplace_back(coinPosition, coinSpeed,"./media/images/match1/star.png");
+		float coinSpeed = -70.f;  // Velocidad de la moneda
+		coins.emplace_back(coinPosition, coinSpeed * CoefSpeed,"./media/images/match1/star.png");
 	}
 	
 	if (rand()% 500  == 1) {
 		sf::Vector2f positionInmortal(800.f, rand() % 250 + 250.f);  // Ajusta el rango vertical
-		float inmortalSpeed = -30.f;  // Velocidad del booster (ajústala según sea necesario)
-		inmortals.emplace_back(positionInmortal, inmortalSpeed,"./media/images/match1/InmortalBoost.png","./media/images/match1/InmortalBoost.png");
+		float inmortalSpeed = -70.f;  // Velocidad del booster (ajústala según sea necesario)
+		inmortals.emplace_back(positionInmortal, inmortalSpeed * CoefSpeed,"./media/images/match1/InmortalBoost.png","./media/images/match1/InmortalBoost.png");
 	}
 	
 	if (rand()% 300  == 1) {
 		sf::Vector2f positionLife(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
-		float lifeSpeed = -100.f;  // Velocidad del booster (ajústala según sea necesario)
-		lifesBoost.emplace_back(positionLife, lifeSpeed,"./media/images/match1/SaludBooster.png");
+		float lifeSpeed = -70.f;  // Velocidad del booster (ajústala según sea necesario)
+		lifesBoost.emplace_back(positionLife, lifeSpeed * CoefSpeed,"./media/images/match1/SaludBooster.png");
 	}
+	
 }
 
 

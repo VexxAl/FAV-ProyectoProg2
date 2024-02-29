@@ -8,7 +8,7 @@ Enemy3::Enemy3(std::string nameLeft, float pos) : Enemy(nameLeft) {
 	up = true;
 }
 
-void Enemy3::update (float dt, Player &p) {
+void Enemy3::update (float dt, Player &p, float coef) {
 	m_pos += m_speed;
 	m_sprite.setPosition(m_pos);
 	
@@ -28,7 +28,7 @@ void Enemy3::update (float dt, Player &p) {
 	}
 	
 	
-	m_speed.x -= 0.02f; 
+	m_speed.x -= 0.02f * coef; 
 	m_sprite.setTexture(m_texture);
 	
 }

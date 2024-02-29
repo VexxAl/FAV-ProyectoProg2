@@ -21,7 +21,7 @@ Enemy2::Enemy2(std::string nameLeft, std::string nameRight, std::string nameBull
 	shot_sound.setBuffer(shot_buffer);
 }
 
-void Enemy2::update(float dt, Player &p) {
+void Enemy2::update(float dt, Player &p, float coef) {
 	m_pos += m_speed * dt;
 	m_sprite.setPosition(m_pos);
 	
@@ -40,33 +40,33 @@ void Enemy2::update(float dt, Player &p) {
 	}
 	
 	if (p.getPositionx() < m_pos.x) {
-		m_speed.x -= 2.f;
+		m_speed.x -= 2.f * coef;
 		m_sprite.setTexture(m_texture);
 		leftEnemy2 = true; 
 	} else {
-		m_speed.x += 2.f;
+		m_speed.x += 2.f * coef;
 		m_sprite.setTexture(rightTex);
 		leftEnemy2 = false; 
 	}
 	// Actualiza la posicion de la bala y maneja su logica
-	updateBullet(dt, p);
+	updateBullet(dt, p, coef);
 }
 
-void Enemy2::updateBullet(float dt, Player &p) {
+void Enemy2::updateBullet(float dt, Player &p, float coef) {
 	// Logica de la bala
 	
-	if (bulletTimer.getElapsedTime() >= sf::seconds(5)) {
+	if (bulletTimer.getElapsedTime() >= sf::seconds(3)) {
 		// Llama al metodo que deseas activar despues de 10 segundos
 		Bullet.setPosition(m_pos.x,m_pos.y+15.f);
 		
 		// Configura la velocidad y textura de la bala segun la direccion del jugador
 		if (p.getPositionx() < m_pos.x) {
-			speedBullet = -350.f;
+			speedBullet = -350.f * coef;
 			Bullet.setTexture(BulletTexLeft);
 			Bullet.setPosition(m_pos.x,m_pos.y+15.f);
 			left = true;
 		} else {
-			speedBullet = 350.f;
+			speedBullet = 350.f * coef;
 			Bullet.setTexture(BulletTexRight);
 			Bullet.setPosition(m_pos.x,m_pos.y+15.f);
 			left = false;

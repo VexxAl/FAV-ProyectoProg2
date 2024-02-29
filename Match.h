@@ -38,6 +38,8 @@ protected:
 	sf::Clock attackBullTimer;
 	bool attackBull;
 	
+	float CoefSpeed;
+	
 	sf::RectangleShape m_floor;
 	Player m_player;
 	sf::Texture textureMatch;

@@ -18,7 +18,9 @@ public:
 	
 	~Match1();
 private:
-
+	
+	bool QPressed;
+	
 };
 
 #endif

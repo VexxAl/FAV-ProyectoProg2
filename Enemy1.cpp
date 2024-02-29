@@ -5,15 +5,15 @@
 
 Enemy1::Enemy1(std::string nameLeft,std::string nameRight) : Enemy(nameLeft) {
 	m_pos.x = 800.f;
-	m_pos.y = 470.f;
-	m_sprite.setPosition(800, 470);
+	m_pos.y = 465.f;
+	m_sprite.setPosition(800, 465);
 	rightTex.loadFromFile(nameRight);
 
 	kill_enemy1_buffer.loadFromFile("./media/sounds/kill_enemy1.ogg");
 	kill_enemy1_sound.setBuffer(kill_enemy1_buffer);
 }
 
-void Enemy1::update (float dt, Player &p) {
+void Enemy1::update (float dt, Player &p, float coef) {
 	m_pos += m_speed * dt;
 	m_sprite.setPosition(m_pos);
 	
@@ -22,18 +22,18 @@ void Enemy1::update (float dt, Player &p) {
 		m_speed.x = 0;
 	}
 	
-	if (m_pos.y >= 470.f){
+	if (m_pos.y >= 465.f){
 		m_speed.y = 0.0f;
-		m_pos.y = 470.f;
+		m_pos.y = 465.f;
 	} else {
 		m_speed.y += 50.f;
 	}
 	
 	if(p.getPositionx() < m_pos.x) {
-		m_speed.x -= 3.f; 
+		m_speed.x -= 3.f * coef; 
 		m_sprite.setTexture(m_texture);
 	} else {
-		m_speed.x += 3.f;
+		m_speed.x += 3.f * coef;
 		m_sprite.setTexture(rightTex);
 	}
 }

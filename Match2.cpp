@@ -17,6 +17,8 @@ Match2::Match2(std::string fname,std::string jumpName, std::string leftName, std
 	
 	lifesText.setFillColor(sf::Color::Cyan);
 	
+	CoefSpeed = 2.8f;
+	
 }
 
 void Match2::update(Game &game, float dt) {
@@ -90,26 +92,26 @@ void Match2::generateRandomItems(){
 	
 	if (rand() % 200 == 0) {
 		sf::Vector2f platformPosition(800.f, rand() % 200 + 120.f); // Ajusta el rango vertical
-		float platformSpeed = static_cast<float>(rand() % 200 + 50); // Ajusta la velocidad segun sea necesario
-		platformsMobile.emplace_back(platformPosition, platformSpeed, "./media/images/match2/plataformaFAV.png");
+		float platformSpeed = 130.f; // Ajusta la velocidad segun sea necesario
+		platformsMobile.emplace_back(platformPosition, platformSpeed * CoefSpeed, "./media/images/match2/plataformaFAV.png");
 	}
 	
 	if (rand() % 100 == 1) {
 		sf::Vector2f coinPosition(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
-		float coinSpeed = -100.f;  // Velocidad de la moneda
-		coins.emplace_back(coinPosition, coinSpeed,"./media/images/match2/like.png");
+		float coinSpeed = -80.f;  // Velocidad de la moneda
+		coins.emplace_back(coinPosition, coinSpeed * CoefSpeed,"./media/images/match2/like.png");
 	}
 	
 	if (rand()% 500  == 1) {
 		sf::Vector2f positionInmortal(800.f, rand() % 250 + 250.f);  // Ajusta el rango vertical
-		float inmortalSpeed = -30.f;  // Velocidad del booster (ajústala según sea necesario)
-		inmortals.emplace_back(positionInmortal, inmortalSpeed,"./media/images/match2/InmortalBoost.png","./media/images/match2/InmortalBoost.png");
+		float inmortalSpeed = -80.f;  // Velocidad del booster (ajústala según sea necesario)
+		inmortals.emplace_back(positionInmortal, inmortalSpeed * CoefSpeed,"./media/images/match2/InmortalBoost.png","./media/images/match2/InmortalBoost.png");
 	}
 	
 	if (rand()% 300  == 1) {
 		sf::Vector2f positionLife(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
-		float lifeSpeed = -100.f;  // Velocidad del booster (ajústala según sea necesario)
-		lifesBoost.emplace_back(positionLife, lifeSpeed,"./media/images/match2/SaludBooster.png");
+		float lifeSpeed = -80.f;  // Velocidad del booster (ajústala según sea necesario)
+		lifesBoost.emplace_back(positionLife, lifeSpeed * CoefSpeed,"./media/images/match2/SaludBooster.png");
 	}
 }
 
