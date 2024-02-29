@@ -12,6 +12,7 @@ Enemy2::Enemy2(std::string nameLeft, std::string nameRight, std::string nameBull
 	BulletTexLeft.loadFromFile(nameBulletLeft);
 	BulletTexRight.loadFromFile(nameBulletRight);
 	Bullet.setTexture(BulletTexLeft);
+	bulletTimer.restart();
 
 	kill_enemy2_buffer.loadFromFile("./media/sounds/kill_enemy2.ogg");
 	kill_enemy2_sound.setBuffer(kill_enemy2_buffer);
@@ -29,7 +30,7 @@ void Enemy2::update(float dt, Player &p) {
 		m_speed.x = 0;
 	}
 	
-	if (rand() % 50 == 1 && m_pos.y == 425.f) {
+	if (rand() % 200 == 1 && m_pos.y == 425.f) {
 		m_speed.y = -1500.f; 
 	} else if (m_pos.y >= 425.f){
 		m_speed.y = 0.0f;
@@ -71,8 +72,14 @@ void Enemy2::updateBullet(float dt, Player &p) {
 			left = false;
 		}
 		// Reinicia el temporizador
-		bulletTimer.restart();
+		if(left){
+			Bullet.setTexture(BulletTexLeft);
+		} else {
+			Bullet.setTexture(BulletTexRight);
+		}
+		
 		shot_sound.play();
+		bulletTimer.restart();
 	}
 	
 	// Actualiza la posicion de la bala

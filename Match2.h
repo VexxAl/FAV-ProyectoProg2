@@ -73,7 +73,6 @@ private:
 	sf::RectangleShape m_floorPause;
 	sf::Font m_font;
 	std::vector<sf::Text> m_options;
-	
 	int m_selectedOption;
 	bool state;
 	bool upPressed;

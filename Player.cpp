@@ -114,6 +114,7 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 	} else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		SpacePresed = false;
 	}
+	
 }
 
 void Player::rewindJump(bool cooldown){

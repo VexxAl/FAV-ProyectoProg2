@@ -49,15 +49,13 @@ void MenuSelect::update(Game& game, float dt) {
 
 		Scene *match = nullptr;
 		if(m_selectedOption == 0){
-			match = new Match1();
-
+			match = new Match1("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
+			"./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png","./media/images/match1/p1_booster.png",1.0f,1.0f);
 			game.stopMenuMusic();
 			game.playMatch1Music();	
 		} 
 		else if(m_selectedOption == 1){
 			match = new Match2();
-
-
 			game.stopMenuMusic();
 			game.playMatch2Music();
 		} 
