@@ -69,7 +69,7 @@ void Match1::update(Game &game, float dt) {
 		generateRandomEnemy();
 		enemy1Mecanic(dt);
 		enemy2Mecanic(dt);
-		enemy3Mecanic();
+		enemy3Mecanic(dt);
 		generateRandomPlatformsMobile();
 		movePlatformsMobile(dt);
 		
@@ -187,13 +187,10 @@ void Match1::draw(sf::RenderWindow &window) {
 		if(enemy2.getMoveEnemy() || !enemy2.getDespawnEnemy()){
 			enemy2.draw(window);
 		}
-		if(enemy2.getMoveEnemy()){
-			enemy2.drawBullet(window);
-		}
 	}
 	
 	for (auto& enemy3 : enemylvl3) {
-		if(enemy3.getMoveEnemy()){
+		if(enemy3.getMoveEnemy() || !enemy3.getDespawnEnemy()){
 			enemy3.draw(window);
 		}
 	}
@@ -294,7 +291,7 @@ void Match1::generateRandomEnemy() {
 		enemylvl1.emplace_back("./media/images/match1/Enemy1_left.png","./media/images/match1/Enemy1_right.png");
 	} 
 	
-	if (rand() % 800 == 1) {
+	if (rand() % 400 == 1) {
 		enemylvl2.emplace_back("./media/images/match1/Enemy2_left.png","./media/images/match1/Enemy2_right.png","./media/images/match1/BulletLeft.png","./media/images/match1/BulletRight.png");
 	}
 	
@@ -363,9 +360,9 @@ void Match1::enemy2Mecanic(float dt){
 	}
 }
 
-void Match1::enemy3Mecanic(){
+void Match1::enemy3Mecanic(float dt){
 	for (auto& enemy3 : enemylvl3) {
-		enemy3.update();
+		enemy3.update(dt,m_player);
 		if(!m_player.getInmortal()){
 			if(enemy3.attackPlayer(m_player) && cooldown == false){
 				if(!m_player.getInmortal()){

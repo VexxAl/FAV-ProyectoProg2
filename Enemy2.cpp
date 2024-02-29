@@ -3,7 +3,7 @@
 #include <SFML/System/Vector2.hpp>
 
 
-Enemy2::Enemy2(std::string nameLeft, std::string nameRight, std::string nameBulletLeft, std::string nameBulletRight) : Enemy(nameLeft, nameRight) {
+Enemy2::Enemy2(std::string nameLeft, std::string nameRight, std::string nameBulletLeft, std::string nameBulletRight) : Enemy(nameLeft) {
 	m_pos.x = 800.f;
 	m_pos.y = 420.f;
 	m_sprite.setPosition(800, 425);
@@ -62,10 +62,12 @@ void Enemy2::updateBullet(float dt, Player &p) {
 		if (p.getPositionx() < m_pos.x) {
 			speedBullet = -350.f;
 			Bullet.setTexture(BulletTexLeft);
+			Bullet.setPosition(m_pos.x,m_pos.y+15.f);
 			left = true;
 		} else {
 			speedBullet = 350.f;
 			Bullet.setTexture(BulletTexRight);
+			Bullet.setPosition(m_pos.x,m_pos.y+15.f);
 			left = false;
 		}
 		// Reinicia el temporizador
@@ -86,42 +88,28 @@ void Enemy2::updateBullet(float dt, Player &p) {
 	
 }
 
-void Enemy2::drawBullet(sf::RenderWindow& window) {
-	// Dibuja la bala si esta activa
-	window.draw(Bullet);
+void Enemy2::draw(sf::RenderWindow &window) {
+	Object::draw(window);
+	if(moveEnemy){
+		window.draw(Bullet);
+	}
 }
 
 bool Enemy2::collideWithPlayer(Object &o) {
 	auto r1 = m_sprite.getGlobalBounds();
 	auto r2 = o.getGlobalBounds();
-	
-	
 	if (r2.intersects(r1)) {
 		// Verifica si el jugador esta encima de la plataforma
 		if (r2.top + r2.height < r1.top + 0.9f * r1.height) {
 			// El jugador cae sobre la plataforma
 			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-				
 				m_pos.y = m_pos.y + 75.f;
 				m_sprite.setPosition(m_pos);
-
-				if(leftEnemy2){
-					m_sprite.setTexture(m_texture);
-				} 
-				else {
-					m_sprite.setTexture(rightTex);
-				}
 				m_sprite.setScale(2.f,0.3f);
 				return true;
 			}
 		} 
 		else {
-			if(leftEnemy2){
-				m_sprite.setTexture(m_texture);
-			} 
-			else {
-				m_sprite.setTexture(rightTex);
-			}
 			return false;
 		}
 		return false;

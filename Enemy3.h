@@ -1,20 +1,20 @@
 #ifndef ENEMY3_H
 #define ENEMY3_H
-#include "Object.h"
+#include "Enemy.h"
 
-class Enemy3 : public Object {
+class Enemy3 : public Enemy {
 public:
 	Enemy3(std::string nameLeft, float pos);
-	void update();
-	bool attackPlayer(Object &o);
-	bool collideWithInmortal(Object &o);
-	bool getMoveEnemy() const;
-	void setMoveEnemy(bool taken);
-private:
-	sf::Texture rightTex;
-	bool up;
 	
-	bool moveEnemy;
+	void update(float dt, Player &p);
+	bool attackPlayer(Object &o) override;
+	bool collideWithInmortal(Object &o) override;
+	bool collideWithPlayer(Object &o) override;
+	
+	void draw(sf::RenderWindow &window);
+	
+private:
+	bool up;
 };
 
 #endif

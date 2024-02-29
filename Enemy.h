@@ -1,30 +1,27 @@
 #ifndef ENEMY_H
 #define ENEMY_H
-
 #include "Object.h"
 #include "Player.h"
 
-
 class Enemy : public Object {
 public:
-	Enemy(std::string nameLeft,std::string nameRight);
-	void update(float dt, Player p);
-	bool collideWithPlayer(Object &o);
-	bool attackPlayer(Object &o);
+	Enemy(std::string nameLeft);
+
+	virtual bool attackPlayer(Object &o)=0;
+	virtual bool collideWithInmortal(Object &o)=0;
+	virtual bool collideWithPlayer(Object &o)=0;
 	
-	bool collideWithInmortal(Object &o);
 	bool getMoveEnemy() const;
-	bool getDespawnEnemy() const;
 	void setMoveEnemy(bool taken);
+	bool getDespawnEnemy() const;
 	void setDespawnEnemy(bool taken);
-private:
+	
+	
+protected:
 	sf::Texture rightTex;
 	
 	bool moveEnemy;
 	bool despawnEnemy;
-
-	sf::SoundBuffer kill_enemy1_buffer;
-	sf::Sound kill_enemy1_sound;
 };
 
 #endif

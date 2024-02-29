@@ -11,7 +11,6 @@ public:
 	Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName,std::string boosterName, float e1, float e2);
 	void update(sf::FloatRect platformBounds, float dt, bool cooldown);
 	void rewindJump(bool cooldown);
-	
 	void loseLife();
 	int getLifes();
 	void updateLife();

@@ -8,19 +8,23 @@
 class Enemy2 : public Enemy {
 public:
 	Enemy2(std::string nameLeft, std::string nameRight, std::string nameBulletLeft, std::string nameBulletRight);
+
 	void update(float dt, Player &p);
-	void drawBullet(sf::RenderWindow& window); // Metodo para dibujar la bala
+	bool attackPlayer(Object &o) override;
+	bool collideWithPlayer(Object &o) override;
+	bool collideWithInmortal(Object &o) override;
+	
+	void draw(sf::RenderWindow &window);
+	
 	void updateBullet(float dt, Player &p);
-	bool attackPlayer(Object &o);
-	bool collideWithPlayer(Object &o);
-	bool collideWithInmortal(Object &o);
 	
 private:
 	sf::Texture rightTex;
-	int speedBullet;
+	
 	bool left;
 	bool leftEnemy2;
 	
+	int speedBullet;
 	sf::Texture BulletTexRight;
 	sf::Texture BulletTexLeft;
 	sf::Sprite Bullet;

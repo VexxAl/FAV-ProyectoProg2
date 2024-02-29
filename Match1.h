@@ -3,7 +3,7 @@
 
 #include "Coin.h"
 #include "Scene.h"
-#include "Enemy.h"
+#include "Enemy1.h"
 #include "Enemy2.h"
 #include "Enemy3.h"
 #include "Player.h"
@@ -31,13 +31,13 @@ public:
 	void generateRandomEnemy();
 	void enemy1Mecanic(float dt);
 	void enemy2Mecanic(float dt);
-	void enemy3Mecanic();
+	void enemy3Mecanic(float dt);
 	
 private:
 	sf::Clock timer; 
 	bool cooldown;
 	sf::Text lifesText;
-	std::vector<Enemy> enemylvl1;
+	std::vector<Enemy1> enemylvl1;
 	std::vector<Enemy2> enemylvl2;
 	std::vector<Enemy3> enemylvl3;
 	sf::Clock attackBullTimer;

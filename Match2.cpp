@@ -64,7 +64,7 @@ void Match2::update(Game &game, float dt) {
 		generateRandomEnemy();
 		enemy1Mecanic(dt);
 		enemy2Mecanic(dt);
-		enemy3Mecanic();
+		enemy3Mecanic(dt);
 		
 		generateRandomItems();
 		moveItems(dt);
@@ -182,9 +182,6 @@ void Match2::draw(sf::RenderWindow &window) {
 	for (auto& enemy2 : enemylvl2) {
 		if(enemy2.getMoveEnemy() || !enemy2.getDespawnEnemy()){
 			enemy2.draw(window);
-		}
-		if(enemy2.getMoveEnemy()){
-			enemy2.drawBullet(window);
 		}
 	}
 	
@@ -358,9 +355,9 @@ void Match2::enemy2Mecanic(float dt){
 	}
 }
 
-void Match2::enemy3Mecanic(){
+void Match2::enemy3Mecanic(float dt){
 	for (auto& enemy3 : enemylvl3) {
-		enemy3.update();
+		enemy3.update(dt,m_player);
 		if(!m_player.getInmortal()){
 			if(enemy3.attackPlayer(m_player) && cooldown == false){
 				if(!m_player.getInmortal()){

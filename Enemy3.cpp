@@ -1,14 +1,14 @@
 #include "Enemy3.h"
 #include <SFML/Window/Keyboard.hpp>
 
-Enemy3::Enemy3(std::string nameLeft, float pos) : Object(nameLeft) {
+Enemy3::Enemy3(std::string nameLeft, float pos) : Enemy(nameLeft) {
 	m_sprite.setPosition(1000, 470);
 	m_pos.x = 1000.f;
 	m_pos.y = pos;
 	up = true;
 }
 
-void Enemy3::update () {
+void Enemy3::update (float dt, Player &p) {
 	m_pos += m_speed;
 	m_sprite.setPosition(m_pos);
 	
@@ -31,6 +31,21 @@ void Enemy3::update () {
 	m_speed.x -= 0.02f; 
 	m_sprite.setTexture(m_texture);
 	
+}
+
+void Enemy3::draw(sf::RenderWindow &window) {
+	if(moveEnemy){
+		Object::draw(window);
+	}
+}
+
+bool Enemy3::collideWithPlayer(Object &o) {
+	auto r1 = m_sprite.getGlobalBounds();
+	auto r2 = o.getGlobalBounds();
+	if (r2.intersects(r1)) {
+		return false;
+	}
+	return false;
 }
 
 bool Enemy3::attackPlayer(Object &o) {
@@ -68,12 +83,4 @@ bool Enemy3::collideWithInmortal(Object &o) {
 		return true;
 	}
 	return false;
-}
-
-bool Enemy3::getMoveEnemy() const {
-	return moveEnemy;
-}
-
-void Enemy3::setMoveEnemy(bool aux) {
-	this->moveEnemy = aux;
 }
