@@ -20,6 +20,8 @@ public:
 private:
 	sf::Texture bossTexture;
 	sf::Sprite bossSprite;
+	sf::Clock itemGenerationClock;
+	float itemGenerationInterval;
 };
 
 #endif
