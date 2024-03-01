@@ -30,12 +30,12 @@ public:
 	void stopMatch1Music() { match1_music.stop(); }
 
 	void playMatch2Music() { match2_music.play(); }
-	void stopMatch2Music() { match2_music.stop(); }		
-
-	void playCoinSound() { coin_sound.play(); }
+	void stopMatch2Music() { match2_music.stop(); }	
+	
 	void playSelectSound() { sel_sound.play(); }
 	void playEnterSound() { enter_sound.play(); }
 	void playGameOverSound() { game_over_sound.play(); }
+	void playCoinSound() { coin_sound.play(); }
 	
 	void playCreditosMusic(){cred_music.play();}
 	void stopCreditosMusic() { cred_music.stop(); }
@@ -62,11 +62,11 @@ private:
 	sf::SoundBuffer enter_buffer;
 	sf::Sound enter_sound;
 
-	sf::SoundBuffer coin_buffer;
-	sf::Sound coin_sound;
-
 	sf::SoundBuffer game_over_buffer;
 	sf::Sound game_over_sound;
+
+	sf::SoundBuffer coin_buffer;
+	sf::Sound coin_sound;
 };
 
 #endif // GAME_H

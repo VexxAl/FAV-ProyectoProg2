@@ -8,12 +8,13 @@
 #include "Enemy2.h"
 #include "Enemy3.h"
 #include "Player.h"
+#include "LifeBooster.h"
+#include "InmortalBooster.h"
 #include "PlatformMobile.h"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-#include "InmortalBooster.h"
-#include "LifeBooster.h"
+#include <SFML/Audio.hpp>
 
 
 class Match : public Scene {
@@ -64,7 +65,15 @@ protected:
 	bool upPressed;
 	bool downPressed;
 	bool pause;
-	
+
+	sf::SoundBuffer kill_enemy1_buffer;
+	sf::Sound kill_enemy1_sound;
+
+	sf::SoundBuffer kill_enemy2_buffer;
+	sf::Sound kill_enemy2_sound;
+
+	sf::SoundBuffer kill_enemy3_buffer;
+	sf::Sound kill_enemy3_sound;
 };
 
 #endif

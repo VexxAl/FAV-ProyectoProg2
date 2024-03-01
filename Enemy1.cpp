@@ -8,9 +8,6 @@ Enemy1::Enemy1(std::string nameLeft,std::string nameRight , sf::Vector2f pos) : 
 	m_pos.y = pos.y;
 	m_sprite.setPosition(pos);
 	rightTex.loadFromFile(nameRight);
-
-	kill_enemy1_buffer.loadFromFile("./media/sounds/kill_enemy1.ogg");
-	kill_enemy1_sound.setBuffer(kill_enemy1_buffer);
 }
 
 void Enemy1::update (float dt, Player &p, float coef) {
@@ -45,7 +42,6 @@ bool Enemy1::collideWithPlayer(Object &o) {
 		// Verifica si el jugador esta encima de la plataforma
 		if (r2.top + r2.height < r1.top + 0.9f * r1.height) {
 			// El jugador cae sobre la plataforma
-			kill_enemy1_sound.play();
 			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 				m_pos.y = m_pos.y + 30.f;
 				m_sprite.setPosition(m_pos);

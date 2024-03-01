@@ -1,17 +1,17 @@
 #include "Game.h"
+#include "Creditos.h"
 #include "MenuSelect.h"
 
 #include <SFML/Window/Keyboard.hpp>
 
 #include <iostream>
-#include "Creditos.h"
 
 
 MenuSelect::MenuSelect() : m_selectedOption(0) {
 	textureSelect.loadFromFile("./media/images/backgroundSelect.jpg");
 	spriteSelect.setTexture(textureSelect);
 	m_font.loadFromFile("./media/fonts/PixelGamer.otf");
-	std::vector<std::string> optionNames = {"Jugar", "Modo FAV", "Créditos" ,"Volver"};
+	std::vector<std::string> optionNames = {"Jugar", "Modo FAV", "CrÃ©ditos" ,"Volver"};
 	
 	for (int i = 0; i < optionNames.size(); i++) {
 		sf::Text text;
@@ -52,6 +52,7 @@ void MenuSelect::update(Game& game, float dt) {
 		if(m_selectedOption == 0){
 			match = new Match1("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
 			"./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png","./media/images/match1/p1_booster.png",1.0f,1.0f);
+
 			game.stopMenuMusic();
 			game.playMatch1Music();	
 		} 

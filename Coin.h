@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Audio.hpp>
 
 
 class Coin : public Object {

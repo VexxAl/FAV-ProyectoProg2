@@ -14,10 +14,7 @@ Enemy2::Enemy2(std::string nameLeft, std::string nameRight, std::string nameBull
 	Bullet.setTexture(BulletTexLeft);
 	bulletTimer.restart();
 
-	kill_enemy2_buffer.loadFromFile("./media/sounds/kill_enemy2.ogg");
-	kill_enemy2_sound.setBuffer(kill_enemy2_buffer);
-
-	shot_buffer.loadFromFile("./media/sounds/shot.wav");
+	shot_buffer.loadFromFile("./media/sounds/match1/shot.wav");
 	shot_sound.setBuffer(shot_buffer);
 }
 

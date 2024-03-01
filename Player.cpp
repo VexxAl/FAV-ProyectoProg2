@@ -24,9 +24,11 @@ Player::Player(std::string fname,std::string jumpName, std::string leftName, std
 	jump_buffer.loadFromFile("./media/sounds/jump_sound.wav");
 	jump_sound.setBuffer(jump_buffer);
 	
-	hurt_buffer.loadFromFile("./media/sounds/hurt_sound.wav");
+	hurt_buffer.loadFromFile("./media/sounds/match1/hurt_sound.wav");
 	hurt_sound.setBuffer(hurt_buffer);
 	
+	buff_buffer.loadFromFile("./media/sounds/buff_sound.wav");
+	buff_sound.setBuffer(buff_buffer);
 }
 
 
@@ -143,6 +145,7 @@ int Player::getLifes(){
 void Player::setInmortal(bool inmortal) {
 	isInmortal = inmortal;
 	if (isInmortal) {
+		buff_sound.play();
 		m_textureTexpun = &boosterTex;
 		rightTexpun = &boosterTex;
 		jumpTexpun = &boosterTex;
@@ -160,8 +163,6 @@ bool Player::getInmortal() {
 }
 
 void Player::updateInmortality() {
-	if (isInmortal) {
-	} 
 	if (isInmortal && inmortalClock.getElapsedTime() >= sf::seconds(10.0f)) {
 		setInmortal(false);
 	}

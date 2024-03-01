@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 #include "Player.h"
+
 #include <SFML/System/Vector2.hpp>
 
 
@@ -17,10 +18,6 @@ public:
 	
 private:
 	sf::Texture rightTex;
-
-	sf::SoundBuffer kill_enemy1_buffer;
-	sf::Sound kill_enemy1_sound;
 };
 
 #endif
-

@@ -13,7 +13,7 @@ Creditos::Creditos() {
 	m_t1.setFillColor({255,255,255});
 	m_t1.setPosition(170, 30);
 	m_t1.setCharacterSize(70);
-	
+
 	
 	creditosTexture.loadFromFile("./media/images/creditos.jpg");
 	creditosSprite.setTexture(creditosTexture);
@@ -33,7 +33,7 @@ Creditos::Creditos() {
 	m_t3.setPosition(250,420);
 	m_t3.setCharacterSize(17);
 	
-	m_t4.setString("V : Valentín Alderete");
+	m_t4.setString("V : ValentÃ­n Alderete");
 	m_t4.setFillColor({250,250,250});
 	m_t4.setPosition(250,450);
 	m_t4.setCharacterSize(17);
@@ -51,10 +51,13 @@ void Creditos::update (Game & game, float dt) {
 	m_t1.setFillColor({r, g, b});
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
-		game.stopCreditosMusic();
-		game.playSelectSound();
 		Scene* newMenu = new MenuSelect();
 		game.setScene(newMenu);
+
+		game.playSelectSound();
+		game.stopCreditosMusic();
+		game.playMenuMusic();
+
 	}
 }
 

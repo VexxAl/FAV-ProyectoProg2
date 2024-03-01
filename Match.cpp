@@ -1,14 +1,14 @@
 #include "Game.h"
 #include "Coin.h"
 #include "Match.h"
+#include "Enemy.h"
+#include "GameOver.h"
 #include "PlatformMobile.h"
-#include <typeinfo>
 
 #include <SFML/Window/Keyboard.hpp>
 
+#include <typeinfo>
 #include <iostream>
-#include "GameOver.h"
-#include "Enemy.h"
 
 
 Match::Match(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName,std::string boosterName, float e1, float e2)
@@ -61,7 +61,11 @@ void Match::update(Game &game, float dt) {
 	}
 	
 	if(m_player.getLifes() <= 0){
-		GameOver* gameO= new GameOver(pointCount);
+		game.stopMatch1Music();
+		game.stopMatch2Music();
+		game.playGameOverSound();
+		
+		Scene* gameO= new GameOver(pointCount);
 		game.setScene(gameO);
 	}
 	
@@ -211,10 +215,17 @@ void Match::enemyMecanic(float dt){
 		if(enemy->getMoveEnemy()){
 			enemy->update(dt,m_player, CoefSpeed);
 			if(!m_player.getInmortal()){
-				if(enemy->collideWithPlayer(m_player)){
+				if(enemy->collideWithPlayer(m_player)){		
 					pointCount += 5;
 					enemy->setMoveEnemy(false);
 					timer.restart();
+					
+					if (typeid(*enemy) == typeid(Enemy1)) {
+						kill_enemy1_sound.play();
+					}
+					else if (typeid(*enemy) == typeid(Enemy2)) {
+						kill_enemy2_sound.play();
+					}
 				} else if(enemy->attackPlayer(m_player) && cooldown == false ){
 					m_player.loseLife();
 					cooldown = true;
@@ -225,12 +236,19 @@ void Match::enemyMecanic(float dt){
 				pointCount += 3;
 				enemy->setMoveEnemy(false);
 				timer.restart();
+
+				if (typeid(*enemy) == typeid(Enemy1)) {
+					kill_enemy1_sound.play();
+				}
+				else if (typeid(*enemy) == typeid(Enemy2)) {
+					kill_enemy2_sound.play();
+				}	
 			}
 		}
 		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
 		if(!enemy->getMoveEnemy()){
 			if (timer.getElapsedTime() >= sf::seconds(3)) {
-				// Llama al método que deseas activar después de 10 segundos
+				// Llama al mï¿½todo que deseas activar despuï¿½s de 10 segundos
 				enemy->setDespawnEnemy(true);
 				
 			} 

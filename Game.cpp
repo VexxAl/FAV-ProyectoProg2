@@ -17,13 +17,13 @@ Game::Game() : window(sf::VideoMode(800, 600), "FAV-Space"), currentScene(nullpt
 	menu_music.openFromFile("./media/sounds/deus_ex.wav");
 	menu_music.setLoop(true);
 
-	match1_music.openFromFile("./media/sounds/spacetheme.wav");
+	match1_music.openFromFile("./media/sounds/match1/spacetheme.wav");
 	match1_music.setLoop(true);
 	
-	boss_music.openFromFile("./media/sounds/God_Of_Thunder.wav");
+	boss_music.openFromFile("./media/sounds/match1/God_Of_Thunder.wav");
 	boss_music.setLoop(true);
 
-	match2_music.openFromFile("./media/sounds/match2.wav");
+	match2_music.openFromFile("./media/sounds/match2/match2.wav");
 	match2_music.setLoop(true);
 	
 	cred_music.openFromFile("./media/sounds/bit_space.wav");
@@ -35,11 +35,12 @@ Game::Game() : window(sf::VideoMode(800, 600), "FAV-Space"), currentScene(nullpt
 	enter_buffer.loadFromFile("./media/sounds/enter_sound.wav");
 	enter_sound.setBuffer(enter_buffer);
 
-	coin_buffer.loadFromFile("./media/sounds/get_coin.wav");
-	coin_sound.setBuffer(coin_buffer);
-
 	game_over_buffer.loadFromFile("./media/sounds/game_over.wav");
 	game_over_sound.setBuffer(game_over_buffer);
+
+
+	coin_buffer.loadFromFile("./media/sounds/get_coin.wav");
+	coin_sound.setBuffer(coin_buffer);
 }
 
 void Game::run() {

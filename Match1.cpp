@@ -13,6 +13,12 @@ Match1::Match1(std::string fname,std::string jumpName, std::string leftName, std
 	lifesText.setFillColor(sf::Color::Cyan);
 	
 	pause=false;
+
+	kill_enemy1_buffer.loadFromFile("./media/sounds/match1/kill_enemy1.ogg");
+	kill_enemy1_sound.setBuffer(kill_enemy1_buffer);
+
+	kill_enemy2_buffer.loadFromFile("./media/sounds/match1/kill_enemy2.ogg");
+	kill_enemy2_sound.setBuffer(kill_enemy2_buffer);
 }
 
 void Match1::update(Game &game, float dt) {
@@ -249,13 +255,13 @@ void Match1::generateRandomItems(){
 	
 	if (rand()% 1400  == 1) {
 		sf::Vector2f positionInmortal(800.f, rand() % 250 + 250.f);  // Ajusta el rango vertical
-		float inmortalSpeed = -120.f;  // Velocidad del booster (ajústala según sea necesario)
+		float inmortalSpeed = -120.f;  // Velocidad del booster (ajï¿½stala segï¿½n sea necesario)
 		inmortals.emplace_back(positionInmortal, inmortalSpeed * CoefSpeed,"./media/images/match1/InmortalBoost.png","./media/images/match1/InmortalBoost.png");
 	}
 	
 	if (rand()% 1400  == 1) {
 		sf::Vector2f positionLife(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
-		float lifeSpeed = -120.f;  // Velocidad del booster (ajústala según sea necesario)
+		float lifeSpeed = -120.f;  // Velocidad del booster (ajï¿½stala segï¿½n sea necesario)
 		lifesBoost.emplace_back(positionLife, lifeSpeed * CoefSpeed,"./media/images/match1/SaludBooster.png");
 	}
 	
