@@ -3,10 +3,10 @@
 #include <SFML/Window/Keyboard.hpp>
 
 
-Enemy1::Enemy1(std::string nameLeft,std::string nameRight) : Enemy(nameLeft) {
-	m_pos.x = 800.f;
-	m_pos.y = 465.f;
-	m_sprite.setPosition(800, 465);
+Enemy1::Enemy1(std::string nameLeft,std::string nameRight , sf::Vector2f pos) : Enemy(nameLeft) {
+	m_pos.x = pos.x;
+	m_pos.y = pos.y;
+	m_sprite.setPosition(pos);
 	rightTex.loadFromFile(nameRight);
 
 	kill_enemy1_buffer.loadFromFile("./media/sounds/kill_enemy1.ogg");

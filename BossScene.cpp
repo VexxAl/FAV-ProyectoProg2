@@ -20,9 +20,8 @@ BossScene::BossScene(std::string fname, std::string jumpName, std::string leftNa
 	spriteMatch.setTexture(textureMatch);
 	
 	lifesText.setFillColor(sf::Color::Cyan);
-	
-	itemGenerationClock.restart();
 	pause=false;
+	itemGenerationClock.restart();
 }
 
 
@@ -118,11 +117,11 @@ void BossScene::generateRandomItems(){
 
 void BossScene::generateRandomEnemy() {
 	if (rand() % 800 == 1) {
-		enemyMatch.push_back(new Enemy1("./media/images/match1/Enemy1_left.png", "./media/images/match1/Enemy1_right.png"));
+		enemyMatch.push_back(new Enemy1("./media/images/match1/Enemy1_left.png", "./media/images/match1/Enemy1_right.png",sf::Vector2f(800.f,465.f)));
 	} 
 	
 	if (rand() % 400 == 1) {
-		enemyMatch.push_back(new Enemy2("./media/images/match1/Enemy2_left.png", "./media/images/match1/Enemy2_right.png", "./media/images/match1/BulletLeft.png", "./media/images/match1/BulletRight.png"));
+		enemyMatch.push_back(new Enemy2("./media/images/match1/Enemy2_left.png", "./media/images/match1/Enemy2_right.png", "./media/images/match1/BulletLeft.png", "./media/images/match1/BulletRight.png",sf::Vector2f(800.f,425.f)));
 	}
 	
 	if (rand() % 800 == 1) {

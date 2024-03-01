@@ -3,10 +3,10 @@
 #include <SFML/System/Vector2.hpp>
 
 
-Enemy2::Enemy2(std::string nameLeft, std::string nameRight, std::string nameBulletLeft, std::string nameBulletRight) : Enemy(nameLeft) {
-	m_pos.x = 800.f;
-	m_pos.y = 420.f;
-	m_sprite.setPosition(800, 425);
+Enemy2::Enemy2(std::string nameLeft, std::string nameRight, std::string nameBulletLeft, std::string nameBulletRight, sf::Vector2f pos) : Enemy(nameLeft) {
+	m_pos.x = pos.x;
+	m_pos.y = pos.y;
+	m_sprite.setPosition(pos);
 	rightTex.loadFromFile(nameRight);
 	m_sprite.setScale(1.7,1.7);
 	BulletTexLeft.loadFromFile(nameBulletLeft);
@@ -40,11 +40,11 @@ void Enemy2::update(float dt, Player &p, float coef) {
 	}
 	
 	if (p.getPositionx() < m_pos.x) {
-		m_speed.x -= 2.f * coef;
+		m_speed.x -= 3.f * coef;
 		m_sprite.setTexture(m_texture);
 		leftEnemy2 = true; 
 	} else {
-		m_speed.x += 2.f * coef;
+		m_speed.x += 3.f * coef;
 		m_sprite.setTexture(rightTex);
 		leftEnemy2 = false; 
 	}

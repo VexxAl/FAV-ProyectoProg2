@@ -4,10 +4,11 @@
 #include "Enemy.h"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
 
 class Enemy2 : public Enemy {
 public:
-	Enemy2(std::string nameLeft, std::string nameRight, std::string nameBulletLeft, std::string nameBulletRight);
+	Enemy2(std::string nameLeft, std::string nameRight, std::string nameBulletLeft, std::string nameBulletRight, sf::Vector2f pos);
 
 	void update(float dt, Player &p, float coef) override;
 	bool attackPlayer(Object &o) override;

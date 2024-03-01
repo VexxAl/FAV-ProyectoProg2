@@ -31,6 +31,7 @@ public:
 	
 	~Match2();
 private:
+	sf::Clock ItemClock;
 	
 };
 

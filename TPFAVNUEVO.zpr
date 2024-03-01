@@ -45,7 +45,7 @@ path=Object.cpp
 cursor=13:23
 [source]
 path=Match1.cpp
-cursor=15:13
+cursor=17:8
 open=true
 [source]
 path=MenuSelect.cpp
@@ -73,7 +73,7 @@ cursor=30:28
 open=true
 [source]
 path=Enemy1.cpp
-cursor=8:32
+cursor=9:3
 open=true
 [source]
 path=GameOver.cpp
@@ -87,7 +87,7 @@ cursor=118:27
 open=true
 [source]
 path=BossScene.cpp
-cursor=73:135
+cursor=77:11
 open=true
 [source]
 path=Creditos.cpp

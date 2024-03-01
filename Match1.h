@@ -19,6 +19,8 @@ public:
 	~Match1();
 private:
 	
+	sf::Clock ItemClock;
+	
 	bool QPressed;
 	
 };
