@@ -18,8 +18,12 @@ public:
 	
 	~BossScene();
 private:
-	sf::Texture bossTexture;
+	sf::Texture bossTextureUp;
+	sf::Texture bossTextureDown;
 	sf::Sprite bossSprite;
+	
+	bool killPlayer;
+	
 	sf::Clock itemGenerationClock;
 	float itemGenerationInterval;
 };

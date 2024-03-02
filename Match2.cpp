@@ -13,9 +13,9 @@ Match2::Match2(std::string fname,std::string jumpName, std::string leftName, std
 	textureMatch.loadFromFile("./media/images/match2/backgroundFAV.png");
 	spriteMatch.setTexture(textureMatch);
 	
-	lifesText.setFillColor(sf::Color::Cyan);
+	lifesText.setFillColor(sf::Color::Yellow);
 	
-	CoefSpeed = 2.5f;
+	CoefSpeed = 2.3f;
 	pause=false;
 
 	kill_enemy1_buffer.loadFromFile("./media/sounds/match2/kill_sound.wav");
@@ -69,7 +69,7 @@ void Match2::update(Game &game, float dt) {
 				game.playMatch2Music();
 				state = true;
 				Scene* newScene = new Match2("./media/images/match2/p2.png", "./media/images/match2/p2_jump.png", "./media/images/match2/p2_left.png",
-											 "./media/images/match2/p2_right.png","./media/images/match2/p2_dead.png","./media/images/match2/p2_booster.png",1.0f,1.0f);
+											 "./media/images/match2/p2_right.png","./media/images/match2/p2_dead.png","./media/images/match2/p2_booster.png",1.7f,1.7f);
 				game.setScene(newScene);
 			} else if (m_selectedOption == 2) {
 				game.stopMatch2Music();

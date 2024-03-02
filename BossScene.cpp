@@ -11,16 +11,17 @@ BossScene::BossScene(std::string fname, std::string jumpName, std::string leftNa
 	platformsMobile.emplace_back(sf::Vector2f(280.f, 100.f), 0.f, "./media/images/match1/BossMatch/plataformBoss.png");
 	platformsMobile.emplace_back(sf::Vector2f(500.f, 300.f), 0.f, "./media/images/match1/plataformaSpace.png");
 	
-	bossTexture.loadFromFile("./media/images/match1/BossMatch/bossWatching.png");
-	bossSprite.setTexture(bossTexture);
-	bossSprite.setPosition(350.f, 30.f);
+	bossTextureUp.loadFromFile("./media/images/match1/BossMatch/bossWatching.png");
+	bossTextureDown.loadFromFile("./media/images/match1/BossMatch/bossNotWatching.png");
+	bossSprite.setTexture(bossTextureDown);
+	bossSprite.setPosition(355.f, 30.f);
 	bossSprite.setScale(2, 2);
 	
 	textureMatch.loadFromFile("./media/images/match1/BossMatch/backgroundBoss.jpg");
 	spriteMatch.setTexture(textureMatch);
 	
 	lifesText.setFillColor(sf::Color::Cyan);
-	pause=false;
+	pause=false; killPlayer=false;
 	itemGenerationClock.restart();
 }
 
@@ -28,6 +29,14 @@ BossScene::BossScene(std::string fname, std::string jumpName, std::string leftNa
 void BossScene::update(Game &game, float dt) {
 	
 	Match::update(game, dt);
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)){
+		bossSprite.setPosition(355.f, 30.f);
+		bossSprite.setTexture(bossTextureUp);
+	} else {
+		bossSprite.setPosition(355.f, 30.f);
+		bossSprite.setTexture(bossTextureDown);
+	}
 	
 	if (!pause){
 		m_player.update(m_floor.getGlobalBounds(), dt, cooldown);

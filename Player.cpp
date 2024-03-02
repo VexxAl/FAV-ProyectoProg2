@@ -46,6 +46,7 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 			}
 		}
 	}
+	
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 		m_speed.x += 55.f;
 		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || m_speed.y == 0.0f){
