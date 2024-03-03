@@ -177,3 +177,11 @@ void Player::updateLife(){
 	lifes++;
 }
 
+Player::~Player() {
+	delete m_textureTexpun;
+	delete rightTexpun;
+	delete jumpTexpun;
+	delete leftTexpun;
+	
+}
+

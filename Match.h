@@ -47,13 +47,11 @@ protected:
 	sf::Sprite spriteMatch;
 	
 	std::vector<InmortalBooster> inmortals;
-	
 	std::vector<LifeBooster> lifesBoost;
-	
 	std::vector<PlatformMobile> platformsMobile;
+	std::vector<Coin> coins;
 	
 	int pointCount;
-	std::vector<Coin> coins;
 	sf::Font font;
 	sf::Text pointText;
 	

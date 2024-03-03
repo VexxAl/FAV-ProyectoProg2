@@ -236,7 +236,7 @@ void Match::enemyMecanic(float dt){
 				pointCount += 3;
 				enemy->setMoveEnemy(false);
 				timer.restart();
-
+				
 				if (typeid(*enemy) == typeid(Enemy1)) {
 					kill_enemy1_sound.play();
 				}

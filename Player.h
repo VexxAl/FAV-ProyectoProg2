@@ -20,7 +20,7 @@ public:
 	void setInmortal(bool inmortal);
 	void updateInmortality();
 	
-	
+	~Player();
 private:
 	int jumpCount;
 	bool SpacePresed;

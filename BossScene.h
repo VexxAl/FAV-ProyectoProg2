@@ -15,15 +15,25 @@ public:
 	
 	void generateRandomItems();
 	void generateRandomEnemy();
+	void BossCollide();
+	void bossMecanic();
 	
 	~BossScene();
 private:
 	sf::Texture bossTextureUp;
 	sf::Texture bossTextureDown;
 	sf::Sprite bossSprite;
+	int bossLife;
+	sf::Text lifesBossText;
+	sf::Text AttackText;
 	
+	bool danger;
+	sf::RectangleShape killRectangle;
 	bool killPlayer;
 	
+	sf::Clock AttackBoss;
+	sf::Clock BlueWindow;
+	sf::Clock killerBoss;
 	sf::Clock itemGenerationClock;
 	float itemGenerationInterval;
 };
