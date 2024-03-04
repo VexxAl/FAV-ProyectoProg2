@@ -2,6 +2,7 @@
 #define SCENE_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Font.hpp>
 
 class Game;
 
@@ -14,6 +15,7 @@ public:
 	virtual void handleEvent(const sf::Event &event) {}
 
 	~Scene() { }
+private:
 };
 
 #endif

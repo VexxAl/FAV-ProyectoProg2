@@ -41,6 +41,8 @@ Game::Game() : window(sf::VideoMode(800, 600), "FAV-Space"), currentScene(nullpt
 
 	coin_buffer.loadFromFile("./media/sounds/get_coin.wav");
 	coin_sound.setBuffer(coin_buffer);
+	
+	
 }
 
 void Game::run() {

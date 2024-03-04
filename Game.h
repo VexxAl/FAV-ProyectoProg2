@@ -11,6 +11,7 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Font.hpp>
 
 
 class Game {
@@ -42,6 +43,9 @@ public:
 	
 	void playBossMusic(){boss_music.play();}
 	void stopBossMusic() { boss_music.stop(); }
+	
+	sf::Font getF1(){return f1;}
+	sf::Font getF2(){return f2;}
 
 private:
 	sf::RenderWindow window;
@@ -67,6 +71,8 @@ private:
 
 	sf::SoundBuffer coin_buffer;
 	sf::Sound coin_sound;
+	
+	sf::Font f1, f2;
 };
 
 #endif // GAME_H

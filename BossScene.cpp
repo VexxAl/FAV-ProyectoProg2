@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Game.h"
+#include "Win.h"
 
 BossScene::BossScene(std::string fname, std::string jumpName, std::string leftName, std::string rightName, std::string attackName, std::string boosterName, float e1, float e2)
 	: Match(fname, jumpName, leftName, rightName, attackName, boosterName, e1, e2) {
@@ -104,6 +105,14 @@ void BossScene::update(Game &game, float dt) {
 			bossLife--;
 			BlueWindow.restart();
 		}
+	}
+	
+	if(bossLife == 0 || sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
+		Scene* win = new Win();
+		game.setScene(win);
+		
+		game.stopBossMusic();
+		game.playCreditosMusic();
 	}
 	
 }

@@ -33,7 +33,7 @@ Creditos::Creditos() {
 	m_t3.setPosition(250,420);
 	m_t3.setCharacterSize(17);
 	
-	m_t4.setString("V : ValentÃ­n Alderete");
+	m_t4.setString("V : Valentín Alderete");
 	m_t4.setFillColor({250,250,250});
 	m_t4.setPosition(250,450);
 	m_t4.setCharacterSize(17);
