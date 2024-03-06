@@ -16,14 +16,14 @@ Win::Win() {
 	t1.setPosition(180, 70);
 	t1.setCharacterSize(100);
 	
-	t2.setString("<Presiona 'F1' para volver al menÃº>");
+	t2.setString("<Presiona 'F1' para volver al menú>");
 	t2.setFillColor({150,150,150});
-	t2.setPosition(195, 300);
+	t2.setPosition(190, 300);
 	t2.setCharacterSize(17);
 	
 	t3.setString("<Presiona 'F3' para ir a los creditos>");
 	t3.setFillColor({150,150,150});
-	t3.setPosition(177,  360);
+	t3.setPosition(180,  360);
 	t3.setCharacterSize(17);
 	
 	winText.loadFromFile("./media/images/backgroundWin.jpg");

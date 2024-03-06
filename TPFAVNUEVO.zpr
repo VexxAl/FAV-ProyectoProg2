@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=BossScene.cpp
+current_source=Win.cpp
 path_char=\
 [source]
 path=main.cpp
@@ -35,7 +35,7 @@ cursor=6:0
 open=true
 [source]
 path=Player.cpp
-cursor=183:8
+cursor=0:7
 open=true
 [source]
 path=Menu.cpp
@@ -83,7 +83,7 @@ path=Enemy.cpp
 cursor=0:0
 [source]
 path=Match.cpp
-cursor=227:31
+cursor=50:15
 open=true
 [source]
 path=BossScene.cpp
@@ -95,7 +95,7 @@ cursor=50:30
 open=true
 [source]
 path=Win.cpp
-cursor=0:0
+cursor=25:19
 open=true
 [source]
 path=Ranking.cpp
