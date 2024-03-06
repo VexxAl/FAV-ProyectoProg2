@@ -51,6 +51,7 @@ Match::Match(std::string fname,std::string jumpName, std::string leftName, std::
 	state = false;
 	cooldown = false;
 	attackBull = false;
+	isMatch2 = false;
 }
 
 void Match::update(Game &game, float dt) {
