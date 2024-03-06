@@ -58,12 +58,12 @@ void Game::run() {
 		render();
 	}
 	
-	delete currentScene; //Libera la memoria al finalizar el juego
+	delete currentScene;
 }
 
 void Game::setScene(Scene* scene) {
 	if (currentScene) {
-		delete currentScene; //Limpia recursos o realiza acciones de limpieza necesarias para la escena actual
+		delete currentScene;
 	}
 	currentScene = scene;
 }
@@ -81,7 +81,7 @@ void Game::processEvents() {
 			window.close();
 		}
 		if (currentScene) {
-			currentScene->handleEvent(event); // Notifica el evento a la Escena actual
+			currentScene->handleEvent(event);
 		}
 	}
 }

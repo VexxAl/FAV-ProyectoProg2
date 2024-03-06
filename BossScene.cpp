@@ -80,7 +80,6 @@ void BossScene::update(Game &game, float dt) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 			game.playEnterSound();
 			
-			// Manejo de la opcion seleccionada:
 			if (m_selectedOption == 0) {
 				pause = false;
 			}

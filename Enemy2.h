@@ -30,7 +30,7 @@ private:
 	sf::Texture BulletTexRight;
 	sf::Texture BulletTexLeft;
 	sf::Sprite Bullet;
-	sf::Clock bulletTimer; // Temporizador para el intervalo entre disparos
+	sf::Clock bulletTimer;
 	
 	sf::SoundBuffer shot_buffer;
 	sf::Sound shot_sound;

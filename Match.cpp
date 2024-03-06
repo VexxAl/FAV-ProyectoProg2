@@ -37,7 +37,6 @@ Match::Match(std::string fname,std::string jumpName, std::string leftName, std::
 	m_floorPause.setFillColor({20, 0, 100, 150});
 	m_font.loadFromFile("./media/fonts/PixelGamer.otf");
 	
-	// Creacion de las opciones del menu
 	std::vector<std::string> optionNames = {"Reanudar","Reiniciar" ,"Salir al menu"};
 	for (int i = 0; i < optionNames.size(); i++) {
 		sf::Text text;
@@ -76,9 +75,7 @@ void Match::update(Game &game, float dt) {
 			m_player.rewindJump(cooldown);
 		}
 		for (Enemy* enemy : enemyMatch) {
-			// Verificar si el objeto no es de tipo Enemy3
 			if (typeid(*enemy) != typeid(Enemy3)) {
-				// Llamar a collideWith solo para objetos que no son de tipo Enemy3
 				enemy->collideWith(platform);
 			}
 		}
@@ -167,15 +164,12 @@ void Match::draw(sf::RenderWindow &window) {
 }
 
 void Match::moveItems(float dt){
-	// Mueve las plataformas moviles de derecha a izquierda
 	for (auto& platform : platformsMobile) {
 		platform.update(dt);
 	}
-	// Mueve las monedas de derecha a izquierda
 	for (auto& coin : coins) {
 		coin.update(dt);
 	}
-	// Mueve las monedas de derecha a izquierda
 	for (auto& inmortal : inmortals) {
 		inmortal.update(dt);
 	}
@@ -249,7 +243,6 @@ void Match::enemyMecanic(float dt){
 		if(timer.getElapsedTime() >= sf::seconds(0.6) && cooldown == true) cooldown = false;
 		if(!enemy->getMoveEnemy()){
 			if (timer.getElapsedTime() >= sf::seconds(3)) {
-				// Llama al m�todo que deseas activar despu�s de 10 segundos
 				enemy->setDespawnEnemy(true);
 				
 			} 

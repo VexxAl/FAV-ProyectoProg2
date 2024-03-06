@@ -45,18 +45,14 @@ void Enemy2::update(float dt, Player &p, float coef) {
 		m_sprite.setTexture(rightTex);
 		leftEnemy2 = false; 
 	}
-	// Actualiza la posicion de la bala y maneja su logica
 	updateBullet(dt, p, coef);
 }
 
 void Enemy2::updateBullet(float dt, Player &p, float coef) {
-	// Logica de la bala
 	
 	if (bulletTimer.getElapsedTime() >= sf::seconds(3)) {
-		// Llama al metodo que deseas activar despues de 10 segundos
 		Bullet.setPosition(m_pos.x,m_pos.y+15.f);
 		
-		// Configura la velocidad y textura de la bala segun la direccion del jugador
 		if (p.getPositionx() < m_pos.x) {
 			speedBullet = -350.f * coef;
 			Bullet.setTexture(BulletTexLeft);
@@ -68,7 +64,6 @@ void Enemy2::updateBullet(float dt, Player &p, float coef) {
 			Bullet.setPosition(m_pos.x,m_pos.y+15.f);
 			left = false;
 		}
-		// Reinicia el temporizador
 		if(left){
 			Bullet.setTexture(BulletTexLeft);
 		} else {
@@ -78,8 +73,6 @@ void Enemy2::updateBullet(float dt, Player &p, float coef) {
 		shot_sound.play();
 		bulletTimer.restart();
 	}
-	
-	// Actualiza la posicion de la bala
 	posBullet = Bullet.getPosition();
 	posBullet.x += speedBullet * dt;
 	Bullet.setPosition(posBullet);
@@ -103,9 +96,7 @@ bool Enemy2::collideWithPlayer(Object &o) {
 	auto r1 = m_sprite.getGlobalBounds();
 	auto r2 = o.getGlobalBounds();
 	if (r2.intersects(r1)) {
-		// Verifica si el jugador esta encima de la plataforma
 		if (r2.top + r2.height < r1.top + 0.9f * r1.height) {
-			// El jugador cae sobre la plataforma
 			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 				m_pos.y = m_pos.y + 75.f;
 				m_sprite.setPosition(m_pos);
@@ -125,9 +116,7 @@ bool Enemy2::attackPlayer(Object &o) {
 	auto r2 = Bullet.getGlobalBounds();
 	auto r1 = o.getGlobalBounds();
 	if (r2.intersects(r1)) {
-		// Verifica si el jugador est� encima de la plataforma
 		if (r2.top + r2.height < r1.top + 0.9f * r1.height) {
-			// El jugador cae sobre la plataforma
 			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 				return true;
 			}
@@ -143,9 +132,7 @@ bool Enemy2::collideWithInmortal(Object &o) {
 	auto r1 = m_sprite.getGlobalBounds();
 	auto r2 = o.getGlobalBounds();
 	if (r2.intersects(r1)) {
-		// Verifica si el jugador est� encima de la plataforma
 		if (r2.top + r2.height < r1.top + 0.9f * r1.height) {
-			// El jugador cae sobre la plataforma
 			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 				m_pos.y = m_pos.y + 75.f;
 				m_sprite.setPosition(m_pos);

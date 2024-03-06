@@ -74,6 +74,5 @@ private:
 	sf::Font f1, f2;	
 };
 
-#endif // GAME_H
-
+#endif
 

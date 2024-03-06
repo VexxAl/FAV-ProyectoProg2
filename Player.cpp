@@ -8,7 +8,7 @@
 
 Player::Player(std::string fname,std::string jumpName, std::string leftName, std::string rightName, std::string attackName,std::string boosterName, float e1, float e2)
 	: Object(fname), jumpCount(0), SpacePresed(false), lifes(3), m_textureTexpun(nullptr), rightTexpun(nullptr), jumpTexpun(nullptr), leftTexpun(nullptr) {
-	m_sprite.setPosition(450, 400); // Establece la posicion inicial del jugador
+	m_sprite.setPosition(450, 400);
 	m_pos.x = 400.0f;
 	m_pos.y = 450.0f;
 	jumpTex.loadFromFile(jumpName);
@@ -33,8 +33,6 @@ Player::Player(std::string fname,std::string jumpName, std::string leftName, std
 
 
 void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
-	// Logica de actualizacion especifica del jugador
-	// Movement based on dt
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 		m_speed.x -= 55.f;
@@ -61,16 +59,12 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 		m_speed.x = 0.0f;
 	}
 	
-	m_speed.y += 60.f; // Apply constant gravity using dt
-	
-	
-	// Update position based on dt
+	m_speed.y += 60.f;
 	m_pos += m_speed * dt;
 	
 	m_sprite.setPosition(m_pos);
 	auto playerBounds = m_sprite.getGlobalBounds();
 	
-	// Logica para mantener al jugador dentro de los bordes de la pantalla
 	if (m_pos.x < 0) {
 		m_pos.x = 0;
 		m_speed.x = 0;
@@ -87,7 +81,6 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 		m_speed.y = 0;
 	}
 	
-	// Collision handling with platform considering dt
 	if (playerBounds.intersects(platformBounds)) {
 		m_speed.y = 0.0f;
 		jumpCount = 0;
@@ -106,7 +99,7 @@ void Player::update(sf::FloatRect platformBounds, float dt, bool cooldown) {
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !SpacePresed && jumpCount < 2) {
 		jump_sound.play();
-		m_speed.y = -1200.0f; // Use dt for consistent jump height
+		m_speed.y = -1200.0f;
 		SpacePresed = true;
 		jumpCount++;
 		if(cooldown){

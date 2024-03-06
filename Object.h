@@ -11,7 +11,7 @@ class Object {
 public:
 	Object(std::string fname);
 	virtual void draw(sf::RenderWindow &window);
-	virtual void update(float dt); // Metodo de actualizacion virtual
+	virtual void update(float dt);
 	bool collideWith(Object &o);
 	sf::FloatRect getGlobalBounds();
 	float getPositionx() const;

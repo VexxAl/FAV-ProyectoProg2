@@ -63,7 +63,6 @@ void Match2::update(Game &game, float dt) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 			game.playEnterSound();
 			
-			// Manejo de la opcion seleccionada:
 			if (m_selectedOption == 0) {
 				pause = false;
 			}
@@ -231,14 +230,14 @@ void Match2::generateRandomItems(){
 	}
 	
 	if (rand()% 1400  == 1) {
-		sf::Vector2f positionInmortal(800.f, rand() % 250 + 250.f);  // Ajusta el rango vertical
-		float inmortalSpeed = -120.f;  // Velocidad del booster (aj�stala seg�n sea necesario)
+		sf::Vector2f positionInmortal(800.f, rand() % 250 + 250.f);
+		float inmortalSpeed = -120.f;
 		inmortals.emplace_back(positionInmortal, inmortalSpeed * CoefSpeed,"media/images/match2/InmortalBoost.png","media/images/match2/InmortalBoost.png");
 	}
 	
 	if (rand()% 1400  == 1 && m_player.getLifes() < 5) {
-		sf::Vector2f positionLife(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
-		float lifeSpeed = -120.f;  // Velocidad del booster (aj�stala seg�n sea necesario)
+		sf::Vector2f positionLife(800.f, rand() % 450 + 50.f);
+		float lifeSpeed = -120.f;
 		lifesBoost.emplace_back(positionLife, lifeSpeed * CoefSpeed,"media/images/match2/SaludBooster.png");
 	}
 	

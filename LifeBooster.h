@@ -1,5 +1,6 @@
 #ifndef LIFEBOOSTER_H
 #define LIFEBOOSTER_H
+
 #include "Object.h"
 #include "Player.h"
 

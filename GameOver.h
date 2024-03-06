@@ -25,14 +25,14 @@ public:
 	void handleEvent(const sf::Event &event) override;
 
 private:
-	int matchScore; // Puntuación del juego
+	int matchScore;
 	bool match2;
 	
 	sf::Texture textureGameOver;
 	sf::Sprite spriteGameOver;
 
-    sf::Font go_f1; // Fuente para GAME OVER
-    sf::Font go_f2; // Fuente para SCORE: [score]
+    sf::Font go_f1; // GAME OVER
+    sf::Font go_f2; // SCORE: [score]
     
     sf::Text go_t1; // GAME OVER
 	sf::Text go_t2; // SCORE: [score]

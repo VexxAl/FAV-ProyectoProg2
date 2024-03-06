@@ -8,7 +8,7 @@ PlatformMobile::PlatformMobile(sf::Vector2f position, float speed, std::string f
 	m_pos = position;
 	m_sprite.setPosition(m_pos);
 	m_speed.x = speed;
-	m_sprite.scale(4,4); //vimos tambien en 5
+	m_sprite.scale(4,4);
 }
 
 void PlatformMobile::update (float dt) {
