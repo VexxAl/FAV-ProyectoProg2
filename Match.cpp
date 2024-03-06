@@ -65,7 +65,7 @@ void Match::update(Game &game, float dt) {
 		game.stopMatch2Music();
 		game.playGameOverSound();
 		
-		Scene* gameO= new GameOver(pointCount);
+		Scene* gameO= new GameOver(pointCount, isMatch2);
 		game.setScene(gameO);
 	}
 	

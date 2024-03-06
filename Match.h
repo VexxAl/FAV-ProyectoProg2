@@ -72,6 +72,8 @@ protected:
 
 	sf::SoundBuffer kill_enemy3_buffer;
 	sf::Sound kill_enemy3_sound;
+
+	bool isMatch2;
 };
 
 #endif

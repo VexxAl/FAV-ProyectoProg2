@@ -19,6 +19,8 @@ Match1::Match1(std::string fname,std::string jumpName, std::string leftName, std
 
 	kill_enemy2_buffer.loadFromFile("./media/sounds/match1/kill_enemy2.ogg");
 	kill_enemy2_sound.setBuffer(kill_enemy2_buffer);
+
+	isMatch2 = false;
 }
 
 void Match1::update(Game &game, float dt) {

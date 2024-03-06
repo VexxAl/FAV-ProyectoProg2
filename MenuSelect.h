@@ -20,7 +20,7 @@ public:
 	MenuSelect();
 	void update (Game &game, float dt)override;
 	void draw (sf::RenderWindow & window)override;
-
+	
 private:
 	sf::Font m_font;
 	std::vector<sf::Text> m_options;

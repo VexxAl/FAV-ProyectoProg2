@@ -46,7 +46,6 @@ public:
 	
 	sf::Font getF1(){return f1;}
 	sf::Font getF2(){return f2;}
-
 private:
 	sf::RenderWindow window;
 	Scene* currentScene;
@@ -72,7 +71,7 @@ private:
 	sf::SoundBuffer coin_buffer;
 	sf::Sound coin_sound;
 	
-	sf::Font f1, f2;
+	sf::Font f1, f2;	
 };
 
 #endif // GAME_H

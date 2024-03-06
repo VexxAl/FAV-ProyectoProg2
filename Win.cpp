@@ -15,12 +15,12 @@ Win::Win() {
 	t1.setPosition(180, 70);
 	t1.setCharacterSize(100);
 	
-	t2.setString("<Presiona M para volver al menú>");
+	t2.setString("<Presiona 'F1' para volver al menï¿½>");
 	t2.setFillColor({150,150,150});
 	t2.setPosition(195, 300);
 	t2.setCharacterSize(17);
 	
-	t3.setString("<Presiona C para ir a los creditos>");
+	t3.setString("<Presiona 'F3' para ir a los creditos>");
 	t3.setFillColor({150,150,150});
 	t3.setPosition(177,  360);
 	t3.setCharacterSize(17);
@@ -35,13 +35,13 @@ void Win::update (Game & game, float dt) {
 	unsigned char b = 100 + rand() % (255- 100 + 1);
 	t1.setFillColor({r, g, b});
 	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::M)){
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1)){
 		Scene* newMenu = new Menu();
 		game.setScene(newMenu);
 		
 		game.stopCreditosMusic();
 		game.playMenuMusic();
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)){
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3)){
 		Scene* newCred = new Creditos();
 		game.setScene(newCred);
 		

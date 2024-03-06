@@ -15,7 +15,6 @@ public:
 	virtual void handleEvent(const sf::Event &event) {}
 
 	~Scene() { }
-private:
 };
 
 #endif

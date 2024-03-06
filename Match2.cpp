@@ -22,7 +22,9 @@ Match2::Match2(std::string fname,std::string jumpName, std::string leftName, std
 	kill_enemy1_sound.setBuffer(kill_enemy1_buffer);
 
 	kill_enemy2_buffer.loadFromFile("./media/sounds/match2/kill_sound_e2.wav");
-	kill_enemy2_sound.setBuffer(kill_enemy2_buffer);	
+	kill_enemy2_sound.setBuffer(kill_enemy2_buffer);
+
+	isMatch2 = true;	
 }
 
 void Match2::update(Game &game, float dt) {
@@ -69,7 +71,7 @@ void Match2::update(Game &game, float dt) {
 				game.playMatch2Music();
 				state = true;
 				Scene* newScene = new Match2("./media/images/match2/p2.png", "./media/images/match2/p2_jump.png", "./media/images/match2/p2_left.png",
-											 "./media/images/match2/p2_right.png","./media/images/match2/p2_dead.png","./media/images/match2/p2_booster.png",1.7f,1.7f);
+											 "./media/images/match2/p2_right.png","./media/images/match2/p2_dead.png","./media/images/match2/p2_booster.png",2.6f,2.6f);
 				game.setScene(newScene);
 			} else if (m_selectedOption == 2) {
 				game.stopMatch2Music();
