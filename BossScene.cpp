@@ -109,12 +109,15 @@ void BossScene::update(Game &game, float dt) {
 		}
 	}
 	
-	if(bossLife == 0 || sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
+	if(bossLife <= 0 || sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
 		Scene* win = new Win();
 		game.setScene(win);
 		
 		game.stopBossMusic();
 		game.playCreditosMusic();
+	}
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::T)){
+		coins.emplace_back(sf::Vector2f(380.f,430.f),0.f,"./media/images/match1/bomb.png");
 	}
 	
 }
@@ -156,15 +159,16 @@ void BossScene::draw(sf::RenderWindow &window) {
 
 void BossScene::generateRandomItems(){	
 
-	// Genera �tems cada cierto intervalo de tiempo
+
 	if (itemGenerationClock.getElapsedTime() >= sf::seconds(20.0f)) {
-		sf::Vector2f positionInmortal(rand() %700, rand() % 250 + 250.f);  // Ajusta el rango vertical
-		float inmortalSpeed = 0.f;  // Velocidad del booster (aj�stala seg�n sea necesario)
+		sf::Vector2f positionInmortal(rand() %700, rand() % 250 + 250.f); 
+		float inmortalSpeed = 0.f;
 		inmortals.emplace_back(positionInmortal, inmortalSpeed,"./media/images/match1/InmortalBoost.png","./media/images/match1/InmortalBoost.png");
 		
-		sf::Vector2f positionLife(rand() % 700 + 50.f, 450.f);  // Ajusta el rango vertical
-		float lifeSpeed = 0.f;  // Velocidad del booster (aj�stala seg�n sea necesario)
-		lifesBoost.emplace_back(positionLife, lifeSpeed,"./media/images/match1/SaludBooster.png");
+		if (m_player.getLifes() < 5) {
+			sf::Vector2f positionLife(rand() % 700 + 50.f, 450.f);
+			lifesBoost.emplace_back(positionLife, 0.f,"./media/images/match1/SaludBooster.png");
+		}
 		
 		itemGenerationClock.restart();
 	}

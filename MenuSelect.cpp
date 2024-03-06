@@ -12,13 +12,13 @@ MenuSelect::MenuSelect() : m_selectedOption(0) {
 	textureSelect.loadFromFile("./media/images/backgroundSelect.jpg");
 	spriteSelect.setTexture(textureSelect);
 	m_font.loadFromFile("./media/fonts/PixelGamer.otf");
-	std::vector<std::string> optionNames = {"Jugar", "Modo FAV", "FAV Ranking", "Crï¿½ditos" ,"Volver"};
+	std::vector<std::string> optionNames = {"Jugar", "Modo FAV", "FAV Ranking", "Créditos" ,"Volver"};
 	
 	for (int i = 0; i < optionNames.size(); i++) {
 		sf::Text text;
 		text.setFont(m_font);
 		text.setString(optionNames[i]);
-		text.setPosition(320, i * 80 + 120);
+		text.setPosition(315, i * 80 + 120);
 		m_options.push_back(text);
 	}
 }

@@ -96,7 +96,7 @@ void Match2::draw(sf::RenderWindow &window) {
 
 void Match2::generateRandomItems(){
 	
-	if(ItemClock.getElapsedTime() >= sf::seconds(5.5f / CoefSpeed)){
+	if(ItemClock.getElapsedTime() >= sf::seconds(6.2f / CoefSpeed)){
 		int random = rand() % 9;
 		int position = rand() % 200 + 150.f;
 		if (random == 1){
@@ -236,7 +236,7 @@ void Match2::generateRandomItems(){
 		inmortals.emplace_back(positionInmortal, inmortalSpeed * CoefSpeed,"media/images/match2/InmortalBoost.png","media/images/match2/InmortalBoost.png");
 	}
 	
-	if (rand()% 1400  == 1) {
+	if (rand()% 1400  == 1 && m_player.getLifes() < 5) {
 		sf::Vector2f positionLife(800.f, rand() % 450 + 50.f);  // Ajusta el rango vertical
 		float lifeSpeed = -120.f;  // Velocidad del booster (aj�stala seg�n sea necesario)
 		lifesBoost.emplace_back(positionLife, lifeSpeed * CoefSpeed,"media/images/match2/SaludBooster.png");
