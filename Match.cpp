@@ -63,6 +63,7 @@ void Match::update(Game &game, float dt) {
 	if(m_player.getLifes() <= 0){
 		game.stopMatch1Music();
 		game.stopMatch2Music();
+		game.stopBossMusic();
 		game.playGameOverSound();
 		
 		Scene* gameO= new GameOver(pointCount, isMatch2);

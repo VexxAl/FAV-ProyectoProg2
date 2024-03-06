@@ -63,6 +63,7 @@ GameOver::GameOver(int score, bool isMatch2) {
 
 void GameOver::update(Game &game, float dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1)){
+        game.playEnterSound();
         Scene* newScene = new MenuSelect();
         game.setScene(newScene);
         
@@ -71,12 +72,14 @@ void GameOver::update(Game &game, float dt) {
     } 
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F2)) {
         if (!match2) {
+            game.playEnterSound();
             Scene* newScene = new Match1("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",
 				"./media/images/match1/p1_right.png","./media/images/match1/p1_dead.png","./media/images/match1/p1_booster.png",1.0f,1.0f);
             game.setScene(newScene);
             game.playMatch1Music();
         }
         else if (match2) {
+            game.playEnterSound();
             Scene* newScene = new Match2("./media/images/match2/p2.png", "./media/images/match2/p2_jumpPrueba.png", "./media/images/match2/p2_left.png",
 				"./media/images/match2/p2_right.png","./media/images/match2/p2_dead.png","./media/images/match2/p2_booster.png",2.6f,2.6f);
             game.setScene(newScene);
@@ -84,6 +87,7 @@ void GameOver::update(Game &game, float dt) {
         }
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3)){
+        game.playEnterSound();
         Scene* newScene = new Creditos();
         game.setScene(newScene);
         

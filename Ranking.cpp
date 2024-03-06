@@ -2,6 +2,7 @@
 #include "Ranking.h"
 #include "GameOver.h"
 
+
 Ranking::Ranking() {
     rankingTexture.loadFromFile("./media/images/backgroundCreditos.jpg");
     rankingSprite.setTexture(rankingTexture);
@@ -40,10 +41,9 @@ Ranking::Ranking() {
 
 void Ranking::update(Game &game, float dt) {
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1)){
+        game.playEnterSound();
 		Scene* newMenu = new Menu();
 		game.setScene(newMenu);
-		
-		game.playMenuMusic();
     }    
 }
 

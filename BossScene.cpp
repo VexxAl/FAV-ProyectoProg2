@@ -1,9 +1,11 @@
 #include "BossScene.h"
+#include "Game.h"
+#include "Win.h"
+
 #include <SFML/Window/Keyboard.hpp>
 
 #include <iostream>
-#include "Game.h"
-#include "Win.h"
+
 
 BossScene::BossScene(std::string fname, std::string jumpName, std::string leftName, std::string rightName, std::string attackName, std::string boosterName, float e1, float e2)
 	: Match(fname, jumpName, leftName, rightName, attackName, boosterName, e1, e2) {
@@ -154,14 +156,14 @@ void BossScene::draw(sf::RenderWindow &window) {
 
 void BossScene::generateRandomItems(){	
 
-	// Genera ítems cada cierto intervalo de tiempo
+	// Genera ï¿½tems cada cierto intervalo de tiempo
 	if (itemGenerationClock.getElapsedTime() >= sf::seconds(20.0f)) {
 		sf::Vector2f positionInmortal(rand() %700, rand() % 250 + 250.f);  // Ajusta el rango vertical
-		float inmortalSpeed = 0.f;  // Velocidad del booster (ajústala según sea necesario)
+		float inmortalSpeed = 0.f;  // Velocidad del booster (ajï¿½stala segï¿½n sea necesario)
 		inmortals.emplace_back(positionInmortal, inmortalSpeed,"./media/images/match1/InmortalBoost.png","./media/images/match1/InmortalBoost.png");
 		
 		sf::Vector2f positionLife(rand() % 700 + 50.f, 450.f);  // Ajusta el rango vertical
-		float lifeSpeed = 0.f;  // Velocidad del booster (ajústala según sea necesario)
+		float lifeSpeed = 0.f;  // Velocidad del booster (ajï¿½stala segï¿½n sea necesario)
 		lifesBoost.emplace_back(positionLife, lifeSpeed,"./media/images/match1/SaludBooster.png");
 		
 		itemGenerationClock.restart();

@@ -66,7 +66,6 @@ void MenuSelect::update(Game& game, float dt) {
 		}
 		else if (m_selectedOption == 2) {
 			match = new Ranking();
-			game.stopMenuMusic();
 		} 
 		else if(m_selectedOption == 3){
 			match = new Creditos();

@@ -4,8 +4,6 @@
 #include "Scene.h"
 #include "GameOver.h"
 
-#include <SFML/Window.h>
-
 #include <vector>
 #include <fstream>
 

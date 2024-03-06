@@ -1,7 +1,8 @@
 #include "Win.h"
-#include <SFML/Window/Keyboard.hpp>
 #include "Game.h"
 #include "Creditos.h"
+
+#include <SFML/Window/Keyboard.hpp>
 
 Win::Win() {
 	f1.loadFromFile("./media/fonts/PixelGamer.otf");
@@ -36,12 +37,14 @@ void Win::update (Game & game, float dt) {
 	t1.setFillColor({r, g, b});
 	
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::F1)){
+		game.playEnterSound();
 		Scene* newMenu = new Menu();
 		game.setScene(newMenu);
 		
 		game.stopCreditosMusic();
 		game.playMenuMusic();
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F3)){
+		game.playEnterSound();
 		Scene* newCred = new Creditos();
 		game.setScene(newCred);
 		
