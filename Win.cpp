@@ -16,7 +16,7 @@ Win::Win() {
 	t1.setPosition(180, 70);
 	t1.setCharacterSize(100);
 	
-	t2.setString("<Presiona 'F1' para volver al men�>");
+	t2.setString("<Presiona 'F1' para volver al menú>");
 	t2.setFillColor({150,150,150});
 	t2.setPosition(195, 300);
 	t2.setCharacterSize(17);
