@@ -86,7 +86,7 @@ void Match1::update(Game &game, float dt) {
 		CoefSpeed = 2.1f;
 	} else if(pointCount == 350){
 		CoefSpeed = 2.5f;
-	}else if(pointCount == 500){
+	}else if(pointCount >= 500){
 		game.stopMatch1Music();
 		game.playBossMusic();
 		Scene* newScene = new BossScene("./media/images/match1/player.png", "./media/images/match1/p1_jump.png", "./media/images/match1/p1_left.png",

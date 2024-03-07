@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=Win.cpp
+current_source=Match1.cpp
 path_char=\
 [source]
 path=main.cpp
@@ -46,7 +46,7 @@ path=Object.cpp
 cursor=13:23
 [source]
 path=Match1.cpp
-cursor=263:50
+cursor=88:22
 open=true
 [source]
 path=MenuSelect.cpp
